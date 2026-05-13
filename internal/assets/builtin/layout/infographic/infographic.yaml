@@ -1,0 +1,86 @@
+schema_version: "1"
+name: infographic
+version: "1.0.0"
+since: "1.5.0"
+category: infographic
+serves: [attention, memorability]
+content_types: [opinion, tutorial, report, announcement, product-launch]
+industry: [general]
+tags: [infographic, visual, statement, data, flow, contrast]
+position: body
+when_to_use: |
+  把一个判断、金句、数字、路径或冲突做成文字视觉摘要。
+  适合需要让读者记住一个核心观点的场景。
+when_not_to_use: |
+  信息超过一个核心点时拆成多个模块；
+  纯数据展示用 metrics；多项对比用 compare。
+pairs_well_with: [hero, verdict, metrics, compare]
+avoid_combining_with: []
+anti_pattern: |
+  缺少 title 导致渲染失败；
+  type: data 缺少 value 会自动回退成 statement；
+  type: flow 少于 2 项会自动回退成 statement；
+  type: contrast 缺少 left 或 right 会回退成 statement；
+  title 中 |关键词| 超过 3 个高亮片段。
+fields:
+  required:
+    - name: title
+      description: 核心判断或主标题，支持 |关键词| 高亮（最多 3 个片段）
+      example: "让|重点|先被看到"
+  optional:
+    - name: type
+      description: "信息图类型（别名：metric/number/stat→data；path/logic/chain→flow；compare/comparison/vs→contrast）"
+      enum: [statement, quote, data, flow, contrast]
+      example: "statement"
+    - name: eyebrow
+      description: 标签词，定位信息图的角色
+      example: "视觉摘要"
+    - name: subtitle
+      description: 副标题，补充 title 的说明
+      example: "信息图不放图片，不堆编号，只把读者应该记住的话排得更清楚"
+    - name: quote
+      description: 金句，用于 quote 类型或 statement 类型的引用
+      example: "好的信息图只讲一个判断"
+    - name: value
+      description: 核心数值，用于 data 类型（缺失时回退 statement）
+      example: "-42%"
+    - name: label
+      description: 数值标签，配合 value 使用
+      example: "制作负担"
+    - name: flow
+      description: 流程步骤，用 | 分隔（少于 2 项时回退 statement）
+      example: "判断重点 | 组织模块 | 统一输出"
+    - name: left
+      description: 对比左侧，用于 contrast 类型（缺失时回退 statement）
+      example: "手工堆样式"
+    - name: right
+      description: 对比右侧，用于 contrast 类型（缺失时回退 statement）
+      example: "统一模块骨架"
+    - name: note
+      description: 底部说明
+      example: "适合教程、方案和发布稿"
+    - name: accent
+      description: 强调色控制
+      example: "true"
+    - name: variant
+      description: 视觉变体
+      example: "centered"
+    - name: layout
+      description: 布局控制（旧格式兼容，不影响渲染主逻辑）
+      example: "default"
+    - name: items
+      description: 列表项，用 | 分隔
+      example: "第一点 | 第二点 | 第三点"
+example: |
+  :::infographic
+  type: statement
+  eyebrow: 视觉摘要
+  title: 让|重点|先被看到
+  subtitle: 信息图不放图片，不堆编号，只把读者应该记住的话排得更清楚
+  quote: 好的信息图只讲一个判断
+  note: 适合教程、方案和发布稿
+  :::
+metadata:
+  author: md2wechat
+  provenance: builtin
+  inspired_by: "advanced-layout-modules-guide.md#infographic"

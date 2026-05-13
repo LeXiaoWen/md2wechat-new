@@ -1,0 +1,742 @@
+# 配置指南
+
+这份文档解决 4 个最常见的问题：
+
+1. 配置文件在哪里
+2. 文本 API provider 在哪里改
+3. Agent 应该先看哪里
+4. 哪些功能分别需要哪些凭证
+
+如果你现在卡在：
+
+- 不知道 AppID / AppSecret 去哪拿
+- 不知道微信 IP 白名单在哪配
+- 明明配了凭证但还是 `ip not in whitelist`
+
+先看：
+
+- [微信凭证与 IP 白名单指南](WECHAT-CREDENTIALS.md)
+
+如果你只想先跑通主路径，先看下面这 3 步。
+
+## 3 步完成基础配置
+
+### 1. 生成示例配置
+
+```bash
+md2wechat config init
+```
+
+默认会生成到：
+
+```text
+~/.config/md2wechat-new/config.yaml
+```
+
+你也可以显式指定输出位置：
+
+```bash
+md2wechat config init ./md2wechat-new.yaml
+```
+
+### 2. 打开配置文件，先填最小必需项
+
+```yaml
+wechat:
+  appid: "你的微信公众号 AppID"
+  secret: "你的微信公众号 Secret"
+
+api:
+  text_provider: "deepseek"
+  text_key: "你的 DeepSeek / OpenAI / 硅基流动 API Key"
+  text_base_url: "https://api.deepseek.com"
+  text_model: "deepseek-chat"
+  text_temperature: 0.2
+  convert_mode: "api"
+  default_theme: "default"
+```
+
+### 3. 验证当前配置
+
+```bash
+md2wechat config validate
+md2wechat config show --format json
+```
+
+---
+
+## Agent 和用户应该先看哪里
+
+如果你不知道去哪改配置，按这个顺序找：
+
+1. `~/.config/md2wechat-new/config.yaml`
+2. 环境变量
+3. 当前目录下的 `md2wechat.yaml` / `md2wechat.yml` / `md2wechat.json`
+
+对 Agent 来说，**默认应该优先检查 `~/.config/md2wechat-new/config.yaml`**。
+如果用户说“切换 API 服务商”“换模型”“切换图片服务”“检查当前配置”，先运行：
+
+```bash
+md2wechat config show --format json
+```
+
+这样可以直接看到当前生效的：
+
+- `config_file`
+- `text_provider`
+- `text_api_base`
+- `text_model`
+- `image_provider`
+- `image_api_base`
+- `default_convert_mode`
+
+注意这里看到的是 **`config show --format json` 的扁平输出字段名**，不是配置文件里的嵌套 YAML 键名。
+
+例如：
+
+- 配置文件里写的是 `api.image_base_url`
+- `config show --format json` 里看到的是 `image_api_base`
+
+---
+
+## 文本 API Provider 在哪里改
+
+API 模式使用 OpenAI-compatible Chat Completions 协议。当前内置 provider：
+
+- `openai`
+- `deepseek`
+- `siliconflow` / `silicon` / `sf`
+- `custom`
+
+### 方式一：改配置文件
+
+编辑 `~/.config/md2wechat-new/config.yaml`：
+
+DeepSeek:
+
+```yaml
+api:
+  text_provider: "deepseek"
+  text_key: "sk-..."
+  text_base_url: "https://api.deepseek.com"
+  text_model: "deepseek-chat"
+```
+
+OpenAI:
+
+```yaml
+api:
+  text_provider: "openai"
+  text_key: "sk-..."
+  text_base_url: "https://api.openai.com/v1"
+  text_model: "gpt-4.1-mini"
+```
+
+硅基流动:
+
+```yaml
+api:
+  text_provider: "siliconflow"
+  text_key: "sk-..."
+  text_base_url: "https://api.siliconflow.cn/v1"
+  text_model: "Qwen/Qwen2.5-72B-Instruct"
+```
+
+自定义 OpenAI-compatible 服务:
+
+```yaml
+api:
+  text_provider: "custom"
+  text_key: "your-api-key"
+  text_base_url: "https://your-api.example.com/v1"
+  text_model: "your-model"
+```
+
+### 方式二：用环境变量临时覆盖
+
+```bash
+export TEXT_PROVIDER="deepseek"
+export TEXT_API_KEY="sk-..."
+export TEXT_API_BASE="https://api.deepseek.com"
+export TEXT_MODEL="deepseek-chat"
+export TEXT_TEMPERATURE="0.2"
+```
+
+环境变量优先级高于配置文件，适合：
+
+- 临时切换备用域名
+- CI / Agent 自动化
+- 不想修改全局配置文件的场景
+
+### 关于默认转换模式
+
+当前 CLI 的默认行为是固定的：
+
+- 不传 `--mode` 时，`md2wechat convert ...` 始终默认走 `api`
+- 只有显式传入 `--mode ai` 时，才会走 AI 模式
+
+也就是说，下面这个命令：
+
+```bash
+md2wechat convert article.md
+```
+
+当前一定等价于：
+
+```bash
+md2wechat convert article.md --mode api
+```
+
+所以如果用户没有填写配置，或者没有显式传 `--mode`，默认也是 `api`。
+
+`api.convert_mode` / `CONVERT_MODE` 当前主要用于配置展示、校验和兼容字段；**不会覆盖 `convert` 命令在未传 `--mode` 时的默认行为**。
+
+---
+
+## 内置资产
+
+当前仓库把官方默认 `themes` 和默认 `writer style` 随二进制一起提供。
+这意味着即使 Agent 服务器上没有仓库目录，默认主题和默认写作风格也应该可用。
+
+### 主题加载顺序
+
+`themes` 的优先级从高到低如下：
+
+1. `MD2WECHAT_THEMES_DIR`
+2. 当前项目目录下的 `themes/`
+3. `~/.config/md2wechat-new/themes/`
+4. 二进制内置的官方默认 themes
+
+同名主题以前面的来源覆盖后面的来源。
+
+### 写作风格加载顺序
+
+`writers` 的优先级从高到低如下：
+
+1. `MD2WECHAT_WRITERS_DIR`
+2. 当前项目目录下的 `writers/`
+3. `~/.config/md2wechat-new/writers/`
+4. `~/.md2wechat-writers/`
+5. 二进制内置的默认 writer style
+
+同名写作风格同样以前面的来源覆盖后面的来源。
+
+### 什么时候改哪里
+
+如果你想：
+
+- 仅当前项目生效，放到项目目录
+- 所有项目都生效，放到 `~/.config/md2wechat-new/...`
+- Agent 服务器显式指定，设置 `MD2WECHAT_THEMES_DIR` 或 `MD2WECHAT_WRITERS_DIR`
+- 保持官方默认不变，直接用内置资产
+
+---
+
+## 配置文件搜索顺序
+
+程序会按以下顺序查找配置文件：
+
+1. `~/.config/md2wechat-new/config.yaml`
+2. `~/.md2wechat.yaml`
+3. `~/.md2wechat.yml`
+4. `./md2wechat-new.yaml`
+5. `./md2wechat-new.yml`
+6. `./md2wechat-new.json`
+7. `./.md2wechat.yaml`
+8. `./.md2wechat.yml`
+9. `./.md2wechat.json`
+
+实践上建议：
+
+- 全局默认配置放 `~/.config/md2wechat-new/config.yaml`
+- 项目特殊配置再放当前目录
+
+---
+
+## 完整示例配置
+
+仓库里提供了一份可直接参考的示例：
+
+- [config.yaml.example](examples/config.yaml.example)
+
+完整示例：
+
+```yaml
+wechat:
+  appid: "your_wechat_appid"
+  secret: "your_wechat_secret"
+
+api:
+  text_provider: "deepseek"
+  text_key: "your_text_api_key"
+  text_base_url: "https://api.deepseek.com"
+  text_model: "deepseek-chat"
+  text_temperature: 0.2
+  image_key: "your_image_api_key"
+  image_base_url: "https://ark.cn-beijing.volces.com/api/v3"
+  image_provider: "volcengine"
+  image_model: "doubao-seedream-5-0-260128"
+  image_size: "2K"
+  convert_mode: "api"
+  default_theme: "default"
+  background_type: "none"
+  http_timeout: 30
+
+image:
+  compress: true
+  max_width: 1920
+  max_size_mb: 5
+```
+
+## 三套命名要分清
+
+当前最容易混淆的是：同一个配置项会同时出现在 3 个地方，但名字不完全一样。
+
+### 1. 配置文件字段名
+
+这是你在 `config.yaml` 里实际填写的名字，例如：
+
+- `wechat.appid`
+- `api.text_key`
+- `api.text_base_url`
+- `api.text_model`
+- `api.image_base_url`
+- `api.background_type`
+
+### 2. 环境变量名
+
+这是终端或 CI 里覆盖配置时使用的名字，例如：
+
+- `WECHAT_APPID`
+- `TEXT_API_KEY`
+- `TEXT_API_BASE`
+- `TEXT_MODEL`
+- `IMAGE_API_BASE`
+- `DEFAULT_BACKGROUND_TYPE`
+
+### 3. `config show --format json` 输出字段名
+
+这是 CLI 为了更稳定的 machine-readable 输出而提供的扁平字段，例如：
+
+- `wechat_appid`
+- `text_api_key`
+- `text_api_base`
+- `text_model`
+- `image_api_base`
+- `default_background_type`
+
+所以如果你是在：
+
+- 改配置文件：用 `api.image_base_url`
+- 查环境变量：看 `IMAGE_API_BASE`
+- 解析 `config show --format json`：看 `image_api_base`
+
+不要把这三套名字混成一个层次。
+
+---
+
+## 配置项说明
+
+### 微信配置
+
+| 配置项 | 必需 | 说明 |
+|--------|------|------|
+| `wechat.appid` | 创建草稿、上传图片时需要 | 微信公众号 AppID |
+| `wechat.secret` | 创建草稿、上传图片时需要 | 微信公众号 Secret |
+
+### API 转换配置
+
+| 配置项 | 必需 | 说明 | 默认值 |
+|--------|------|------|--------|
+| `api.text_provider` | 否 | 文本 API 服务商：`openai` / `deepseek` / `siliconflow` / `custom` | `openai` |
+| `api.text_key` | API 模式需要 | 文本 API Key | - |
+| `api.text_base_url` | `custom` 或自定义中转时需要 | OpenAI-compatible API Base URL | 跟随 provider |
+| `api.text_model` | `custom` 或自定义模型时需要 | 文本模型名 | 跟随 provider |
+| `api.text_temperature` | 否 | 生成温度，范围 0 到 2 | `0.2` |
+| `api.convert_mode` | 否 | 默认转换模式 | `api` |
+| `api.default_theme` | 否 | 默认主题 | `default` |
+| `api.background_type` | 否 | 背景类型 | `none` |
+| `api.http_timeout` | 否 | HTTP 超时秒数 | `30` |
+
+### 图片生成配置
+
+| 配置项 | 必需 | 说明 | 默认值 |
+|--------|------|------|--------|
+| `api.image_key` | AI 图片时需要 | 图片生成 API Key | - |
+| `api.image_provider` | 否 | 图片服务提供方 | `openai` |
+| `api.image_base_url` | 否 | 图片服务地址 | `https://api.openai.com/v1` |
+| `api.image_model` | 否 | 图片模型 | `gpt-image-1.5` |
+| `api.image_size` | 否 | 默认图片执行尺寸/宽高比 | 跟随当前 provider，例如 `openai=1024x1024`、`volcengine=2K` |
+
+当前内置 provider：`openai`、`tuzi`、`modelscope` (`ms`)、`openrouter` (`or`)、`gemini` (`google`)、`volcengine` (`volc`)。
+
+### 图片处理配置
+
+| 配置项 | 必需 | 说明 | 默认值 |
+|--------|------|------|--------|
+| `image.compress` | 否 | 是否自动压缩 | `true` |
+| `image.max_width` | 否 | 最大宽度 | `1920` |
+| `image.max_size_mb` | 否 | 最大大小（MB） | `5` |
+
+---
+
+## 环境变量对照表
+
+| 环境变量 | 对应配置项 |
+|----------|------------|
+| `WECHAT_APPID` | `wechat.appid` |
+| `WECHAT_SECRET` | `wechat.secret` |
+| `TEXT_PROVIDER` | `api.text_provider` |
+| `TEXT_API_KEY` | `api.text_key` |
+| `TEXT_API_BASE` | `api.text_base_url` |
+| `TEXT_MODEL` | `api.text_model` |
+| `TEXT_TEMPERATURE` | `api.text_temperature` |
+| `IMAGE_API_KEY` | `api.image_key` |
+| `IMAGE_API_BASE` | `api.image_base_url` |
+| `IMAGE_PROVIDER` | `api.image_provider` |
+| `IMAGE_MODEL` | `api.image_model` |
+| `IMAGE_SIZE` | `api.image_size` |
+| `CONVERT_MODE` | `api.convert_mode` |
+| `DEFAULT_THEME` | `api.default_theme` |
+| `DEFAULT_BACKGROUND_TYPE` | `api.background_type` |
+| `HTTP_TIMEOUT` | `api.http_timeout` |
+| `COMPRESS_IMAGES` | `image.compress` |
+| `MAX_IMAGE_WIDTH` | `image.max_width` |
+| `MAX_IMAGE_SIZE` | `image.max_size_mb` |
+| `MD2WECHAT_THEMES_DIR` | `themes` 覆盖目录 |
+| `MD2WECHAT_WRITERS_DIR` | `writers` 覆盖目录 |
+
+图片生成相关命令还支持 `--model`，用于单次覆盖当前调用的图片模型。优先级顺序为：
+
+1. `--model`
+2. `IMAGE_MODEL`
+3. `api.image_model`
+4. provider 默认模型
+
+## `config show --format json` 常见字段对照
+
+如果你是在排查 Agent / 脚本实际读到的配置，最常见的不是 YAML 字段，而是下面这些扁平 key：
+
+| `config show --format json` 字段 | 对应配置文件字段 |
+|---|---|
+| `wechat_appid` | `wechat.appid` |
+| `wechat_secret` | `wechat.secret` |
+| `text_provider` | `api.text_provider` |
+| `text_api_key` | `api.text_key` |
+| `text_api_base` | `api.text_base_url` |
+| `text_model` | `api.text_model` |
+| `text_temperature` | `api.text_temperature` |
+| `image_api_key` | `api.image_key` |
+| `image_api_base` | `api.image_base_url` |
+| `image_provider` | `api.image_provider` |
+| `image_model` | `api.image_model` |
+| `image_size` | `api.image_size` |
+| `default_convert_mode` | `api.convert_mode` |
+| `default_theme` | `api.default_theme` |
+| `default_background_type` | `api.background_type` |
+| `compress_images` | `image.compress` |
+| `max_image_width` | `image.max_width` |
+| `max_image_size_mb` | `image.max_size_mb` |
+| `http_timeout` | `api.http_timeout` |
+| `config_file` | 当前实际命中的配置文件路径 |
+
+---
+
+## 常见场景怎么配
+
+### 只预览，不创建草稿
+
+最小需要：
+
+```yaml
+api:
+  text_provider: "deepseek"
+  text_key: "your_text_api_key"
+  text_base_url: "https://api.deepseek.com"
+  text_model: "deepseek-chat"
+  convert_mode: "api"
+```
+
+### 需要上传图片和创建草稿
+
+最小需要：
+
+```yaml
+wechat:
+  appid: "your_wechat_appid"
+  secret: "your_wechat_secret"
+
+api:
+  text_provider: "deepseek"
+  text_key: "your_text_api_key"
+  text_model: "deepseek-chat"
+```
+
+### 需要 AI 图片生成
+
+最小需要：
+
+```yaml
+wechat:
+  appid: "your_wechat_appid"
+  secret: "your_wechat_secret"
+
+api:
+  image_key: "your-ark-api-key"
+  image_provider: "volcengine"
+  image_model: "seedream-3-0"
+  image_size: "2K"
+```
+
+补充说明：
+
+- `api.image_size` / `IMAGE_SIZE` 控制的是实际发给图片 provider 的默认执行尺寸
+- `generate_image --size ...` 会覆盖配置文件里的 `api.image_size`
+- 图片 prompt 里的 `default_aspect_ratio` 是 preset 的语义默认画幅，用于渲染 prompt 与默认视觉比例
+- 对于 Gemini / OpenRouter 这类支持比例格式的 provider，`api.image_size` 可以直接写成 `16:9`、`3:4`、`21:9`
+- 对于 Volcengine Ark 当前接入，`api.image_size` 使用尺寸等级，例如 `2K`、`3K`；如果省略，当前默认值是 `2K`
+- `api.image_base_url` 对 OpenAI、TuZi、ModelScope、OpenRouter、Volcengine 生效；Gemini 直连模式当前固定走官方 Go SDK backend，不读取该配置
+
+---
+
+## 配置优先级
+
+优先级从高到低：
+
+```text
+命令行参数 > 环境变量 > 配置文件 > 默认值
+```
+
+举例：
+
+1. 配置文件里写了：
+
+```yaml
+api:
+  text_provider: "deepseek"
+  text_base_url: "https://api.deepseek.com"
+  text_model: "deepseek-chat"
+```
+
+2. 当前终端又执行了：
+
+```bash
+export TEXT_API_BASE="https://proxy.example.com/v1"
+```
+
+最终生效的是：
+
+```text
+https://proxy.example.com/v1
+```
+
+---
+
+## 自检命令
+
+```bash
+md2wechat config init
+md2wechat config show --format json
+md2wechat config validate
+```
+
+推荐排查顺序：
+
+1. 先看 `config_file` 指向哪个文件
+2. 再看 `text_provider` / `text_api_base` / `text_model` 是否匹配
+3. 再看 `image_provider` / `image_api_base` 是否匹配
+   这里的 `image_api_base` 是 `config show --format json` 的输出字段；配置文件里对应的是 `api.image_base_url`
+4. 最后检查环境变量是否把文件里的值覆盖掉了
+
+---
+
+---
+
+## Brand Profile
+
+Brand Profile 是 Agent 读取的品牌与风格配置文件，**CLI 不解析此文件**。
+
+与 CLI 运行时配置（`~/.md2wechat.yaml`）不同，Brand Profile 专门为 Agent 设计，用于记录内容生成的风格约束和偏好。
+
+### 快速开始
+
+```bash
+# 初始化 Brand Profile（幂等操作，文件存在时不覆盖）
+md2wechat brand init
+
+# 查看当前 Brand Profile
+md2wechat brand show
+md2wechat brand show --json
+```
+
+Brand Profile 位置：
+
+```text
+~/.config/md2wechat-new/brand.md
+```
+
+### Markdown 格式说明
+
+Brand Profile 使用 **Markdown 格式**，而不是 YAML。这让你可以用完全自然的语言书写品牌风格和偏好。
+
+以下是一份完整的 Markdown 模板示例：
+
+```markdown
+# md2wechat Brand Profile
+
+## 基本信息
+
+**名字 / 品牌名**：极客杰尼
+
+**简介**：AI 应用开发者，记录 AI 工具、内容系统和独立产品实践。
+
+---
+
+## 语气与风格
+
+**我的风格**：
+犀利实用，第一人称。直接说结论，然后给证据。
+像在和朋友聊干货，不废话，不升华，不说"希望对你有帮助"。
+
+**我要避免的表达**：
+- 过多 emoji（最多 1-2 个）
+- 空泛鸡汤（"在这个充满变化的时代..."）
+- 过度营销词汇（"革命性"、"颠覆性"）
+- 被动语态（"被认为"、"据悉"）
+
+---
+
+## 文章开头偏好
+
+**我的偏好**：verdict_first（先结论）
+
+我喜欢开门见山，第一段就给出核心判断。
+例如："这个工具我用了三个月，值得推荐，原因有三。"
+
+---
+
+## 排版约束
+
+- 最多模块数：6（上限 43，填 0 使用默认值）
+- 最多 CTA 数：1（上限 2）
+- 最多引用数：2（上限 10）
+- 最多 Hero 数：1（固定上限）
+
+---
+
+## 默认 CTA（行动引导）
+
+**标题**：如果这篇对你有启发
+**正文**：欢迎关注，我在持续记录 AI 工具和独立开发实践。每周更新，不灌水。
+**行动**：关注 / 转发给有需要的朋友
+
+---
+
+## 作者卡片
+
+**名字**：极客杰尼
+**头衔**：AI 应用开发者 / 独立开发者
+**简介**：记录 AI 工具、内容系统和独立产品实践。关注从 idea 到 MVP 的完整路径。
+
+---
+
+## 风格参考文件（可选）
+
+**路径**：~/Documents/brand/voice-guide.md
+
+（Agent 会读取此文件作为额外的风格参考）
+```
+
+### 为什么是 Markdown 而不是 YAML？
+
+品牌风格本质上是语言性的，而不是结构化的。Markdown 允许你用**完全自然的语言**描述风格偏好，Agent 可以直接理解这些自然语言描述。
+
+**越具体，Agent 越能准确还原你的风格。**
+
+### Agent 读取方式
+
+Agent 读取 Brand Profile 时：
+
+```python
+import os
+
+brand_path = os.path.expanduser("~/.config/md2wechat-new/brand.md")
+brand_content = ""
+if os.path.exists(brand_path):
+    with open(brand_path) as f:
+        brand_content = f.read()
+
+# brand_content 包含完整的 Markdown 文本
+# Agent 将其作为上下文注入到排版决策中
+```
+
+### JSON 响应格式
+
+`md2wechat brand show --json` 返回：
+
+```json
+{
+  "success": true,
+  "code": "BRAND_SHOWN",
+  "data": {
+    "path": "~/.config/md2wechat-new/brand.md",
+    "content": "# md2wechat Brand Profile\n\n## 基本信息\n..."
+  }
+}
+```
+
+注意：`data.content` 是完整的 Markdown 文本，而不是解析后的结构。
+
+### 降级行为与容错
+
+1. **文件不存在**：Agent 继续工作，不报错；使用内置默认值。
+
+2. **文件不可读（权限问题）**：
+   - `md2wechat brand show` 返回 `BRAND_READ_FAILED`
+   - Agent 应降级到默认值并通知用户
+
+3. **Markdown 无语法错误**：Markdown 是自由格式文本，不存在"格式错误"。只要文件可读，Agent 就能使用。
+
+### 与 CLI 运行时配置的区别
+
+| 配置文件 | 位置 | 用途 | 解析方 | 必需 |
+|---------|------|------|--------|------|
+| CLI 运行时配置 | `~/.md2wechat.yaml` | API Keys、Provider、主题 | CLI | 创建草稿时必需 |
+| Brand Profile | `~/.config/md2wechat-new/brand.md` | 内容风格、排版偏好、约束 | Agent | 可选（无则使用默认） |
+
+**CLI 运行时配置** 典型场景：切换图片 Provider、配置 WeChat AppID、选择主题。
+
+**Brand Profile** 典型场景：Agent 生成内容时遵守品牌约束、追踪作者信息、统一语气风格。
+
+### 常见场景
+
+#### 只初始化，保持最小配置
+
+```bash
+md2wechat brand init
+# 编辑 ~/.config/md2wechat-new/brand.md，填入基本信息和语气风格即可
+```
+
+结果：Agent 会尊重你的品牌名和语气，但使用所有其他默认值。
+
+#### Agent 读取并应用 Brand Profile
+
+Agent 应该：
+
+```bash
+# 1. 检查 Brand Profile 是否存在
+md2wechat brand show --json
+
+# 2. 如果存在，读取 data.content 作为完整上下文
+# 3. 生成内容时应用其中的风格偏好、约束、CTA 和作者信息
+```
+
+---
+
+## 相关文档
+
+- [新手快速开始](QUICKSTART.md)
+- [安装指南](INSTALL.md)
+- [图片服务配置](IMAGE_PROVISIONERS.md)
+- [真实烟雾测试记录](SMOKE.md)
+- [内置资产](#内置资产)
