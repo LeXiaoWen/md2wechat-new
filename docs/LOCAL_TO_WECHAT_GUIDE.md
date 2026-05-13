@@ -244,7 +244,40 @@ digest: "这是一段 128 字以内的摘要"
 
 创建成功后，命令会返回草稿相关信息。之后登录微信公众号后台，在草稿箱中检查内容，再手动发布。
 
-## 11. 常用完整命令序列
+## 11. 上传已有 HTML 到草稿箱
+
+如果你已经有转换好的 HTML 文件，例如 `output.html`，可以直接创建微信草稿：
+
+```bash
+./md2wechat upload_html output.html --title "文章标题" --cover cover.jpg
+```
+
+可选参数：
+
+```bash
+./md2wechat upload_html output.html \
+  --title "文章标题" \
+  --author "作者名" \
+  --digest "128 字以内摘要" \
+  --cover cover.jpg \
+  --content-source-url "https://example.com/original"
+```
+
+如果你已经有微信永久素材封面 `media_id`：
+
+```bash
+./md2wechat upload_html output.html \
+  --title "文章标题" \
+  --cover-media-id MEDIA_ID
+```
+
+注意：
+
+- `--cover` 和 `--cover-media-id` 二选一。
+- 不传 `--title` 时，默认使用 HTML 文件名作为标题。
+- HTML 内容会原样进入草稿，不再重新调用文本 API 转换。
+
+## 12. 常用完整命令序列
 
 ```bash
 cd /Users/leo/Desktop/project/md2wechat-new
@@ -262,7 +295,13 @@ go build ./cmd/md2wechat
 ./md2wechat convert article.md --draft --cover cover.jpg
 ```
 
-## 12. 临时环境变量用法
+已有 HTML 的路径：
+
+```bash
+./md2wechat upload_html output.html --title "文章标题" --cover cover.jpg
+```
+
+## 13. 临时环境变量用法
 
 不想修改配置文件时，可以临时覆盖文本 API：
 
@@ -282,7 +321,7 @@ WECHAT_SECRET="你的 AppSecret" \
 ./md2wechat convert article.md --draft --cover cover.jpg
 ```
 
-## 13. 常见问题
+## 14. 常见问题
 
 ### `TEXT_API_KEY is required for API mode`
 

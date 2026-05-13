@@ -64,6 +64,11 @@ const (
 	codeTestDraftCoverFailed   = "TEST_DRAFT_COVER_FAILED"
 	codeTestDraftCreateFailed  = "TEST_DRAFT_CREATE_FAILED"
 	codeTestDraftCreated       = "TEST_DRAFT_CREATED"
+	codeUploadHTMLInvalid      = "UPLOAD_HTML_INVALID"
+	codeUploadHTMLReadFailed   = "UPLOAD_HTML_READ_FAILED"
+	codeUploadHTMLCoverFailed  = "UPLOAD_HTML_COVER_FAILED"
+	codeUploadHTMLCreateFailed = "UPLOAD_HTML_CREATE_FAILED"
+	codeUploadHTMLCreated      = "UPLOAD_HTML_CREATED"
 
 	codeLayoutModuleNotFound       = "LAYOUT_MODULE_NOT_FOUND"
 	codeLayoutInvalidFilter        = "LAYOUT_INVALID_FILTER"
@@ -177,6 +182,7 @@ Examples:
   md2wechat upload_image ./photo.jpg
   md2wechat download_and_upload https://example.com/image.jpg
   md2wechat generate_image "A cute cat"
+  md2wechat upload_html output.html --title "Article title" --cover cover.jpg
   md2wechat create_draft draft.json`,
 		SilenceErrors: true,
 		SilenceUsage:  true,
@@ -313,6 +319,7 @@ Examples:
 
 	// test-draft command
 	rootCmd.AddCommand(testHTMLCmd)
+	rootCmd.AddCommand(uploadHTMLCmd)
 
 	// create-image-post command (小绿书)
 	rootCmd.AddCommand(createImagePostCmd)

@@ -117,6 +117,7 @@ md2wechat convert article.md --preview
 md2wechat convert article.md -o article.html
 md2wechat convert article.md --draft --cover cover.jpg
 md2wechat convert article.md --title "新标题" --author "作者名" --digest "摘要"
+md2wechat upload_html article.html --title "新标题" --cover cover.jpg
 ```
 
 元数据优先级：

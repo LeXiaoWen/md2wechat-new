@@ -91,6 +91,9 @@ md2wechat convert article.md --upload --draft --cover cover.jpg
 
 # 5. 显式覆盖标题、作者、摘要
 md2wechat convert article.md --title "新标题" --author "作者名" --digest "摘要"
+
+# 6. 已有 HTML，直接上传到草稿箱
+md2wechat upload_html output.html --title "文章标题" --cover cover.jpg
 ```
 
 ### 文章元数据规则
