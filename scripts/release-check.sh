@@ -58,6 +58,9 @@ package_version="$(node -p "require('./package.json').version")"
 package_name="$(node -p "require('./package.json').name")"
 [[ "$package_name" == "@lexiaowen/md2wechat-new" ]] || fail "package.json name must stay @lexiaowen/md2wechat-new"
 
+package_bin="$(node -p "Object.keys(require('./package.json').bin || {}).join(',')")"
+[[ "$package_bin" == "md2wechat-new" ]] || fail "package.json bin must expose md2wechat-new"
+
 if ! node -e "const pkg=require('./package.json'); if ('os' in pkg || 'cpu' in pkg) process.exit(1)"; then
   fail "package.json must not claim a global os/cpu matrix; scripts/install.js is the source of truth for supported npm targets"
 fi
@@ -68,6 +71,9 @@ grep -q 'MD2WECHAT_INSTALL_DIR' scripts/install.sh || fail "scripts/install.sh m
 grep -q 'MD2WECHAT_RELEASE_BASE_URL' scripts/install.js || fail "scripts/install.js must support MD2WECHAT_RELEASE_BASE_URL"
 grep -q 'checksums.txt' scripts/install.js || fail "scripts/install.js must verify checksums.txt"
 grep -q 'npm install -g @lexiaowen/md2wechat-new' scripts/run.js || fail "scripts/run.js must point users at the npm install command"
+grep -q 'md2wechat-new' scripts/install.js || fail "scripts/install.js must install the npm-managed binary as md2wechat-new"
+grep -q 'md2wechat-new' scripts/install.sh || fail "scripts/install.sh must install the CLI as md2wechat-new"
+grep -q 'md2wechat-new' scripts/install-openclaw.sh || fail "scripts/install-openclaw.sh must install the CLI as md2wechat-new"
 grep -q 'MD2WECHAT_VERSION' scripts/install.ps1 || fail "scripts/install.ps1 must support MD2WECHAT_VERSION"
 grep -q 'MD2WECHAT_RELEASE_BASE_URL' scripts/install.ps1 || fail "scripts/install.ps1 must support MD2WECHAT_RELEASE_BASE_URL"
 grep -q 'MD2WECHAT_INSTALL_DIR' scripts/install.ps1 || fail "scripts/install.ps1 must support MD2WECHAT_INSTALL_DIR"
@@ -115,8 +121,7 @@ grep -q 'MD2WECHAT_RELEASE_BASE_URL' .github/workflows/release.yml || fail "rele
 ! grep -q 'lexiaowenn/homebrew-tap' .github/workflows/release.yml || fail "release workflow must not update the old upstream Homebrew tap"
 grep -q '"install"' platforms/openclaw/md2wechat/SKILL.md || fail "OpenClaw skill metadata must declare install resources"
 grep -q '"clawdbot"' platforms/openclaw/md2wechat/SKILL.md || fail "OpenClaw skill metadata must use metadata.clawdbot"
-grep -q '"bins":\["md2wechat"\]' platforms/openclaw/md2wechat/SKILL.md || fail "OpenClaw skill metadata must declare md2wechat as a required bin"
-grep -q '"formula":"lexiaowenn/tap/md2wechat-new"' platforms/openclaw/md2wechat/SKILL.md || fail "OpenClaw skill metadata must declare the brew install path"
+grep -q '"bins":\["md2wechat-new"\]' platforms/openclaw/md2wechat/SKILL.md || fail "OpenClaw skill metadata must declare md2wechat-new as a required bin"
 grep -q '"module":"github.com/LeXiaoWen/md2wechat-new/cmd/md2wechat@latest"' platforms/openclaw/md2wechat/SKILL.md || fail "OpenClaw skill metadata must declare the go install path"
 grep -q 'releases/download/v' README.md || fail "README must point install instructions at fixed-version release assets"
 grep -q 'releases/download/v' docs/INSTALL.md || fail "docs/INSTALL.md must point install instructions at fixed-version release assets"

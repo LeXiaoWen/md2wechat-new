@@ -86,11 +86,11 @@ echo ""
 
 # 确定安装目录
 mkdir -p "$INSTALL_DIR"
-if [[ -e "$INSTALL_DIR/md2wechat" ]]; then
-    echo "检测到已存在安装，将覆盖: $INSTALL_DIR/md2wechat"
-elif [[ -e "$INSTALL_DIR/md2wechat-new" ]]; then
-    echo "检测到旧版安装: $INSTALL_DIR/md2wechat-new"
-    echo "本次将安装为: $INSTALL_DIR/md2wechat"
+if [[ -e "$INSTALL_DIR/md2wechat-new" ]]; then
+    echo "检测到已存在安装，将覆盖: $INSTALL_DIR/md2wechat-new"
+elif [[ -e "$INSTALL_DIR/md2wechat" ]]; then
+    echo "检测到旧版安装: $INSTALL_DIR/md2wechat"
+    echo "本次将安装为: $INSTALL_DIR/md2wechat-new"
 fi
 
 TMP_DIR="$(mktemp -d)"
@@ -167,14 +167,14 @@ if ! verify_checksum "$CHECKSUMS_FILE" "$DOWNLOADED_BINARY" "$BINARY"; then
     exit 1
 fi
 
-install -m 0755 "$DOWNLOADED_BINARY" "$INSTALL_DIR/md2wechat"
+install -m 0755 "$DOWNLOADED_BINARY" "$INSTALL_DIR/md2wechat-new"
 
 # 添加执行权限
-chmod +x "$INSTALL_DIR/md2wechat"
+chmod +x "$INSTALL_DIR/md2wechat-new"
 
 PROFILE_FILE="$(choose_profile_file)"
 CURRENT_SESSION_CMD="export PATH=\"$INSTALL_DIR:\$PATH\""
-VERIFY_CMD="$INSTALL_DIR/md2wechat version --json"
+VERIFY_CMD="$INSTALL_DIR/md2wechat-new version --json"
 
 echo ""
 echo "✅ 下载完成！"
@@ -188,7 +188,7 @@ else
     echo ""
     echo "当前会话立即生效："
     echo "  ${CURRENT_SESSION_CMD}"
-    echo "  md2wechat version --json"
+    echo "  md2wechat-new version --json"
     echo ""
     if [ -n "$PROFILE_FILE" ]; then
         echo "想让以后每次终端都生效："
@@ -206,15 +206,15 @@ echo "========================================"
 echo ""
 echo "下一步："
 if echo ":$PATH:" | grep -q ":$INSTALL_DIR:"; then
-    echo "  1. 运行: md2wechat version --json"
-    echo "  2. 运行: md2wechat config init"
+    echo "  1. 运行: md2wechat-new version --json"
+    echo "  2. 运行: md2wechat-new config init"
     echo "  3. 编辑生成的配置文件"
     echo "  4. 运行: md2wechat inspect 文章.md"
     echo "  5. 运行: md2wechat preview 文章.md"
 else
     echo "  1. 运行: ${CURRENT_SESSION_CMD}"
-    echo "  2. 运行: md2wechat version --json"
-    echo "  3. 运行: md2wechat config init"
+    echo "  2. 运行: md2wechat-new version --json"
+    echo "  3. 运行: md2wechat-new config init"
     echo "  4. 编辑生成的配置文件"
     echo "  5. 运行: md2wechat inspect 文章.md"
     echo "  6. 运行: md2wechat preview 文章.md"
@@ -222,7 +222,7 @@ fi
 echo ""
 echo "如果当前会话仍然找不到命令，直接运行:"
 echo "  ${VERIFY_CMD}"
-echo "  ${INSTALL_DIR}/md2wechat config init"
+echo "  ${INSTALL_DIR}/md2wechat-new config init"
 echo ""
-echo "查看帮助: ${INSTALL_DIR}/md2wechat --help"
+echo "查看帮助: ${INSTALL_DIR}/md2wechat-new --help"
 echo ""

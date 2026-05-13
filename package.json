@@ -12,7 +12,7 @@
     "url": "https://github.com/LeXiaoWen/md2wechat-new/issues"
   },
   "bin": {
-    "md2wechat": "scripts/run.js"
+    "md2wechat-new": "scripts/run.js"
   },
   "scripts": {
     "pack:check": "npm pack --json --dry-run",

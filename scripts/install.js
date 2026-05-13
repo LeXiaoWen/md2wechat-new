@@ -30,7 +30,7 @@ const releaseBaseUrl =
   process.env.MD2WECHAT_RELEASE_BASE_URL ||
   `https://github.com/${REPO}/releases/download/v${VERSION}`;
 const assetName = TARGETS[process.platform]?.[process.arch];
-const binaryName = isWindows ? "md2wechat.exe" : "md2wechat";
+const binaryName = isWindows ? "md2wechat-new.exe" : "md2wechat-new";
 const binDir = path.join(__dirname, "..", "bin");
 const destination = path.join(binDir, binaryName);
 

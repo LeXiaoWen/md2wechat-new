@@ -61,7 +61,7 @@ $archivePath = Join-Path $tempDir $skillArchive
 $binaryPath = Join-Path $tempDir $binaryName
 $checksumsPath = Join-Path $tempDir "checksums.txt"
 $extractRoot = Join-Path $tempDir "extract"
-$outputFile = Join-Path $installDir "md2wechat.exe"
+$outputFile = Join-Path $installDir "md2wechat-new.exe"
 
 try {
     function Download-File {
@@ -146,8 +146,8 @@ if ($skipPathUpdate) {
 
 Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Yellow
-Write-Host "  1. md2wechat version --json" -ForegroundColor White
-Write-Host "  2. md2wechat config init" -ForegroundColor White
+Write-Host "  1. md2wechat-new version --json" -ForegroundColor White
+Write-Host "  2. md2wechat-new config init" -ForegroundColor White
 Write-Host "  3. md2wechat capabilities --json" -ForegroundColor White
 Write-Host ""
 Write-Host "Skill installed to: $skillDir" -ForegroundColor White

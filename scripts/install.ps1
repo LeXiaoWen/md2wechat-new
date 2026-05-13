@@ -44,8 +44,11 @@ Write-Host ""
 
 # 创建目录
 New-Item -ItemType Directory -Force -Path $installDir | Out-Null
-if (Test-Path (Join-Path $installDir "md2wechat.exe")) {
-    Write-Host "检测到已存在安装，将覆盖: $(Join-Path $installDir 'md2wechat.exe')" -ForegroundColor Yellow
+if (Test-Path (Join-Path $installDir "md2wechat-new.exe")) {
+    Write-Host "检测到已存在安装，将覆盖: $(Join-Path $installDir 'md2wechat-new.exe')" -ForegroundColor Yellow
+} elseif (Test-Path (Join-Path $installDir "md2wechat.exe")) {
+    Write-Host "检测到旧版安装: $(Join-Path $installDir 'md2wechat.exe')" -ForegroundColor Yellow
+    Write-Host "本次将安装为: $(Join-Path $installDir 'md2wechat-new.exe')" -ForegroundColor Yellow
 }
 
 # 下载
@@ -53,7 +56,7 @@ Write-Host "正在下载..." -ForegroundColor Green
 $binaryName = "md2wechat-windows-amd64.exe"
 $downloadUrl = "$releaseBaseUrl/$binaryName"
 $checksumsUrl = "$releaseBaseUrl/checksums.txt"
-$outputFile = "$installDir\md2wechat.exe"
+$outputFile = "$installDir\md2wechat-new.exe"
 $tempDir = Join-Path ([System.IO.Path]::GetTempPath()) ("md2wechat-install-" + [System.Guid]::NewGuid().ToString("N"))
 $downloadedBinary = Join-Path $tempDir $binaryName
 $checksumsFile = Join-Path $tempDir "checksums.txt"
@@ -123,7 +126,7 @@ if ($skipPathUpdate) {
         }
         Write-Host "✅ 已添加到 PATH" -ForegroundColor Green
         Write-Host ""
-        Write-Host "当前 PowerShell 会话已可直接使用 md2wechat" -ForegroundColor Green
+        Write-Host "当前 PowerShell 会话已可直接使用 md2wechat-new" -ForegroundColor Green
         Write-Host "新的终端或命令提示符也会继承该 PATH 更新" -ForegroundColor Yellow
     } else {
         if ($env:Path -notlike "*$installDir*") {
@@ -139,8 +142,8 @@ Write-Host "   安装完成！" -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "下一步：" -ForegroundColor Yellow
-Write-Host "  1. 运行: md2wechat version --json" -ForegroundColor White
-Write-Host "  2. 运行: md2wechat config init" -ForegroundColor White
+Write-Host "  1. 运行: md2wechat-new version --json" -ForegroundColor White
+Write-Host "  2. 运行: md2wechat-new config init" -ForegroundColor White
 Write-Host "  3. 编辑生成的配置文件" -ForegroundColor White
 Write-Host "  4. 运行: md2wechat inspect 文章.md" -ForegroundColor White
 Write-Host "  5. 运行: md2wechat preview 文章.md" -ForegroundColor White
