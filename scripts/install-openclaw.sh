@@ -159,8 +159,13 @@ if [[ -d "$INSTALL_DIR" ]]; then
     rm -rf "$INSTALL_DIR"
 fi
 
-if [[ -x "${CLI_INSTALL_DIR}/md2wechat-new" ]]; then
-    warn "已存在 CLI / Existing CLI: ${CLI_INSTALL_DIR}/md2wechat-new"
+if [[ -x "${CLI_INSTALL_DIR}/md2wechat" ]]; then
+    warn "已存在 CLI / Existing CLI: ${CLI_INSTALL_DIR}/md2wechat"
+    if ! confirm_or_continue "覆盖 CLI？/ Overwrite CLI?"; then
+        exit 0
+    fi
+elif [[ -x "${CLI_INSTALL_DIR}/md2wechat-new" ]]; then
+    warn "检测到旧版 CLI / Existing legacy CLI: ${CLI_INSTALL_DIR}/md2wechat-new"
     if ! confirm_or_continue "覆盖 CLI？/ Overwrite CLI?"; then
         exit 0
     fi
@@ -202,7 +207,7 @@ EXTRACTED_DIR="${TMP_DIR}/skills/md2wechat"
 
 cp -r "${EXTRACTED_DIR}/"* "$INSTALL_DIR/"
 chmod +x "${INSTALL_DIR}/scripts/"*.sh 2>/dev/null || true
-install -m 0755 "$RUNTIME_PATH" "${CLI_INSTALL_DIR}/md2wechat-new"
+install -m 0755 "$RUNTIME_PATH" "${CLI_INSTALL_DIR}/md2wechat"
 
 success "安装完成 / Installation complete!"
 
@@ -218,14 +223,14 @@ printf "  • OpenClaw 安装器会一并安装 skill 壳并把 md2wechat CLI �
 printf "  • 推荐始终使用固定版本 release 资产，不要使用 main/raw 作为安装入口\n"
 printf "\n"
 printf "推荐执行 / Recommended commands:\n"
-printf "  ${GREEN}%s/md2wechat-new config init${NC}\n" "${CLI_INSTALL_DIR}"
-printf "  ${GREEN}%s/md2wechat-new config validate${NC}\n" "${CLI_INSTALL_DIR}"
+printf "  ${GREEN}%s/md2wechat config init${NC}\n" "${CLI_INSTALL_DIR}"
+printf "  ${GREEN}%s/md2wechat config validate${NC}\n" "${CLI_INSTALL_DIR}"
 printf "\n"
 printf "默认配置文件 / Default config file:\n"
 printf "  ${GREEN}~/.config/md2wechat-new/config.yaml${NC}\n"
 printf "\n"
 printf "安装路径 / Installed to: ${GREEN}%s${NC}\n" "$INSTALL_DIR"
-printf "CLI installed to: ${GREEN}%s${NC}\n" "${CLI_INSTALL_DIR}/md2wechat-new"
+printf "CLI installed to: ${GREEN}%s${NC}\n" "${CLI_INSTALL_DIR}/md2wechat"
 if [[ ":$PATH:" != *":${CLI_INSTALL_DIR}:"* ]]; then
     printf "\n"
     printf "如果当前 shell 还找不到命令 / If the current shell still cannot find md2wechat:\n"
