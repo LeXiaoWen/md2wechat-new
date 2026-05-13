@@ -55,13 +55,13 @@ npm install -g @lexiaowen/md2wechat-new
 如果你已经有稳定可用的 Go 环境，也可以：
 
 ```bash
-go install github.com/lexiaowenn/md2wechat-new/cmd/md2wechat@v2.1.0
+go install github.com/LeXiaoWen/md2wechat-new/cmd/md2wechat@v2.1.0
 ```
 
 如果以上都不适合，再走固定版本安装脚本：
 
 ```bash
-curl -fsSL https://github.com/lexiaowenn/md2wechat-new/releases/download/v2.1.0/install.sh | bash
+curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v2.1.0/install.sh | bash
 ```
 
 安装脚本默认会把 CLI 放到：
@@ -137,7 +137,7 @@ npx cnpm sync @lexiaowen/md2wechat-new
 
 ```bash
 brew install lexiaowenn/tap/md2wechat-new
-npx skills add https://github.com/lexiaowenn/md2wechat-new --skill md2wechat
+npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
 ```
 
 如果你已经有 Node/npm 环境，也可以把第一步改成：
@@ -149,13 +149,13 @@ npm install -g @lexiaowen/md2wechat-new
 如果你已经有 Go 环境，再把第一步改成：
 
 ```bash
-go install github.com/lexiaowenn/md2wechat-new/cmd/md2wechat@v2.1.0
+go install github.com/LeXiaoWen/md2wechat-new/cmd/md2wechat@v2.1.0
 ```
 
 如果以上都不适合，再把第一步改成：
 
 ```bash
-curl -fsSL https://github.com/lexiaowenn/md2wechat-new/releases/download/v2.1.0/install.sh | bash
+curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v2.1.0/install.sh | bash
 ```
 
 如果你懒得自己操作，也可以直接把下面的话发给 Claude Code / Codex / OpenCode：
@@ -164,9 +164,9 @@ curl -fsSL https://github.com/lexiaowenn/md2wechat-new/releases/download/v2.1.0/
 请先安装 md2wechat CLI，再安装 md2wechat skill，并验证版本和能力发现都正常。
 执行：
 1. 如果我是 mac 用户，先运行：brew install lexiaowenn/tap/md2wechat-new
-2. 如果我已经有稳定可用的 Go 环境，也可以改成：go install github.com/lexiaowenn/md2wechat-new/cmd/md2wechat@v2.1.0
-3. 如果以上两种都不适合，再运行：curl -fsSL https://github.com/lexiaowenn/md2wechat-new/releases/download/v2.1.0/install.sh | bash
-4. 运行：npx skills add https://github.com/lexiaowenn/md2wechat-new --skill md2wechat
+2. 如果我已经有稳定可用的 Go 环境，也可以改成：go install github.com/LeXiaoWen/md2wechat-new/cmd/md2wechat@v2.1.0
+3. 如果以上两种都不适合，再运行：curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v2.1.0/install.sh | bash
+4. 运行：npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
 5. 如果我是通过 install.sh 安装的，再执行：export PATH="$HOME/.local/bin:$PATH"
 6. md2wechat version --json
 7. md2wechat capabilities --json
@@ -179,7 +179,7 @@ curl -fsSL https://github.com/lexiaowenn/md2wechat-new/releases/download/v2.1.0/
 ```text
 请帮我安装 OpenClaw 版 md2wechat，并验证 skill 和 CLI 都可用。
 执行：
-1. curl -fsSL https://github.com/lexiaowenn/md2wechat-new/releases/download/v2.1.0/install-openclaw.sh | bash
+1. curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v2.1.0/install-openclaw.sh | bash
 2. 先执行：export PATH="$HOME/.local/bin:$PATH"
 3. md2wechat version --json
 4. md2wechat config init
@@ -195,7 +195,7 @@ curl -fsSL https://github.com/lexiaowenn/md2wechat-new/releases/download/v2.1.0/
 ```bash
 brew install lexiaowenn/tap/md2wechat-new
 md2wechat version --json
-npx skills add https://github.com/lexiaowenn/md2wechat-new --skill md2wechat
+npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
 ```
 
 如果你更习惯 npm，也可以把第一步改成：
@@ -203,24 +203,24 @@ npx skills add https://github.com/lexiaowenn/md2wechat-new --skill md2wechat
 ```bash
 npm install -g @lexiaowen/md2wechat-new
 md2wechat version --json
-npx skills add https://github.com/lexiaowenn/md2wechat-new --skill md2wechat
+npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
 ```
 
 如果你已经有 Go 环境，再改成：
 
 ```bash
-go install github.com/lexiaowenn/md2wechat-new/cmd/md2wechat@v2.1.0
+go install github.com/LeXiaoWen/md2wechat-new/cmd/md2wechat@v2.1.0
 md2wechat version --json
-npx skills add https://github.com/lexiaowenn/md2wechat-new --skill md2wechat
+npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
 ```
 
 如果以上都不适合，再改成：
 
 ```bash
-curl -fsSL https://github.com/lexiaowenn/md2wechat-new/releases/download/v2.1.0/install.sh | bash
+curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v2.1.0/install.sh | bash
 export PATH="$HOME/.local/bin:$PATH"
 md2wechat version --json
-npx skills add https://github.com/lexiaowenn/md2wechat-new --skill md2wechat
+npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
 ```
 
 然后回到 Claudian：
@@ -913,4 +913,4 @@ systeminfo
 
 提交到：
 
-- [GitHub Issues](https://github.com/lexiaowenn/md2wechat-new/issues)
+- [GitHub Issues](https://github.com/LeXiaoWen/md2wechat-new/issues)

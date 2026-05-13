@@ -1,15 +1,15 @@
 {
   "name": "@lexiaowen/md2wechat-new",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Configurable-provider fork of the md2wechat CLI.",
   "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lexiaowenn/md2wechat-new.git"
+    "url": "git+https://github.com/LeXiaoWen/md2wechat-new.git"
   },
-  "homepage": "https://github.com/lexiaowenn/md2wechat-new#readme",
+  "homepage": "https://github.com/LeXiaoWen/md2wechat-new#readme",
   "bugs": {
-    "url": "https://github.com/lexiaowenn/md2wechat-new/issues"
+    "url": "https://github.com/LeXiaoWen/md2wechat-new/issues"
   },
   "bin": {
     "md2wechat": "scripts/run.js"

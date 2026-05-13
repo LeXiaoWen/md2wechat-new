@@ -3,12 +3,12 @@
 # md2wechat OpenClaw Skill Installer
 #
 # Usage:
-#   curl -fsSL https://github.com/lexiaowenn/md2wechat-new/releases/download/vX.Y.Z/install-openclaw.sh | bash
+#   curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/vX.Y.Z/install-openclaw.sh | bash
 #
 
 set -euo pipefail
 
-REPO="lexiaowenn/md2wechat-new"
+REPO="LeXiaoWen/md2wechat-new"
 VERSION="${MD2WECHAT_VERSION:-}"
 if [[ -z "$VERSION" ]]; then
     if [[ -n "${MD2WECHAT_VERSION_DEFAULT:-}" ]]; then

@@ -843,7 +843,7 @@ topic: 高级排版模块实战指南
 
 ```
 :::resource-list
-[{"icon":"🛠","name":"md2wechat CLI","url":"https://github.com/lexiaowenn/md2wechat-new","desc":"Markdown 转微信的命令行工具"},{"icon":"📖","name":"Layout 教程","url":"https://github.com/lexiaowenn/md2wechat-new/blob/main/docs/LAYOUT.md","desc":"本教程，43 个模块详解"}]
+[{"icon":"🛠","name":"md2wechat CLI","url":"https://github.com/LeXiaoWen/md2wechat-new","desc":"Markdown 转微信的命令行工具"},{"icon":"📖","name":"Layout 教程","url":"https://github.com/LeXiaoWen/md2wechat-new/blob/main/docs/LAYOUT.md","desc":"本教程，43 个模块详解"}]
 :::
 ```
 

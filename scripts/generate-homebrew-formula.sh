@@ -75,7 +75,7 @@ done
 formula=$(cat <<EOF
 class Md2wechat < Formula
   desc "Convert Markdown to WeChat Official Account HTML"
-  homepage "https://github.com/lexiaowenn/md2wechat-new"
+  homepage "https://github.com/LeXiaoWen/md2wechat-new"
   license "proprietary"
   version "${version}"
 

@@ -91,7 +91,7 @@ Release 资产由 GitHub Actions 在推送 tag 时生成。版本来源是 `VERS
 固定版本安装脚本：
 
 ```bash
-curl -fsSL https://github.com/lexiaowenn/md2wechat-new/releases/download/v2.2.0/install.sh | bash
+curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v2.2.1/install.sh | bash
 ```
 
 macOS Homebrew：
@@ -112,7 +112,7 @@ node -p "require('./package.json').version"
 推送 tag：
 
 ```bash
-git tag v2.2.0
+git tag v2.2.1
 git push origin main --tags
 ```
 
@@ -148,13 +148,9 @@ npm publish --access public
 
 ## Go 安装
 
-如果仓库已经推送到 GitHub，并且 module 路径可访问：
+当前推荐使用本地源码构建或 npm 安装。仓库迁移后，如果要支持 `go install`，需要同步确认 GitHub 仓库地址和 `go.mod` 的 module 路径一致。
 
-```bash
-go install github.com/lexiaowenn/md2wechat-new/cmd/md2wechat@latest
-```
-
-注意 npm scope 是 `@lexiaowen`，GitHub 仓库地址仍然可以是 `lexiaowenn/md2wechat-new`。这两者不必相同。
+npm scope 是 `@lexiaowen`，GitHub Release 仓库是 `LeXiaoWen/md2wechat-new`。这两者不必相同。
 
 ## 常见安装问题
 
@@ -187,5 +183,5 @@ md2wechat version --json
 确认当前版本对应的 Release 存在：
 
 ```text
-https://github.com/lexiaowenn/md2wechat-new/releases/tag/v2.2.0
+https://github.com/LeXiaoWen/md2wechat-new/releases/tag/v2.2.1
 ```

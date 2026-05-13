@@ -403,7 +403,7 @@ jobs:
         env:
           VERSION: ${{ needs.build-release.outputs.version }}
         run: |
-          release_base_url="https://github.com/lexiaowenn/md2wechat-new/releases/download/v${VERSION}"
+          release_base_url="https://github.com/LeXiaoWen/md2wechat-new/releases/download/v${VERSION}"
           formula_path="${GITHUB_WORKSPACE}/homebrew-tap/Formula/md2wechat-new.rb"
 
           mkdir -p "$(dirname "${formula_path}")"

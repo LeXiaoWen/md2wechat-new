@@ -41,7 +41,7 @@
 **推荐方式：重新走固定版本安装器**
 
 ```powershell
-$env:MD2WECHAT_RELEASE_BASE_URL = "https://github.com/lexiaowenn/md2wechat-new/releases/download/v2.0.7"
+$env:MD2WECHAT_RELEASE_BASE_URL = "https://github.com/LeXiaoWen/md2wechat-new/releases/download/v2.0.7"
 iex ((New-Object System.Net.WebClient).DownloadString("$env:MD2WECHAT_RELEASE_BASE_URL/install.ps1"))
 ```
 
@@ -56,7 +56,7 @@ iex ((New-Object System.Net.WebClient).DownloadString("$env:MD2WECHAT_RELEASE_BA
 #### Mac/Linux 解决方法：
 
 ```bash
-curl -fsSL https://github.com/lexiaowenn/md2wechat-new/releases/download/v2.0.7/install.sh | bash
+curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v2.0.7/install.sh | bash
 export PATH="$HOME/.local/bin:$PATH"
 md2wechat version --json
 ```
@@ -324,7 +324,7 @@ md2wechat config show --format json
 
 1. 查看 [常见问题](FAQ.md)
 2. 查看 [使用教程](USAGE.md)
-3. 提交 Issue：https://github.com/lexiaowenn/md2wechat-new/issues
+3. 提交 Issue：https://github.com/LeXiaoWen/md2wechat-new/issues
 
 提交问题时，请附上：
 - 你的操作系统（Windows 10 / macOS 13 / Linux）

@@ -1,13 +1,13 @@
 # md2wechat Windows 自动安装脚本
 # 使用方法：在 PowerShell 中运行
-# Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://github.com/lexiaowenn/md2wechat-new/releases/download/vX.Y.Z/install.ps1'))
+# Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://github.com/LeXiaoWen/md2wechat-new/releases/download/vX.Y.Z/install.ps1'))
 
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host "   md2wechat 安装向导" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 
-$repo = "lexiaowenn/md2wechat-new"
+$repo = "LeXiaoWen/md2wechat-new"
 $version = if ($env:MD2WECHAT_VERSION) {
     $env:MD2WECHAT_VERSION
 } elseif ($env:MD2WECHAT_VERSION_DEFAULT) {

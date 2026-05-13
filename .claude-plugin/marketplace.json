@@ -9,12 +9,12 @@
       "name": "md2wechat",
       "source": "./",
       "description": "Convert Markdown articles to WeChat Official Account HTML, inspect resolved metadata and publish readiness, generate local preview artifacts, and optionally upload drafts.",
-      "version": "2.2.0",
+      "version": "2.2.1",
       "author": {
         "name": "geekjourneyx"
       },
-      "homepage": "https://github.com/geekjourneyx/md2wechat-skill",
-      "repository": "https://github.com/geekjourneyx/md2wechat-skill",
+      "homepage": "https://github.com/LeXiaoWen/md2wechat-new",
+      "repository": "https://github.com/LeXiaoWen/md2wechat-new",
       "license": "Source Available (BUSL-1.1)",
       "keywords": ["wechat", "markdown", "blog", "publishing", "html", "converter", "official account", "公众号", "排版"],
       "strict": false
