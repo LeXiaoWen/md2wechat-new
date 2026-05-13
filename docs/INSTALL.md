@@ -48,7 +48,7 @@ brew upgrade lexiaowenn/tap/md2wechat-new
 如果你的机器上已经有稳定可用的 Node/npm 环境，也可以直接执行：
 
 ```bash
-npm install -g @lexiaowenn/md2wechat-new
+npm install -g @lexiaowen/md2wechat-new
 ```
 
 这个路径适合：
@@ -67,13 +67,13 @@ npm install -g @lexiaowenn/md2wechat-new
 如果你的 npm 默认指向 `https://registry.npmmirror.com`，而新版本刚发布，镜像 tarball 可能会短暂 `404`。先用官方源安装：
 
 ```bash
-npm install -g @lexiaowenn/md2wechat-new --registry=https://registry.npmjs.org/
+npm install -g @lexiaowen/md2wechat-new --registry=https://registry.npmjs.org/
 ```
 
 维护者在 npm 发布新版本后，也应手动执行一次：
 
 ```bash
-npx cnpm sync @lexiaowenn/md2wechat-new
+npx cnpm sync @lexiaowen/md2wechat-new
 ```
 
 这样可以尽快把新版本同步到 `npmmirror`。

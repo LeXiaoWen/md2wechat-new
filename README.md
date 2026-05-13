@@ -84,7 +84,7 @@ brew install lexiaowenn/tap/md2wechat-new
 npm 全局安装也可以直接用：
 
 ```bash
-npm install -g @lexiaowenn/md2wechat-new
+npm install -g @lexiaowen/md2wechat-new
 ```
 
 ### 第二步：配置微信（只需一次）

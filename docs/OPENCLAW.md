@@ -87,7 +87,7 @@ brew install lexiaowenn/tap/md2wechat-new
 或者：
 
 ```bash
-npm install -g @lexiaowenn/md2wechat-new
+npm install -g @lexiaowen/md2wechat-new
 ```
 
 或者：

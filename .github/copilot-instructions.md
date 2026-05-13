@@ -190,4 +190,4 @@ If the change affects config, install, or setup: also update `docs/CONFIG.md`, `
 - Never `git push`, `git tag`, or `gh release create` without explicit user confirmation.
 - Never rebase or amend history unless the user explicitly asks.
 - GitHub Release is created automatically by `release.yml` when a tag matching `v*.*.*` is pushed — `gh` CLI is not required.
-- After `npm publish`, trigger `npx cnpm sync @lexiaowenn/md2wechat-new` so npmmirror stays current.
+- After `npm publish`, trigger `npx cnpm sync @lexiaowen/md2wechat-new` so npmmirror stays current.

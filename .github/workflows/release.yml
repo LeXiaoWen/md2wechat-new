@@ -187,7 +187,7 @@ jobs:
           MD2WECHAT_RELEASE_BASE_URL="${bundle_dir}" \
           npm install -g "$tarball" --prefix "$prefix_dir"
 
-          package_dir="$(npm root -g --prefix "$prefix_dir")/@lexiaowenn/md2wechat-new"
+          package_dir="$(npm root -g --prefix "$prefix_dir")/@lexiaowen/md2wechat-new"
           output="$(node "${package_dir}/scripts/run.js" version --json)"
           printf '%s\n' "$output"
           echo "$output" | grep -q "\"version\": \"${VERSION}\""
@@ -268,7 +268,7 @@ jobs:
           npm install -g $tarball.FullName --prefix $prefixDir
 
           $packageRoot = npm root -g --prefix $prefixDir | Select-Object -Last 1
-          $packageDir = Join-Path $packageRoot '@lexiaowenn\md2wechat-new'
+          $packageDir = Join-Path $packageRoot '@lexiaowen\md2wechat-new'
           $versionOutput = node (Join-Path $packageDir 'scripts\run.js') version --json | Out-String
           $versionData = $versionOutput | ConvertFrom-Json
           if ($versionData.data.version -ne $env:VERSION) {
@@ -445,7 +445,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           if [ -z "${NPM_TOKEN}" ]; then
-            echo "NPM_TOKEN is required to publish @lexiaowenn/md2wechat-new" >&2
+            echo "NPM_TOKEN is required to publish @lexiaowen/md2wechat-new" >&2
             exit 1
           fi
 

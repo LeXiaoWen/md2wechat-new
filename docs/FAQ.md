@@ -49,7 +49,7 @@ brew install lexiaowenn/tap/md2wechat-new
 如果你已经有稳定可用的 Node/npm 环境，也可以：
 
 ```bash
-npm install -g @lexiaowenn/md2wechat-new
+npm install -g @lexiaowen/md2wechat-new
 ```
 
 如果你已经有稳定可用的 Go 环境，也可以：
@@ -80,7 +80,7 @@ md2wechat version --json
 
 ---
 
-### Q1.1：`npm install -g @lexiaowenn/md2wechat-new` 提示 `npmmirror` tarball `404`
+### Q1.1：`npm install -g @lexiaowen/md2wechat-new` 提示 `npmmirror` tarball `404`
 
 这通常不是包没发布，而是你的 npm 当前走的是：
 
@@ -99,7 +99,7 @@ npm config get registry
 如果输出是 `https://registry.npmmirror.com/`，直接改用官方源安装：
 
 ```bash
-npm install -g @lexiaowenn/md2wechat-new --registry=https://registry.npmjs.org/
+npm install -g @lexiaowen/md2wechat-new --registry=https://registry.npmjs.org/
 ```
 
 如果你想把默认源切回官方 npm：
@@ -111,7 +111,7 @@ npm config set registry https://registry.npmjs.org/
 对于维护者，npm 发布新版本后还需要额外执行一次：
 
 ```bash
-npx cnpm sync @lexiaowenn/md2wechat-new
+npx cnpm sync @lexiaowen/md2wechat-new
 ```
 
 这样可以主动触发 `npmmirror` 同步，减少用户在镜像源上的新版本 `404`。
@@ -143,7 +143,7 @@ npx skills add https://github.com/lexiaowenn/md2wechat-new --skill md2wechat
 如果你已经有 Node/npm 环境，也可以把第一步改成：
 
 ```bash
-npm install -g @lexiaowenn/md2wechat-new
+npm install -g @lexiaowen/md2wechat-new
 ```
 
 如果你已经有 Go 环境，再把第一步改成：
@@ -201,7 +201,7 @@ npx skills add https://github.com/lexiaowenn/md2wechat-new --skill md2wechat
 如果你更习惯 npm，也可以把第一步改成：
 
 ```bash
-npm install -g @lexiaowenn/md2wechat-new
+npm install -g @lexiaowen/md2wechat-new
 md2wechat version --json
 npx skills add https://github.com/lexiaowenn/md2wechat-new --skill md2wechat
 ```
