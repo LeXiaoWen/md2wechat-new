@@ -1,82 +1,120 @@
 # 新手快速开始
 
-这份指南只保留当前仓库已经支持、并且文档路径稳定的主流程。
+这份指南帮你在 5 分钟内跑通 `md2wechat-new` 的主路径：配置文本 API，转换 Markdown，生成 HTML。
 
-如果你需要完整安装说明，请先看 [安装指南](INSTALL.md)。
+## 1. 构建或安装
 
-## 5 分钟主路径
-
-### 1. 安装
-
-推荐使用固定版本 release 资产：
-
-mac 用户优先：
+源码目录里直接构建：
 
 ```bash
-brew install lexiaowenn/tap/md2wechat-new
+cd /Users/leo/Desktop/project/md2wechat-new
+go build -o md2wechat ./cmd/md2wechat
+./md2wechat version --json
 ```
 
-如果你不用 Homebrew，再执行：
+如果 npm 包和 GitHub Release 已经发布，也可以安装：
 
 ```bash
-curl -fsSL https://github.com/lexiaowenn/md2wechat-new/releases/download/v2.1.0/install.sh | bash
-```
-
-Windows PowerShell：
-
-```powershell
-$env:MD2WECHAT_RELEASE_BASE_URL = "https://github.com/lexiaowenn/md2wechat-new/releases/download/v2.1.0"
-iex ((New-Object System.Net.WebClient).DownloadString("$env:MD2WECHAT_RELEASE_BASE_URL/install.ps1"))
-```
-
-安装后验证：
-
-```bash
+npm install -g @lexiaowen/md2wechat-new
 md2wechat version --json
 ```
 
-### 2. 初始化配置
+本地开发时建议优先用 `./md2wechat`，避免调用到 PATH 里的旧版本。
+
+## 2. 初始化配置
 
 ```bash
-md2wechat config init
+./md2wechat config init
 ```
 
-默认配置文件位置：
+默认配置文件：
 
 ```text
 ~/.config/md2wechat-new/config.yaml
 ```
 
-如果你要创建微信草稿，至少需要配置：
+如果命令提示文件已存在，说明已经初始化过，直接编辑这个文件即可。
 
-- `wechat.appid`
-- `wechat.secret`
-- `api.text_key`
+## 3. 选择文本 API
 
-如果你需要切换文本 API 服务商，在这个文件里修改：
+API 模式默认使用 OpenAI-compatible Chat Completions 协议。
+
+DeepSeek：
 
 ```yaml
 api:
+  convert_mode: "api"
   text_provider: "deepseek"
-  text_key: "your_text_api_key"
+  text_key: "sk-..."
   text_base_url: "https://api.deepseek.com"
   text_model: "deepseek-chat"
+  text_temperature: 0.2
 ```
 
-也可以使用硅基流动：
+硅基流动：
 
 ```yaml
 api:
+  convert_mode: "api"
   text_provider: "siliconflow"
-  text_key: "your_text_api_key"
+  text_key: "sk-..."
   text_base_url: "https://api.siliconflow.cn/v1"
   text_model: "Qwen/Qwen2.5-72B-Instruct"
+  text_temperature: 0.2
 ```
 
-默认主题和默认写作风格已经随二进制内置，不需要额外拷贝 `themes/` 或 `writers/` 目录。
-如果你要自定义它们，按优先级放到项目目录、`~/.config/md2wechat-new/...`，或者显式设置 `MD2WECHAT_THEMES_DIR` / `MD2WECHAT_WRITERS_DIR`。
+OpenAI：
 
-### 3. 预览 Markdown
+```yaml
+api:
+  convert_mode: "api"
+  text_provider: "openai"
+  text_key: "sk-..."
+  text_base_url: "https://api.openai.com/v1"
+  text_model: "gpt-4.1-mini"
+  text_temperature: 0.2
+```
+
+检查是否生效：
+
+```bash
+./md2wechat config show --format json
+```
+
+重点看：
+
+- `config_file`
+- `text_provider`
+- `text_api_base`
+- `text_model`
+- `text_api_key`
+
+## 4. 转换 Markdown
+
+准备 `article.md`：
+
+```markdown
+---
+title: "文章标题"
+author: "作者名"
+digest: "文章摘要，最多 128 个字符"
+---
+
+# 文章标题
+
+正文内容。
+```
+
+执行：
+
+```bash
+./md2wechat inspect article.md --json
+./md2wechat preview article.md
+./md2wechat convert article.md --preview
+./md2wechat convert article.md -o output.html
+```
+
+安装到 PATH 后，等价通用写法：
 
 ```bash
 md2wechat inspect article.md
@@ -84,80 +122,39 @@ md2wechat preview article.md
 md2wechat convert article.md --preview
 ```
 
-建议顺序：
-
-1. 先跑 `inspect`，确认最终标题、摘要、H1 风险和 draft readiness
-2. 再跑 `preview`，拿到本地 HTML 预览文件
-3. 最后再执行 `convert` / `--draft`
-
-### 4. 创建微信草稿
-
-创建草稿时需要显式提供封面：
+如果 `convert` 报 `TEXT_API_KEY is required for API mode`，说明 API 模式没有读到文本 API Key。请检查配置文件或临时使用：
 
 ```bash
-md2wechat convert article.md --draft --cover cover.jpg
+TEXT_API_KEY="sk-..." ./md2wechat convert article.md --preview
 ```
 
-### 5. 使用 AI 模式
+## 5. 创建微信公众号草稿
 
-AI 模式会生成可交给外部 AI 的结构化输出：
+配置微信凭证：
+
+```yaml
+wechat:
+  appid: "你的微信公众号 AppID"
+  secret: "你的微信公众号 AppSecret"
+```
+
+还需要在微信公众号后台配置当前公网 IP 白名单。详见 [WECHAT-CREDENTIALS.md](WECHAT-CREDENTIALS.md)。
+
+转换并创建草稿：
 
 ```bash
-md2wechat convert article.md --mode ai --theme autumn-warm --json
+./md2wechat convert article.md --draft --cover cover.jpg
 ```
 
-如果你更关注稳定性和直接转换，优先使用 API 模式。
-
-## 两条常用路径
-
-### 图文文章
+如果已经有转换好的 HTML：
 
 ```bash
-md2wechat convert article.md --preview
-md2wechat convert article.md -o article.html
-md2wechat convert article.md --draft --cover cover.jpg
-md2wechat convert article.md --title "新标题" --author "作者名" --digest "摘要"
-md2wechat upload_html article.html --title "新标题" --cover cover.jpg
+./md2wechat upload_html output.html --title "文章标题" --cover cover.jpg
 ```
 
-元数据优先级：
+## 下一步
 
-- 标题：`--title` -> `frontmatter.title` -> 正文首个 Markdown 标题 -> `未命名文章`
-- 作者：`--author` -> `frontmatter.author`
-- 摘要：`--digest` -> `frontmatter.digest` -> `frontmatter.summary` -> `frontmatter.description`
-
-限制：
-
-- 标题最多 32 个字符
-- 作者最多 16 个字符
-- 摘要最多 128 个字符
-
-### 图片帖子（小绿书 / newspic）
-
-```bash
-md2wechat create_image_post --title "Weekend Trip" --images a.jpg,b.jpg
-```
-
-预览：
-
-```bash
-md2wechat create_image_post --title "Weekend Trip" --images a.jpg,b.jpg --dry-run --json
-```
-
-## 建议阅读顺序
-
-1. [安装指南](INSTALL.md)
-2. [本地初始化到微信公众号草稿全流程](LOCAL_TO_WECHAT_GUIDE.md)
-3. [完整使用说明](USAGE.md)
-4. [高级排版模块教程](LAYOUT.md) ← API 模式专属功能
-5. [故障排查](TROUBLESHOOTING.md)
-6. [架构说明](ARCHITECTURE.md)
-
-## 不再作为主路径的内容
-
-以下内容不再作为推荐主路径：
-
-- `latest` 下载链接
-- `main` 分支上的原始安装脚本
-- 不带 `--cover` 的 `convert --draft`
-- 过时的“命令层直接编排所有业务”描述
+- 需要完整命令说明：看 [USAGE.md](USAGE.md)
+- 需要完整配置说明：看 [CONFIG.md](CONFIG.md)
+- 需要从源码到草稿箱全流程：看 [LOCAL_TO_WECHAT_GUIDE.md](LOCAL_TO_WECHAT_GUIDE.md)
+- 遇到微信凭证或 IP 白名单问题：看 [WECHAT-CREDENTIALS.md](WECHAT-CREDENTIALS.md)

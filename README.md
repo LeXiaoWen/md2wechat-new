@@ -1,411 +1,279 @@
-<div align="center">
+# md2wechat-new
 
-<h1>
-  <img src="assets/favicon.ico" alt="md2wechat logo" width="28" />
-  md2wechat
-</h1>
+`md2wechat-new` 是一个面向微信公众号创作和发布的命令行工具。它把 Markdown 转成适合微信公众号编辑器的 HTML，支持本地预览、图片上传、草稿创建、已有 HTML 上传，以及通过可配置的 OpenAI-compatible 文本 API 进行排版转换。
 
-<img src="assets/readme-header.gif" alt="md2wechat — 公众号创作全流程 CLI" width="720" />
+这个分支保留原项目的 AI 模式，同时把旧的固定 API 服务替换为可配置 provider：
 
-**专为 AI 时代设计的公众号创作工作台**
+- OpenAI
+- DeepSeek
+- 硅基流动 SiliconFlow
+- 任意 OpenAI-compatible API
 
-写 Markdown · 43 个高级排版模块 · 40+ 专业主题 · AI 配图 · 推送草稿箱<br/>
-全流程 CLI，Agent-native — Claude Code · Codex · OpenClaw 原生支持
+## 功能概览
 
-[![Go Version](https://img.shields.io/badge/Go-1.26.1+-00ADD8?logo=go)](https://golang.org)
-[![License](https://img.shields.io/badge/license-Source%20Available-orange)](LICENSE)
-[![GitHub Release](https://img.shields.io/badge/download-latest-green)](https://github.com/lexiaowenn/md2wechat-new/releases)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-Skill-purple)](#coding-agent)
-[![OpenClaw](https://img.shields.io/badge/OpenClaw-Compatible-00b0aa)](#openclaw)
-[![zread](https://img.shields.io/badge/Ask_Zread-_.svg?style=flat&color=00b0aa&labelColor=000000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuOTYxNTYgMS42MDAxSDIuMjQxNTZDMS44ODgxIDEuNjAwMSAxLjYwMTU2IDEuODg2NjQgMS42MDE1NiAyLjI0MDFWNC45NjAxQzEuNjAxNTYgNS4zMTM1NiAxLjg4ODEgNS42MDAxIDIuMjQxNTYgNS42MDAxSDQuOTYxNTZDNS4zMTUwMiA1LjYwMDEgNS42MDE1NiA1LjMxMzU2IDUuNjAxNTYgNC45NjAxVjIuMjQwMUM1LjYwMTU2IDEuODg2NjQgNS4zMTUwMiAxLjYwMDEgNC45NjE1NiAxLjYwMDFaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00Ljk2MTU2IDEwLjM5OTlIMi4yNDE1NkMxLjg4ODEgMTAuMzk5OSAxLjYwMTU2IDEwLjY4NjQgMS42MDE1NiAxMS4wMzk5VjEzLjc1OTlDMS42MDE1NiAxNC4xMTM0IDEuODg4MSAxNC4zOTk5IDIuMjQxNTYgMTQuMzk5OUg0Ljk2MTU2QzUuMzE1MDIgMTQuMzk5OSA1LjYwMTU2IDE0LjExMzQgNS42MDE1NiAxMy43NTk5VjExLjAzOTlDNS42MDE1NiAxMC42ODY0IDUuMzE1MDIgMTAuMzk5OSA0Ljk2MTU2IDEwLjM5OTlaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik0xMy43NTg0IDEuNjAwMUgxMS4wMzg0QzEwLjY4NSAxLjYwMDEgMTAuMzk4NCAxLjg4NjY0IDEwLjM5ODQgMi4yNDAxVjQuOTYwMUMxMC4zOTg0IDUuMzEzNTYgMTAuNjg1IDUuNjAwMSAxMS4wMzg0IDUuNjAwMUgxMy43NTg0QzE0LjExMTkgNS42MDAxIDE0LjM5ODQgNS4zMTM1NiAxNC4zOTg0IDQuOTYwMVYyLjI0MDFDMTQuMzk4NCAxLjg4NjY0IDE0LjExMTkgMS42MDAxIDEzLjc1ODQgMS42MDAxWiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNNCAxMkwxMiA0TDQgMTJaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00IDEyTDEyIDQiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K&logoColor=ffffff)](https://zread.ai/lexiaowenn/md2wechat-new)
-
-[快速开始](#quickstart) · [高级排版](#layout) · [API 解锁](#api) · [Agent 支持](#coding-agent) · [常见问题](#faq)
-
-</div>
-
----
-
-## 为什么不是另一个转换器
-
-市面上有很多 Markdown 排版工具，md2wechat 不一样的地方：
-
-| | 其他工具 | md2wechat |
-|---|---|---|
-| **输出一致性** | LLM 每次不同 | API 模式确定性输出，同样 Markdown 永远相同 |
-| **排版系统** | 靠 prompt 碰运气 | 43 个结构化排版模块（`:::block` 语法），API 专属 |
-| **主题数量** | 无 / 寥寥几个 | 40+ 专业主题，微信渲染精调 |
-| **全流程** | 只做格式转换 | 写作 → 去 AI 痕 → 排版 → AI 配图 → 上传 → 推送草稿 |
-| **Agent 集成** | 无结构约定 | JSON envelope、capabilities 端点、discovery 命令 |
-
----
-
-<a id="api"></a>
-
-## API 模式 — 解锁完整体验
-
-> **AI 模式**（免费）：生成排版 prompt，由你的 Claude / Codex 继续处理，3 个基础主题。
->
-> **API 模式**（专业服务）：秒级响应，40+ 主题，43 个高级排版模块，确定性输出，团队协作与自动化发布首选。
-
-**API 模式专属能力：**
-
-- ✦ **43 个高级排版模块** — `:::block hero`、`:::block callout`、`:::block timeline`… 结构化公众号内容设计语言，详见 [高级排版指南](#layout)
-- ✦ **40+ 专业主题** — Minimal · Focus · Elegant · Bold 四大系列，微信渲染精调，完整预览 [theme-gallery](https://md2wechat-new.app/theme-gallery)
-- ✦ **确定性输出** — 同样 Markdown 每次结果完全一致，适合团队协作和自动化发布
-- ✦ **秒级响应** — 无需等待 LLM 生成，适合高频发布场景
-
-**申请 API 服务 / 加入微信交流群：**
-
-扫描下方二维码关注 **极客杰尼** 公众号 → 备注 **「API咨询」** 联系作者；或备注 **「交流群」** 申请加入用户交流群，和同类创作者一起探索 AI 驱动的公众号创作。
-
-**限时加入下面👇的公众号创作交流群获取第一时间更新资讯（人满200为止），谢绝一切广告，推广等信息，一律踢出**
-
-<p align="center">
-<img width="160" alt="image" src="https://github.com/user-attachments/assets/ec0135fc-68e8-463e-8b4c-6348ff9631c3" />
-<img src="assets/wechat.png" alt="公众号：极客杰尼" width="160" />
-</p>
-
-
----
-
-<a id="quickstart"></a>
+| 能力 | 说明 |
+| --- | --- |
+| Markdown 转微信 HTML | `convert` 支持 API 模式和 AI 模式 |
+| 可配置文本 API | 通过配置文件或环境变量切换 OpenAI、DeepSeek、SiliconFlow、custom |
+| 本地预览 | `preview` 或 `convert --preview`，不上传图片、不创建草稿 |
+| 微信草稿箱 | `convert --draft` 可转换后直接创建草稿 |
+| 已有 HTML 上传 | `upload_html` 可把转换好的 HTML 直接创建为微信草稿 |
+| 图片素材上传 | `upload_image`、`download_and_upload`、`--upload` |
+| AI 图片 | `generate_cover`、`generate_infographic`、`generate_image` |
+| 写作辅助 | `write`、`humanize` |
+| Agent 友好 | `--json`、`capabilities`、`themes`、`providers`、`layout` |
 
 ## 快速开始
 
-### 第一步：安装
+### 1. 本地构建
 
 ```bash
-# macOS 优先推荐
+cd /Users/leo/Desktop/project/md2wechat-new
+go build -o md2wechat ./cmd/md2wechat
+./md2wechat version --json
+```
+
+如果你已经发布 npm 包，也可以安装：
+
+```bash
+npm install -g @lexiaowen/md2wechat-new
+md2wechat version --json
+```
+
+npm 包安装时会从 GitHub Release 下载二进制。正式给别人使用前，需要先发布对应版本的 GitHub Release 资产。
+
+发布 Release 后，也可以用固定版本安装脚本：
+
+```bash
+curl -fsSL https://github.com/lexiaowenn/md2wechat-new/releases/download/v2.2.0/install.sh | bash
+```
+
+macOS 用户如果维护了 Homebrew tap，也可以安装：
+
+```bash
 brew install lexiaowenn/tap/md2wechat-new
 ```
 
-其他安装方式（npm / go install / install.sh / Windows PowerShell）见 [安装指南](docs/INSTALL.md)。
+### 2. 初始化配置
 
-npm 全局安装也可以直接用：
+```bash
+./md2wechat config init
+```
+
+默认生成：
+
+```text
+~/.config/md2wechat-new/config.yaml
+```
+
+如果文件已存在，直接编辑它即可。
+
+### 3. 配置文本 API
+
+DeepSeek 示例：
+
+```yaml
+api:
+  convert_mode: "api"
+  default_theme: "default"
+  text_provider: "deepseek"
+  text_key: "sk-..."
+  text_base_url: "https://api.deepseek.com"
+  text_model: "deepseek-chat"
+  text_temperature: 0.2
+```
+
+硅基流动示例：
+
+```yaml
+api:
+  convert_mode: "api"
+  default_theme: "default"
+  text_provider: "siliconflow"
+  text_key: "sk-..."
+  text_base_url: "https://api.siliconflow.cn/v1"
+  text_model: "Qwen/Qwen2.5-72B-Instruct"
+  text_temperature: 0.2
+```
+
+OpenAI 示例：
+
+```yaml
+api:
+  convert_mode: "api"
+  default_theme: "default"
+  text_provider: "openai"
+  text_key: "sk-..."
+  text_base_url: "https://api.openai.com/v1"
+  text_model: "gpt-4.1-mini"
+  text_temperature: 0.2
+```
+
+### 4. 配置微信公众号
+
+如果要上传图片或创建草稿，还需要配置：
+
+```yaml
+wechat:
+  appid: "你的微信公众号 AppID"
+  secret: "你的微信公众号 AppSecret"
+```
+
+并在微信公众号后台把当前机器公网 IP 加入 IP 白名单。详细说明见 [docs/WECHAT-CREDENTIALS.md](docs/WECHAT-CREDENTIALS.md)。
+
+### 5. 转换文章
+
+```bash
+./md2wechat inspect article.md
+./md2wechat convert article.md --preview
+./md2wechat convert article.md -o output.html
+```
+
+安装到 PATH 后，通用命令写法是：
+
+```bash
+md2wechat inspect article.md
+md2wechat preview article.md
+md2wechat convert article.md --preview
+```
+
+创建微信草稿：
+
+```bash
+./md2wechat convert article.md --draft --cover cover.jpg
+```
+
+已有 HTML 直接上传：
+
+```bash
+./md2wechat upload_html output.html --title "文章标题" --cover cover.jpg
+```
+
+## 转换模式
+
+### API 模式
+
+默认模式。CLI 会调用你配置的 OpenAI-compatible `/chat/completions` 接口，把 Markdown 转成最终 HTML。
+
+```bash
+./md2wechat convert article.md --mode api -o output.html
+```
+
+特点：
+
+- 需要 `TEXT_API_KEY` 或配置文件中的 `api.text_key`
+- 支持 OpenAI、DeepSeek、SiliconFlow、custom
+- 适合稳定、自动化、本地批处理
+- 可直接配合 `--draft` 创建微信草稿
+
+### AI 模式
+
+AI 模式不会调用文本 API，而是生成可交给外部 AI/Agent 的排版提示和结构化输出。
+
+```bash
+./md2wechat convert article.md --mode ai --theme autumn-warm --json
+```
+
+适合你想让 Claude、Codex 或其他 Agent 接管 HTML 生成的场景。
+
+## 常用命令
+
+```bash
+# 查看当前配置
+./md2wechat config show --format json
+
+# 校验配置
+./md2wechat config validate
+
+# 检查文章 metadata 和发布风险
+./md2wechat inspect article.md --json
+
+# 本地预览
+./md2wechat preview article.md
+
+# 转换为 HTML
+./md2wechat convert article.md -o output.html
+
+# 上传图片并替换 HTML 图片链接
+./md2wechat convert article.md --upload -o output.html
+
+# 转换并创建微信草稿
+./md2wechat convert article.md --draft --cover cover.jpg
+
+# 已有 HTML 创建草稿
+./md2wechat upload_html output.html --title "标题" --author "作者" --digest "摘要" --cover cover.jpg
+
+# 上传单张图片到微信永久素材
+./md2wechat upload_image cover.jpg
+
+# 发现可用主题、图片 provider、能力
+./md2wechat themes list --json
+./md2wechat providers list --json
+./md2wechat capabilities --json
+```
+
+## 配置优先级
+
+从高到低：
+
+1. 环境变量
+2. 配置文件
+3. 默认值
+
+默认配置文件搜索顺序：
+
+1. `~/.config/md2wechat-new/config.yaml`
+2. `~/.md2wechat.yaml`
+3. `./md2wechat-new.yaml`
+
+常用环境变量：
+
+```bash
+export TEXT_PROVIDER="deepseek"
+export TEXT_API_KEY="sk-..."
+export TEXT_API_BASE="https://api.deepseek.com"
+export TEXT_MODEL="deepseek-chat"
+export TEXT_TEMPERATURE="0.2"
+
+export WECHAT_APPID="..."
+export WECHAT_SECRET="..."
+```
+
+## 文档入口
+
+- [文档索引](docs/README.md)
+- [新手快速开始](docs/QUICKSTART.md)
+- [安装指南](docs/INSTALL.md)
+- [配置指南](docs/CONFIG.md)
+- [完整使用指南](docs/USAGE.md)
+- [本地初始化到微信公众号草稿全流程](docs/LOCAL_TO_WECHAT_GUIDE.md)
+- [微信凭证与 IP 白名单](docs/WECHAT-CREDENTIALS.md)
+- [高级排版模块](docs/LAYOUT.md)
+- [故障排查](docs/TROUBLESHOOTING.md)
+
+## 发布 npm 包
+
+当前 npm 包名：
+
+```text
+@lexiaowen/md2wechat-new
+```
+
+本地发布：
+
+```bash
+npm login
+npm publish --access public --otp=你的6位验证码
+```
+
+发布后安装：
 
 ```bash
 npm install -g @lexiaowen/md2wechat-new
 ```
 
-### 第二步：配置微信（只需一次）
+注意：npm 包的 `postinstall` 会下载 GitHub Release 里的二进制文件。发布 npm 前，应先推送 GitHub 仓库并创建同版本 Release。
 
-```bash
-md2wechat config init
-# 打开生成的配置文件，填入微信公众号 AppID 和 Secret
-```
+## License
 
-AppID / Secret 获取方式与 IP 白名单配置详见 [微信凭证指南](docs/WECHAT-CREDENTIALS.md)。
-
-### 第三步：开始创作
-
-```bash
-# 确认文章解析结果（推荐第一步总是先 inspect）
-md2wechat inspect article.md
-
-# 本地预览 HTML（不触发上传或草稿副作用）
-md2wechat preview article.md
-
-# 转换并推送微信草稿箱
-md2wechat convert article.md --draft --cover cover.jpg
-```
-
-如果你想把上面的步骤直接发给 Agent 执行，见 [Agent 安装脚本](docs/INSTALL.md#agent-script)。
-
-<p align="center">
-<img src="assets/transform.gif" alt="md2wechat 转换演示" width="720" />
-</p>
-
----
-
-## 核心能力
-
-### 命令速览
-
-| 命令 | 说明 |
-|------|------|
-| `inspect` | 解析文章元数据与发布 readiness，确认层，推荐 `convert` 前先跑 |
-| `preview` | 生成本地预览 HTML，不触发任何上传或草稿副作用 |
-| `convert` | Markdown → 微信格式 HTML，可选 `--draft` 直接推送草稿 |
-| `write` | 风格写作，从一个想法生成完整文章 + 封面提示词 |
-| `humanize` | AI 去痕，让 AI 生成的文章听起来像真人写的 |
-| `generate_cover` | AI 生成封面图，内置专业 preset |
-| `generate_infographic` | AI 生成信息图，内置 10+ 风格 preset |
-| `upload_image` | 上传图片到微信永久素材库 |
-
-### 全流程示例
-
-```bash
-# 从一个想法到草稿箱，全流程 4 步
-md2wechat write --style dan-koe                          # 1. 生成文章 + 封面提示词
-md2wechat humanize article.md                            # 2. 去除 AI 痕迹
-md2wechat generate_cover --article article.md            # 3. AI 生成封面图
-md2wechat convert article.md --draft --cover cover.jpg  # 4. 推送草稿
-```
-
-在 Claude Code 中可以直接发自然语言：
-
-```
-"用 Dan Koe 风格写一篇关于 AI 时代独立开发者的文章，生成封面，推送到微信草稿箱"
-```
-
----
-
-<a id="layout"></a>
-
-## 高级排版模块（API 专属）
-
-> **仅 API 模式可用。** 高级排版模块是 md2wechat 独有的能力 — 基于 `:::block` 语法，提供 43 个结构化排版组件，是专为微信公众号设计的内容排版语言。不是 prompt，是一套确定性的设计系统。
-
-### `:::block` 语法示例
-
-在 Markdown 中用 `:::` 包裹排版块：
-
-```markdown
-:::block hero
-eyebrow: 深度观察
-title: AI 时代的公众号写作
-subtitle: 为什么你需要重新定义「好内容」
-:::
-
-:::block callout type=tip
-高级排版模块仅在 API 模式下生效。需要配置 OpenAI-compatible 文本 API Key。
-:::
-
-:::block timeline
-- 2024：GPT-4 发布，内容生产门槛归零
-- 2025：AI 写作工具爆发，同质化严重
-- 2026：高质量、有视角的内容成为稀缺品
-:::
-```
-
-### 发现与验证命令
-
-```bash
-# 列出全部 43 个模块
-md2wechat layout list --json
-
-# 按用途筛选
-md2wechat layout list --serves attention --json
-md2wechat layout list --serves conversion --json
-
-# 查看模块完整规格
-md2wechat layout show hero --json
-
-# 验证文章中的 :::block 用法
-md2wechat layout validate --file article.md --json
-```
-
-保姆级教程（43 个模块全覆盖）见 [docs/LAYOUT.md](docs/LAYOUT.md)。
-
----
-
-## Agent 发现命令
-
-在 Coding Agent 或自动化脚本中，先执行 discovery 命令，不要靠猜：
-
-```bash
-md2wechat capabilities --json              # 当前实例能力总览与默认配置
-md2wechat themes list --json               # 所有可用主题
-md2wechat prompts list --kind image --json # 图片 prompt catalog
-md2wechat providers list --json            # 图片生成 provider
-md2wechat layout list --json               # 高级排版模块列表
-```
-
-所有命令加 `--json` 后 stdout 只输出 JSON envelope，适合脚本和 Agent 直接消费。
-
----
-
-## AI 模式 vs API 模式
-
-| | AI 模式（免费） | API 模式（专业） |
-|---|---|---|
-| **是否需要 API Key** | 不需要 | 需要文本 API Key |
-| **输出方式** | 生成 prompt，由外部 LLM 继续处理 HTML | 直接返回最终 HTML |
-| **主题数量** | 3 个（autumn-warm / spring-fresh / ocean-calm） | 40+ 个 |
-| **高级排版模块** | ❌ | ✅ 43 个 |
-| **输出一致性** | 每次不同 | 确定性，同样输入同样输出 |
-| **响应速度** | 取决于外部 LLM | 秒级 |
-| **适合场景** | 实验、偶发写作 | 品牌内容、团队协作、自动化发布 |
-
-```bash
-# AI 模式（--mode ai，不需要 API Key）
-md2wechat convert article.md --mode ai --theme autumn-warm --preview
-
-# API 模式（默认，需要 TEXT_API_KEY）
-md2wechat convert article.md --preview
-```
-
----
-
-<a id="coding-agent"></a>
-
-## Coding Agent 支持
-
-md2wechat 是 CLI-first 工具，天然适合集成进 Coding Agent。
-
-```bash
-# 安装 CLI（先装这个）
-brew install lexiaowenn/tap/md2wechat-new
-
-# 安装 skill（Claude Code / Codex / OpenCode）
-npx skills add https://github.com/lexiaowenn/md2wechat-new --skill md2wechat
-```
-
-安装后在 Claude Code 中直接用自然语言驱动：
-
-```
-"把 article.md 转换为微信格式，用 elegant-gold 主题，生成封面图，推送到草稿箱"
-"帮我检查这篇文章的发布 readiness，然后预览一下排版效果"
-```
-
-### 支持的平台
-
-| 平台 | skill 路径 | 安装文档 |
-|------|------------|---------|
-| Claude Code / Codex / OpenCode | `skills/md2wechat/` | `npx skills add ...` |
-| Obsidian（Claudian 插件） | `~/.claude/skills/` | [docs/OBSIDIAN.md](docs/OBSIDIAN.md) |
-| OpenClaw | `platforms/openclaw/md2wechat/` | [docs/OPENCLAW.md](docs/OPENCLAW.md) |
-
-<a id="openclaw"></a>
-
-OpenClaw 用户可以通过 ClawHub 直接安装：[clawhub.ai/lexiaowenn/md2wechat-new](https://clawhub.ai/lexiaowenn/md2wechat-new)
-
-```bash
-curl -fsSL https://github.com/lexiaowenn/md2wechat-new/releases/download/v2.0.7/install-openclaw.sh | bash
-```
-
----
-
-## 图片生成
-
-支持多种 AI 图片生成服务，用于封面图、信息图和文章配图：
-
-| 服务 | 推荐 | 说明 |
-|------|------|------|
-| Volcengine Ark | ⭐ 主推荐 | 豆包 Seedream 系列，高质量，国内直连 |
-| ModelScope | 次推荐 | 有免费额度，国内访问稳定 |
-| OpenRouter | 通用 | 多模型聚合，支持 Gemini / Flux |
-| OpenAI | 通用 | 官方 DALL-E |
-| Google Gemini | 通用 | 官方 Gemini 图片生成 |
-
-配置方式详见 [图片服务配置指南](docs/IMAGE_PROVISIONERS.md)。
-
----
-
-## 文档
-
-| 文档 | 说明 |
-|------|------|
-| [快速入门](docs/QUICKSTART.md) | 详细图文教程，新手优先看这里 |
-| [完整使用说明](docs/USAGE.md) | 所有命令和选项 |
-| [高级排版模块](docs/LAYOUT.md) | :::block 语法保姆级教程，43 个模块全覆盖 |
-| [能力发现](docs/DISCOVERY.md) | discovery 命令与 Prompt Catalog |
-| [安装指南](docs/INSTALL.md) | 多平台安装（npm / go / install.sh / Windows） |
-| [配置指南](docs/CONFIG.md) | 配置文件与环境变量完整说明 |
-| [图片服务配置](docs/IMAGE_PROVISIONERS.md) | AI 图片生成服务配置 |
-| [微信凭证指南](docs/WECHAT-CREDENTIALS.md) | AppID / Secret / IP 白名单 |
-| [常见问题](docs/FAQ.md) | 20+ 问题解答 |
-| [故障排查](docs/TROUBLESHOOTING.md) | 遇到问题看这里 |
-| [OpenClaw 指南](docs/OPENCLAW.md) | OpenClaw 平台安装与配置 |
-| [Obsidian 指南](docs/OBSIDIAN.md) | Claudian 插件集成 |
-
----
-
-<a id="faq"></a>
-
-## 常见问题
-
-**Q: 没有 API Key 可以用吗？**
-
-可以。AI 模式不需要 API Key，直接加 `--mode ai` 即可。API 模式需要配置 OpenAI、DeepSeek、硅基流动或自定义 OpenAI-compatible API。
-
-**Q: 高级排版模块（:::block）只有 API 模式才有？**
-
-是的。43 个结构化排版模块是 API 服务的核心能力，不依赖外部 LLM，输出确定。
-
-**Q: AI 模式和 API 模式有什么本质区别？**
-
-AI 模式返回一个结构化排版 prompt，需要 Claude / Codex 继续处理才能得到 HTML。API 模式直接返回最终 HTML，40+ 主题，确定性输出，无需额外 LLM。
-
-**Q: 必须会编程才能用吗？**
-
-不需要。会用命令行即可。在 Claude Code / Codex 中可以全程用自然语言驱动，Agent 自动调用 CLI 命令。
-
-**Q: 发送草稿时报错 45002（内容超限）？**
-
-微信草稿 API 限制 < 20,000 字符。API 模式的 inline CSS 会使内容体积膨胀，长文章建议拆分，或使用更简洁的主题。详见 [常见问题](docs/FAQ.md)。
-
-更多问题见 [docs/FAQ.md](docs/FAQ.md)。
-
----
-
-## md2wechat 生态
-
-围绕 md2wechat 打造的工具和资源矩阵，持续扩展中：
-
-| 仓库 | 说明 |
-|------|------|
-| [md2wechat](https://github.com/md2wechat-new) | 品牌主页，所有工具和资源的入口 |
-| [md2wechat-guide](https://github.com/md2wechat-new/md2wechat-guide) | 从入门到 API 的完整使用指南 |
-| [awesome-wechat-markdown](https://github.com/md2wechat-new/awesome-wechat-markdown) | 微信公众号 Markdown 工具精选列表 |
-| [md2wechat-templates](https://github.com/md2wechat-new/md2wechat-templates) | 开箱即用的排版模板库 |
-
----
-
-## 关于作者
-
-**极客杰尼** — 独立开发者 / AI Builder / AI 科技领域博主
-
-持续打磨面向 AI Agent 的 CLI、API 与公众号自动化工作流。
-
-| | |
-|:---|:---|
-| 个人主页 | [jieni.ai](https://jieni.ai) |
-| GitHub | [geekjourneyx](https://github.com/geekjourneyx) |
-| Twitter | [@seekjourney](https://x.com/seekjourney) |
-| 公众号 | 微信搜「极客杰尼」 |
-
-**欢迎加入微信交流群** — 扫码关注公众号，备注 **「交流群」** 申请入群；备注 **「API咨询」** 申请 API 服务：
-
-<p align="center">
-<img src="assets/wechat.png" alt="公众号：极客杰尼" width="160" />
-</p>
-
----
-
-## 打赏
-
-如果该项目帮助了你，欢迎请作者喝杯咖啡 ☕
-
-<img src="https://raw.githubusercontent.com/geekjourneyx/awesome-developer-go-sail/main/docs/assets/wechat-reward-code.jpg" alt="微信打赏码" width="160" />
-
----
-
-## 贡献
-
-欢迎提交 Issue 和 Pull Request！有好想法或发现 Bug，随时提 issue。
-
----
-
-## Star History
-
-<a href="https://www.star-history.com/?repos=lexiaowenn%2Fmd2wechat-new&type=date&legend=top-left">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=lexiaowenn/md2wechat-new&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=lexiaowenn/md2wechat-new&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/image?repos=lexiaowenn/md2wechat-new&type=date&legend=top-left" />
- </picture>
-</a>
-
-
----
-
-<div align="center">
-
-**让公众号创作回归写作本身**
-
-[主页](https://github.com/lexiaowenn/md2wechat-new) · [文档](docs) · [生态](https://github.com/md2wechat-new) · [反馈](https://github.com/lexiaowenn/md2wechat-new/issues)
-
-Made with ♥ by [geekjourneyx](https://jieni.ai) · [Source Available License](LICENSE) · Personal use free · [Commercial licensing](mailto:skrphper@gmail.com)
-
-</div>
+See [LICENSE](LICENSE).
