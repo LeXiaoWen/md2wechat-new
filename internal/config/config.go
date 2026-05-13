@@ -121,7 +121,6 @@ func LoadWithDefaults(configPath string) (*Config, error) {
 		DefaultConvertMode:    "api",
 		DefaultTheme:          "default",
 		DefaultBackgroundType: "none",
-		MD2WechatBaseURL:      "https://www.md2wechat.cn",
 		TextProvider:          "openai",
 		TextTemperature:       0.2,
 		CompressImages:        true,
@@ -281,6 +280,7 @@ func findConfigFile() string {
 	// 优先使用用户主目录的配置文件（全局配置，一次配置所有项目通用）
 	homeDir, _ := os.UserHomeDir()
 	userPaths := []string{
+		filepath.Join(homeDir, ".config", "md2wechat-new", "config.yaml"),
 		filepath.Join(homeDir, ".config", "md2wechat", "config.yaml"),
 		filepath.Join(homeDir, ".md2wechat.yaml"),
 		filepath.Join(homeDir, ".md2wechat.yml"),
@@ -288,6 +288,9 @@ func findConfigFile() string {
 
 	// 当前工作目录的配置文件（项目级配置，可选）
 	cwdPaths := []string{
+		"md2wechat-new.yaml",
+		"md2wechat-new.yml",
+		"md2wechat-new.json",
 		"md2wechat.yaml",
 		"md2wechat.yml",
 		"md2wechat.json",
@@ -613,8 +616,6 @@ func (c *Config) ToMap(maskSecret bool) map[string]any {
 		"text_api_base":           c.TextAPIBase,
 		"text_model":              c.TextModel,
 		"text_temperature":        c.TextTemperature,
-		"md2wechat_api_key":       maskIf(c.MD2WechatAPIKey, maskSecret),
-		"md2wechat_base_url":      c.MD2WechatBaseURL,
 		"image_provider":          c.ImageProvider,
 		"image_api_key":           maskIf(c.ImageAPIKey, maskSecret),
 		"image_api_base":          c.ImageAPIBase,

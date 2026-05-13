@@ -173,6 +173,51 @@ func TestLoadWithDefaultsJSONUsesSameMergeRules(t *testing.T) {
 	}
 }
 
+func TestLoadFindsMd2WechatNewConfigFirst(t *testing.T) {
+	home := t.TempDir()
+	t.Setenv("HOME", home)
+
+	newDir := filepath.Join(home, ".config", "md2wechat-new")
+	if err := os.MkdirAll(newDir, 0755); err != nil {
+		t.Fatalf("MkdirAll(newDir): %v", err)
+	}
+	newPath := filepath.Join(newDir, "config.yaml")
+	newContent := strings.TrimSpace(`
+api:
+  text_provider: siliconflow
+  text_key: new-key
+  text_model: new-model
+`)
+	if err := os.WriteFile(newPath, []byte(newContent), 0600); err != nil {
+		t.Fatalf("write new config: %v", err)
+	}
+
+	oldDir := filepath.Join(home, ".config", "md2wechat")
+	if err := os.MkdirAll(oldDir, 0755); err != nil {
+		t.Fatalf("MkdirAll(oldDir): %v", err)
+	}
+	oldContent := strings.TrimSpace(`
+api:
+  text_provider: openai
+  text_key: old-key
+  text_model: old-model
+`)
+	if err := os.WriteFile(filepath.Join(oldDir, "config.yaml"), []byte(oldContent), 0600); err != nil {
+		t.Fatalf("write old config: %v", err)
+	}
+
+	cfg, err := Load()
+	if err != nil {
+		t.Fatalf("Load() error = %v", err)
+	}
+	if cfg.GetConfigFile() != newPath {
+		t.Fatalf("config file = %q, want %q", cfg.GetConfigFile(), newPath)
+	}
+	if cfg.TextProvider != "siliconflow" || cfg.TextAPIKey != "new-key" || cfg.TextModel != "new-model" {
+		t.Fatalf("loaded config = %#v", cfg)
+	}
+}
+
 func TestValidateForWeChatRequiresCredentials(t *testing.T) {
 	cfg := &Config{}
 	if err := cfg.ValidateForWeChat(); err == nil {
@@ -340,7 +385,6 @@ func TestToMapMasksSecrets(t *testing.T) {
 	cfg := &Config{
 		WechatAppID:        "appid",
 		WechatSecret:       "secret-value",
-		MD2WechatAPIKey:    "api-key-value",
 		TextAPIKey:         "text-key-value",
 		ImageAPIKey:        "image-key-value",
 		CompressImages:     true,
@@ -353,8 +397,14 @@ func TestToMapMasksSecrets(t *testing.T) {
 	}
 
 	result := cfg.ToMap(true)
-	if result["wechat_secret"] == "secret-value" || result["md2wechat_api_key"] == "api-key-value" || result["text_api_key"] == "text-key-value" || result["image_api_key"] == "image-key-value" {
+	if result["wechat_secret"] == "secret-value" || result["text_api_key"] == "text-key-value" || result["image_api_key"] == "image-key-value" {
 		t.Fatalf("expected secrets to be masked: %#v", result)
+	}
+	if _, ok := result["md2wechat_base_url"]; ok {
+		t.Fatalf("legacy md2wechat_base_url should not be shown: %#v", result)
+	}
+	if _, ok := result["md2wechat_api_key"]; ok {
+		t.Fatalf("legacy md2wechat_api_key should not be shown: %#v", result)
 	}
 }
 
@@ -364,8 +414,6 @@ func TestSaveConfigAndLoadRoundTrip(t *testing.T) {
 	cfg := &Config{
 		WechatAppID:           "appid",
 		WechatSecret:          "secret",
-		MD2WechatAPIKey:       "api-key",
-		MD2WechatBaseURL:      "https://example.com",
 		TextProvider:          "custom",
 		TextAPIKey:            "text-key",
 		TextAPIBase:           "https://text.example.com/v1",

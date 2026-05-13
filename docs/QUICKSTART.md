@@ -146,10 +146,11 @@ md2wechat create_image_post --title "Weekend Trip" --images a.jpg,b.jpg --dry-ru
 ## 建议阅读顺序
 
 1. [安装指南](INSTALL.md)
-2. [完整使用说明](USAGE.md)
-3. [高级排版模块教程](LAYOUT.md) ← API 模式专属功能
-4. [故障排查](TROUBLESHOOTING.md)
-5. [架构说明](ARCHITECTURE.md)
+2. [本地初始化到微信公众号草稿全流程](LOCAL_TO_WECHAT_GUIDE.md)
+3. [完整使用说明](USAGE.md)
+4. [高级排版模块教程](LAYOUT.md) ← API 模式专属功能
+5. [故障排查](TROUBLESHOOTING.md)
+6. [架构说明](ARCHITECTURE.md)
 
 ## 不再作为主路径的内容
 

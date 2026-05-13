@@ -47,6 +47,7 @@ func TestConfigShowJSONEnvelope(t *testing.T) {
 		jsonOutput = oldJSON
 	})
 
+	t.Setenv("HOME", t.TempDir())
 	t.Setenv("WECHAT_APPID", "wx-appid")
 	t.Setenv("WECHAT_SECRET", "wx-secret")
 	configFormat = "json"
@@ -87,6 +88,7 @@ func TestConfigShowYAMLOutput(t *testing.T) {
 		jsonOutput = oldJSON
 	})
 
+	t.Setenv("HOME", t.TempDir())
 	t.Setenv("WECHAT_APPID", "wx-appid")
 	t.Setenv("WECHAT_SECRET", "wx-secret")
 	configFormat = "yaml"

@@ -19,6 +19,7 @@
 
 - [安装指南](INSTALL.md)
 - [新手快速开始](QUICKSTART.md)
+- [本地初始化到微信公众号草稿全流程](LOCAL_TO_WECHAT_GUIDE.md)
 - [配置指南](CONFIG.md)
 - [微信凭证与 IP 白名单指南](WECHAT-CREDENTIALS.md)
 - [能力发现与 Prompt Catalog](DISCOVERY.md)
