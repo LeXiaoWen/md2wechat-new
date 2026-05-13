@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/lexiaowenn/md2wechat-new/internal/config"
-	"github.com/lexiaowenn/md2wechat-new/internal/image"
-	"github.com/lexiaowenn/md2wechat-new/internal/wechat"
+	"github.com/LeXiaoWen/md2wechat-new/internal/config"
+	"github.com/LeXiaoWen/md2wechat-new/internal/image"
+	"github.com/LeXiaoWen/md2wechat-new/internal/wechat"
 )
 
 func newRuntimeImageProcessor() *image.Processor {

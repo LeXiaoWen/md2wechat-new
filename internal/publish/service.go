@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/converter"
-	"github.com/lexiaowenn/md2wechat-new/internal/image"
+	"github.com/LeXiaoWen/md2wechat-new/internal/converter"
+	"github.com/LeXiaoWen/md2wechat-new/internal/image"
 	"go.uber.org/zap"
 )
 

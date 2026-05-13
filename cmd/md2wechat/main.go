@@ -7,9 +7,9 @@ import (
 	"io"
 	"os"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/action"
-	"github.com/lexiaowenn/md2wechat-new/internal/config"
-	"github.com/lexiaowenn/md2wechat-new/internal/draft"
+	"github.com/LeXiaoWen/md2wechat-new/internal/action"
+	"github.com/LeXiaoWen/md2wechat-new/internal/config"
+	"github.com/LeXiaoWen/md2wechat-new/internal/draft"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 )

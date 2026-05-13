@@ -45,7 +45,7 @@ npm 包安装时会从 GitHub Release 下载二进制。正式给别人使用前
 发布 Release 后，也可以用固定版本安装脚本：
 
 ```bash
-curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v2.2.1/install.sh | bash
+curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/install.sh | bash
 ```
 
 macOS 用户如果维护了 Homebrew tap，也可以安装：

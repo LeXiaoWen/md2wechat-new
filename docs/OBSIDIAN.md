@@ -40,26 +40,26 @@
 ```bash
 brew install lexiaowenn/tap/md2wechat-new
 md2wechat version --json
-npx skills add https://github.com/lexiaowenn/md2wechat-new --skill md2wechat
+npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
 md2wechat capabilities --json
 ```
 
 如果你已经有 Go 环境，再改成：
 
 ```bash
-go install github.com/lexiaowenn/md2wechat-new/cmd/md2wechat@v2.0.7
+go install github.com/LeXiaoWen/md2wechat-new/cmd/md2wechat@v0.1.0
 md2wechat version --json
-npx skills add https://github.com/lexiaowenn/md2wechat-new --skill md2wechat
+npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
 md2wechat capabilities --json
 ```
 
 如果以上都不适合，再改成：
 
 ```bash
-curl -fsSL https://github.com/lexiaowenn/md2wechat-new/releases/download/v2.0.7/install.sh | bash
+curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/install.sh | bash
 export PATH="$HOME/.local/bin:$PATH"
 md2wechat version --json
-npx skills add https://github.com/lexiaowenn/md2wechat-new --skill md2wechat
+npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
 md2wechat capabilities --json
 ```
 
@@ -95,13 +95,13 @@ brew install lexiaowenn/tap/md2wechat-new
 如果你已经有 Go 环境，也可以：
 
 ```bash
-go install github.com/lexiaowenn/md2wechat-new/cmd/md2wechat@v2.0.7
+go install github.com/LeXiaoWen/md2wechat-new/cmd/md2wechat@v0.1.0
 ```
 
 如果以上都不适合，再用固定版本安装脚本：
 
 ```bash
-curl -fsSL https://github.com/lexiaowenn/md2wechat-new/releases/download/v2.0.7/install.sh | bash
+curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/install.sh | bash
 ```
 
 默认安装位置：
@@ -123,7 +123,7 @@ md2wechat version --json
 ### 第三步：安装 skill
 
 ```bash
-npx skills add https://github.com/lexiaowenn/md2wechat-new --skill md2wechat
+npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
 ```
 
 这一步只会安装 skill，不会安装 CLI。
@@ -232,11 +232,11 @@ command -v md2wechat
 ```text
 请帮我在当前电脑上安装 md2wechat，并让 Claudian 可以在 Obsidian 里通过 /md2wechat-new 使用它。按这个顺序执行：
 1. 如果我是 mac 用户，先运行：brew install lexiaowenn/tap/md2wechat-new
-2. 如果我已经有稳定可用的 Go 环境，也可以改成：go install github.com/lexiaowenn/md2wechat-new/cmd/md2wechat@v2.0.7
-3. 如果以上两种都不适合，再运行：curl -fsSL https://github.com/lexiaowenn/md2wechat-new/releases/download/v2.0.7/install.sh | bash
+2. 如果我已经有稳定可用的 Go 环境，也可以改成：go install github.com/LeXiaoWen/md2wechat-new/cmd/md2wechat@v0.1.0
+3. 如果以上两种都不适合，再运行：curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/install.sh | bash
 4. 如果我是通过 install.sh 安装的，再运行：export PATH="$HOME/.local/bin:$PATH"
 5. 运行：md2wechat version --json
-6. 运行：npx skills add https://github.com/lexiaowenn/md2wechat-new --skill md2wechat
+6. 运行：npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
 7. 运行：md2wechat capabilities --json
 8. 如果 Obsidian / Claudian 里还是找不到 md2wechat，请提醒我去 Claudian 的 Settings -> Environment -> Custom variables，把 PATH 补上 ~/.local/bin
 9. 最后告诉我如何在 Claudian 里输入 /md2wechat-new 或直接调用 md2wechat skill

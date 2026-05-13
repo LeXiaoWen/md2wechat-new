@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/converter"
+	"github.com/LeXiaoWen/md2wechat-new/internal/converter"
 )
 
 // ImagePostInput is the normalized image-post request consumed by the publish layer.

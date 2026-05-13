@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/action"
+	"github.com/LeXiaoWen/md2wechat-new/internal/action"
 )
 
 // Generator 文章生成器接口

@@ -15,7 +15,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/config"
+	"github.com/LeXiaoWen/md2wechat-new/internal/config"
 	"github.com/silenceper/wechat/v2"
 	wechatcache "github.com/silenceper/wechat/v2/cache"
 	"github.com/silenceper/wechat/v2/officialaccount"

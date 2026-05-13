@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/action"
+	"github.com/LeXiaoWen/md2wechat-new/internal/action"
 )
 
 // parseBrandJSON 解析 brand 命令的 JSON 输出

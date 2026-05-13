@@ -1,6 +1,6 @@
 {
   "name": "@lexiaowen/md2wechat-new",
-  "version": "2.2.1",
+  "version": "0.1.0",
   "description": "Configurable-provider fork of the md2wechat CLI.",
   "license": "SEE LICENSE IN LICENSE",
   "repository": {

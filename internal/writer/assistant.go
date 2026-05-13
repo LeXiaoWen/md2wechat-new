@@ -6,8 +6,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/action"
-	"github.com/lexiaowenn/md2wechat-new/internal/promptcatalog"
+	"github.com/LeXiaoWen/md2wechat-new/internal/action"
+	"github.com/LeXiaoWen/md2wechat-new/internal/promptcatalog"
 )
 
 // Assistant 写作助手 - 核心协调器

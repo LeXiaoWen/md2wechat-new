@@ -7,13 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.2.1] - 2026-05-13
+## [0.1.0] - 2026-05-13
 
 ### Fixed
 - Fixed npm installer release downloads to use the current GitHub repository `LeXiaoWen/md2wechat-new`.
-- Bumped the npm package version because npm does not allow republishing `2.2.0`.
-
-## [2.2.0] - 2026-05-11
+- Reset the fork release version to `0.1.0`.
 
 ### Added
 - **Brand Profile（品牌档案）**: 新增 `brand init` 和 `brand show` 命令，支持在 `~/.config/md2wechat-new/brand.md` 存储品牌档案
@@ -123,7 +121,7 @@ No migration required. Layout commands are purely additive. Existing workflows a
 ## [2.0.6] - 2026-03-28
 
 ### Added
-- Added an npm distribution package at `@lexiaowenn/md2wechat-new` so users can install the CLI through `npm install -g` without compiling Go locally.
+- Added an npm distribution package at `@LeXiaoWen/md2wechat-new` so users can install the CLI through `npm install -g` without compiling Go locally.
 - Added `scripts/install.js` and `scripts/run.js` as a thin npm wrapper layer that downloads the version-matched GitHub Release binary and verifies `checksums.txt`.
 - Added `--cover-media-id` for `convert --draft` and `inspect --draft`, so article drafts can reuse an existing WeChat permanent cover asset without re-uploading a local file.
 
@@ -683,7 +681,7 @@ No migration required. The write command is a new feature and doesn't affect exi
 ### Installation
 ```bash
 # Claude Code users (simplest)
-/plugin marketplace add lexiaowenn/md2wechat-new
+/plugin marketplace add LeXiaoWen/md2wechat-new
 /plugin install md2wechat@lexiaowenn-md2wechat-new
 ```
 
@@ -811,6 +809,6 @@ cp -r skills/md2wechat ~/.claude/skills/
 
 ## Links
 
-- [GitHub Repository](https://github.com/lexiaowenn/md2wechat-new)
+- [GitHub Repository](https://github.com/LeXiaoWen/md2wechat-new)
 - [Documentation](README.md)
-- [Issues](https://github.com/lexiaowenn/md2wechat-new/issues)
+- [Issues](https://github.com/LeXiaoWen/md2wechat-new/issues)

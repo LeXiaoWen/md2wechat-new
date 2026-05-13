@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/inspect"
+	"github.com/LeXiaoWen/md2wechat-new/internal/inspect"
 )
 
 func TestRenderExactHTMLIncludesResolvedMetadataAndChecks(t *testing.T) {

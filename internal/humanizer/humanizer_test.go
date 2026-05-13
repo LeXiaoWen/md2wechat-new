@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/action"
-	"github.com/lexiaowenn/md2wechat-new/internal/promptcatalog"
+	"github.com/LeXiaoWen/md2wechat-new/internal/action"
+	"github.com/LeXiaoWen/md2wechat-new/internal/promptcatalog"
 )
 
 func TestHumanizeMethodsShareAIRequestContract(t *testing.T) {

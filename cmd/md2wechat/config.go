@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/config"
+	"github.com/LeXiaoWen/md2wechat-new/internal/config"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 )

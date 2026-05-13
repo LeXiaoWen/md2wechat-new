@@ -6,7 +6,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/config"
+	"github.com/LeXiaoWen/md2wechat-new/internal/config"
 )
 
 type ProviderMeta struct {

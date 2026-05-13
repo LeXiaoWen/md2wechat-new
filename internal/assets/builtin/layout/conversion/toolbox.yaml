@@ -35,7 +35,7 @@ rows:
 example: |
   :::toolbox[资源工具箱]
   模板 | 选题模板 | 适合日常内容策划和快速开稿 | https://md2wechat.com
-  资料 | 品牌素材库 | 放封面图、Logo 和活动物料 | https://github.com/lexiaowenn/md2wechat-new
+  资料 | 品牌素材库 | 放封面图、Logo 和活动物料 | https://github.com/LeXiaoWen/md2wechat-new
   工具 | Markdown 转换 API | 适合接进自动化工作流 | https://md2wechat.com/api/convert
   :::
 metadata:

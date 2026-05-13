@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/assets"
+	"github.com/LeXiaoWen/md2wechat-new/internal/assets"
 	"gopkg.in/yaml.v3"
 )
 

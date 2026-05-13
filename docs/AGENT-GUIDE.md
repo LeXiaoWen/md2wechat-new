@@ -684,5 +684,5 @@ JSON envelope 格式（v1）：
 
 ---
 
-*最后更新：与 md2wechat v2.2.0 同步*
-*下一计划版本 (v2.3)：md2wechat brand 命令*
+*最后更新：与 md2wechat v0.1.0 同步*
+*下一计划版本 (v0.2.0)：md2wechat brand 命令*

@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	inspectpkg "github.com/lexiaowenn/md2wechat-new/internal/inspect"
+	inspectpkg "github.com/LeXiaoWen/md2wechat-new/internal/inspect"
 	"github.com/spf13/cobra"
 )
 

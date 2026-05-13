@@ -7,10 +7,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/action"
-	"github.com/lexiaowenn/md2wechat-new/internal/config"
-	"github.com/lexiaowenn/md2wechat-new/internal/converter"
-	inspectpkg "github.com/lexiaowenn/md2wechat-new/internal/inspect"
+	"github.com/LeXiaoWen/md2wechat-new/internal/action"
+	"github.com/LeXiaoWen/md2wechat-new/internal/config"
+	"github.com/LeXiaoWen/md2wechat-new/internal/converter"
+	inspectpkg "github.com/LeXiaoWen/md2wechat-new/internal/inspect"
 	"go.uber.org/zap"
 )
 

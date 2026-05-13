@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/config"
+	"github.com/LeXiaoWen/md2wechat-new/internal/config"
 )
 
 // ModelScopeProvider ModelScope 图片生成服务提供者

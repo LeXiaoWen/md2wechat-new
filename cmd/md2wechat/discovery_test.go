@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/config"
-	"github.com/lexiaowenn/md2wechat-new/internal/promptcatalog"
+	"github.com/LeXiaoWen/md2wechat-new/internal/config"
+	"github.com/LeXiaoWen/md2wechat-new/internal/promptcatalog"
 )
 
 func TestBuildProviderViewsIncludesBuiltinProviders(t *testing.T) {

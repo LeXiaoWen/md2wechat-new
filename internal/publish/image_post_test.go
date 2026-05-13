@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/image"
+	"github.com/LeXiaoWen/md2wechat-new/internal/image"
 )
 
 type fakeImagePostCreator struct {

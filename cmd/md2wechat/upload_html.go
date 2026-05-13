@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/publish"
+	"github.com/LeXiaoWen/md2wechat-new/internal/publish"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 )

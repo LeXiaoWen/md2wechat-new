@@ -1,9 +1,9 @@
 package draft
 
 import (
-	"github.com/lexiaowenn/md2wechat-new/internal/config"
-	"github.com/lexiaowenn/md2wechat-new/internal/publish"
-	"github.com/lexiaowenn/md2wechat-new/internal/wechat"
+	"github.com/LeXiaoWen/md2wechat-new/internal/config"
+	"github.com/LeXiaoWen/md2wechat-new/internal/publish"
+	"github.com/LeXiaoWen/md2wechat-new/internal/wechat"
 	"go.uber.org/zap"
 )
 

@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/layoutcatalog"
+	"github.com/LeXiaoWen/md2wechat-new/internal/layoutcatalog"
 )
 
 func e2eGate(t *testing.T) {

@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/action"
+	"github.com/LeXiaoWen/md2wechat-new/internal/action"
 	"go.uber.org/zap"
 )
 

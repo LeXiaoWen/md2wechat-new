@@ -4,7 +4,7 @@ package writer
 import (
 	"context"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/action"
+	"github.com/LeXiaoWen/md2wechat-new/internal/action"
 )
 
 // InputType 输入类型

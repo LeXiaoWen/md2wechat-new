@@ -13,7 +13,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/config"
+	"github.com/LeXiaoWen/md2wechat-new/internal/config"
 	"github.com/silenceper/wechat/v2/officialaccount/draft"
 	"github.com/silenceper/wechat/v2/util"
 	"go.uber.org/zap"

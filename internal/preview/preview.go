@@ -5,7 +5,7 @@ import (
 	"html/template"
 	"strings"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/inspect"
+	"github.com/LeXiaoWen/md2wechat-new/internal/inspect"
 )
 
 type PageData struct {

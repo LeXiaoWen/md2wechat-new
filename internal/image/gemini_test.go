@@ -3,7 +3,7 @@ package image
 import (
 	"testing"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/config"
+	"github.com/LeXiaoWen/md2wechat-new/internal/config"
 )
 
 func TestMapSizeToGeminiImageConfig(t *testing.T) {

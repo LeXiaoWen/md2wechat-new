@@ -5,10 +5,10 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/config"
-	"github.com/lexiaowenn/md2wechat-new/internal/converter"
-	"github.com/lexiaowenn/md2wechat-new/internal/image"
-	"github.com/lexiaowenn/md2wechat-new/internal/promptcatalog"
+	"github.com/LeXiaoWen/md2wechat-new/internal/config"
+	"github.com/LeXiaoWen/md2wechat-new/internal/converter"
+	"github.com/LeXiaoWen/md2wechat-new/internal/image"
+	"github.com/LeXiaoWen/md2wechat-new/internal/promptcatalog"
 	"github.com/spf13/cobra"
 )
 

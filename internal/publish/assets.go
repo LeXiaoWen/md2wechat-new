@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/image"
+	"github.com/LeXiaoWen/md2wechat-new/internal/image"
 )
 
 // AssetPipeline isolates publish-time asset resolution, upload, and HTML replacement.

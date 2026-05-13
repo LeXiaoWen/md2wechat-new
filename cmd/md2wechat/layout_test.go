@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/layoutcatalog"
+	"github.com/LeXiaoWen/md2wechat-new/internal/layoutcatalog"
 )
 
 func TestLayoutListJSONIncludesHero(t *testing.T) {

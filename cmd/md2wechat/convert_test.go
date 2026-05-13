@@ -8,10 +8,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/config"
-	"github.com/lexiaowenn/md2wechat-new/internal/converter"
-	"github.com/lexiaowenn/md2wechat-new/internal/image"
-	"github.com/lexiaowenn/md2wechat-new/internal/publish"
+	"github.com/LeXiaoWen/md2wechat-new/internal/config"
+	"github.com/LeXiaoWen/md2wechat-new/internal/converter"
+	"github.com/LeXiaoWen/md2wechat-new/internal/image"
+	"github.com/LeXiaoWen/md2wechat-new/internal/publish"
 	"go.uber.org/zap"
 )
 

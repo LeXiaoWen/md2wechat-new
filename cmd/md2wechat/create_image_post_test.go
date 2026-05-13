@@ -8,8 +8,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/config"
-	"github.com/lexiaowenn/md2wechat-new/internal/publish"
+	"github.com/LeXiaoWen/md2wechat-new/internal/config"
+	"github.com/LeXiaoWen/md2wechat-new/internal/publish"
 	"go.uber.org/zap"
 )
 

@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/action"
+	"github.com/LeXiaoWen/md2wechat-new/internal/action"
 )
 
 func TestRunVersionOutputsJSONEnvelopeWhenRequested(t *testing.T) {

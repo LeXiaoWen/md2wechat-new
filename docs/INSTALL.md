@@ -91,7 +91,7 @@ Release 资产由 GitHub Actions 在推送 tag 时生成。版本来源是 `VERS
 固定版本安装脚本：
 
 ```bash
-curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v2.2.1/install.sh | bash
+curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/install.sh | bash
 ```
 
 macOS Homebrew：
@@ -112,7 +112,7 @@ node -p "require('./package.json').version"
 推送 tag：
 
 ```bash
-git tag v2.2.1
+git tag v0.1.0
 git push origin main --tags
 ```
 
@@ -183,5 +183,5 @@ md2wechat version --json
 确认当前版本对应的 Release 存在：
 
 ```text
-https://github.com/LeXiaoWen/md2wechat-new/releases/tag/v2.2.1
+https://github.com/LeXiaoWen/md2wechat-new/releases/tag/v0.1.0
 ```

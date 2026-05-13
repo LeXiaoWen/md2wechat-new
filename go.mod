@@ -1,4 +1,4 @@
-module github.com/lexiaowenn/md2wechat-new
+module github.com/LeXiaoWen/md2wechat-new
 
 go 1.26.1
 

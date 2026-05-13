@@ -8,8 +8,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/action"
-	"github.com/lexiaowenn/md2wechat-new/internal/config"
+	"github.com/LeXiaoWen/md2wechat-new/internal/action"
+	"github.com/LeXiaoWen/md2wechat-new/internal/config"
 	"go.uber.org/zap"
 )
 

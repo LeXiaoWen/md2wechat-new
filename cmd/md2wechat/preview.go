@@ -5,10 +5,10 @@ import (
 	"html/template"
 	"os"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/action"
-	"github.com/lexiaowenn/md2wechat-new/internal/converter"
-	inspectpkg "github.com/lexiaowenn/md2wechat-new/internal/inspect"
-	previewpkg "github.com/lexiaowenn/md2wechat-new/internal/preview"
+	"github.com/LeXiaoWen/md2wechat-new/internal/action"
+	"github.com/LeXiaoWen/md2wechat-new/internal/converter"
+	inspectpkg "github.com/LeXiaoWen/md2wechat-new/internal/inspect"
+	previewpkg "github.com/LeXiaoWen/md2wechat-new/internal/preview"
 	"github.com/spf13/cobra"
 )
 

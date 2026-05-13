@@ -7,12 +7,12 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/config"
-	"github.com/lexiaowenn/md2wechat-new/internal/converter"
-	"github.com/lexiaowenn/md2wechat-new/internal/draft"
-	"github.com/lexiaowenn/md2wechat-new/internal/image"
-	"github.com/lexiaowenn/md2wechat-new/internal/publish"
-	"github.com/lexiaowenn/md2wechat-new/internal/wechat"
+	"github.com/LeXiaoWen/md2wechat-new/internal/config"
+	"github.com/LeXiaoWen/md2wechat-new/internal/converter"
+	"github.com/LeXiaoWen/md2wechat-new/internal/draft"
+	"github.com/LeXiaoWen/md2wechat-new/internal/image"
+	"github.com/LeXiaoWen/md2wechat-new/internal/publish"
+	"github.com/LeXiaoWen/md2wechat-new/internal/wechat"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 )

@@ -10,7 +10,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/layoutcatalog"
+	"github.com/LeXiaoWen/md2wechat-new/internal/layoutcatalog"
 )
 
 const (

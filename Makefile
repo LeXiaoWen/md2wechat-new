@@ -122,4 +122,4 @@ help:
 	@echo "  make install     - 安装到 GOPATH/bin"
 	@echo ""
 	@echo "用户快速安装:"
-	@echo "  go install github.com/lexiaowenn/md2wechat-new/cmd/md2wechat@latest"
+	@echo "  go install github.com/LeXiaoWen/md2wechat-new/cmd/md2wechat@latest"

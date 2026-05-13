@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/action"
+	"github.com/LeXiaoWen/md2wechat-new/internal/action"
 )
 
 // Humanizer 去痕处理器

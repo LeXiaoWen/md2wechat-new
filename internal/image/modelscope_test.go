@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/config"
+	"github.com/LeXiaoWen/md2wechat-new/internal/config"
 )
 
 func TestNewModelScopeProvider(t *testing.T) {

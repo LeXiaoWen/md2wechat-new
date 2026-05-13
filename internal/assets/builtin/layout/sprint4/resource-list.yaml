@@ -38,7 +38,7 @@ fields:
       example: "🛠"
 example: |
   :::resource-list
-  [{"name":"md2wechat 官网","url":"https://md2wechat.com","desc":"在线 Markdown 转公众号工具","icon":"🛠"},{"name":"模块指南","url":"https://github.com/lexiaowenn/md2wechat-new","desc":"高级排版模块完整文档","icon":"📖"}]
+  [{"name":"md2wechat 官网","url":"https://md2wechat.com","desc":"在线 Markdown 转公众号工具","icon":"🛠"},{"name":"模块指南","url":"https://github.com/LeXiaoWen/md2wechat-new","desc":"高级排版模块完整文档","icon":"📖"}]
   :::
 metadata:
   author: md2wechat

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/promptcatalog"
+	"github.com/LeXiaoWen/md2wechat-new/internal/promptcatalog"
 )
 
 // BuildPrompt 构建给 Claude 的提示词

@@ -8,7 +8,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/config"
+	"github.com/LeXiaoWen/md2wechat-new/internal/config"
 )
 
 func TestNewOpenRouterProvider(t *testing.T) {

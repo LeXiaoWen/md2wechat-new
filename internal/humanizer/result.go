@@ -1,7 +1,7 @@
 // Package humanizer provides AI writing trace removal functionality
 package humanizer
 
-import "github.com/lexiaowenn/md2wechat-new/internal/action"
+import "github.com/LeXiaoWen/md2wechat-new/internal/action"
 
 // HumanizeIntensity 去痕强度
 type HumanizeIntensity string

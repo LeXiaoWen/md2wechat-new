@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/humanizer"
-	"github.com/lexiaowenn/md2wechat-new/internal/writer"
+	"github.com/LeXiaoWen/md2wechat-new/internal/humanizer"
+	"github.com/LeXiaoWen/md2wechat-new/internal/writer"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 )

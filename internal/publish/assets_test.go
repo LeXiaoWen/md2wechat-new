@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/image"
+	"github.com/LeXiaoWen/md2wechat-new/internal/image"
 )
 
 func TestAssetPipelineProcessRewritesHTMLAndAssets(t *testing.T) {

@@ -10,7 +10,7 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"github.com/lexiaowenn/md2wechat-new/internal/assets"
+	"github.com/LeXiaoWen/md2wechat-new/internal/assets"
 )
 
 const layoutDirEnvVar = "MD2WECHAT_LAYOUT_DIR"
