@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-05-14
+
+### Fixed
+- Limited WeChat draft digests to 120 characters during conversion and draft upload.
+- Updated documentation and installer guidance to use the `md2wechat-new` command.
+- Updated release checks to validate the renamed command examples.
+
 ## [0.1.0] - 2026-05-13
 
 ### Fixed
