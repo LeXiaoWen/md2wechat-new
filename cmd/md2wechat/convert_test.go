@@ -10,6 +10,7 @@ import (
 
 	"github.com/LeXiaoWen/md2wechat-new/internal/config"
 	"github.com/LeXiaoWen/md2wechat-new/internal/converter"
+	"github.com/LeXiaoWen/md2wechat-new/internal/draft"
 	"github.com/LeXiaoWen/md2wechat-new/internal/image"
 	"github.com/LeXiaoWen/md2wechat-new/internal/publish"
 	"go.uber.org/zap"
@@ -490,6 +491,72 @@ func TestRunConvertPassesResolvedMetadataIntoAIRequest(t *testing.T) {
 	}
 	if conv.reqs[0].Metadata.Digest != "命令行摘要" {
 		t.Fatalf("request digest = %q", conv.reqs[0].Metadata.Digest)
+	}
+}
+
+func TestRunConvertClampsDigestBeforeConversion(t *testing.T) {
+	oldCfg, oldLog := cfg, log
+	oldMode, oldTheme, oldAPIKey := convertMode, convertTheme, convertAPIKey
+	oldFontSize, oldBackground := convertFontSize, convertBackgroundType
+	oldCustomPrompt, oldOutput := convertCustomPrompt, convertOutput
+	oldPreview, oldUpload, oldDraft := convertPreview, convertUpload, convertDraft
+	oldSaveDraftPath, oldCover, oldCoverMediaID := convertSaveDraft, convertCoverImage, convertCoverMediaID
+	oldTitle, oldAuthor, oldDigest := convertTitle, convertAuthor, convertDigest
+	oldNewConverter := newMarkdownConverter
+	t.Cleanup(func() {
+		cfg, log = oldCfg, oldLog
+		convertMode, convertTheme, convertAPIKey = oldMode, oldTheme, oldAPIKey
+		convertFontSize, convertBackgroundType = oldFontSize, oldBackground
+		convertCustomPrompt, convertOutput = oldCustomPrompt, oldOutput
+		convertPreview, convertUpload, convertDraft = oldPreview, oldUpload, oldDraft
+		convertSaveDraft, convertCoverImage, convertCoverMediaID = oldSaveDraftPath, oldCover, oldCoverMediaID
+		convertTitle, convertAuthor, convertDigest = oldTitle, oldAuthor, oldDigest
+		newMarkdownConverter = oldNewConverter
+	})
+
+	cfg = &config.Config{TextAPIKey: "api-key"}
+	log = zap.NewNop()
+	convertMode = "api"
+	convertTheme = "default"
+	convertAPIKey = ""
+	convertFontSize = "medium"
+	convertBackgroundType = "default"
+	convertCustomPrompt = ""
+	convertOutput = ""
+	convertPreview = false
+	convertUpload = false
+	convertDraft = false
+	convertSaveDraft = ""
+	convertCoverImage = ""
+	convertCoverMediaID = ""
+	convertTitle = ""
+	convertAuthor = ""
+	convertDigest = strings.Repeat("摘", draft.MaxDraftDigestRunes+5)
+
+	markdownPath := filepath.Join(t.TempDir(), "article.md")
+	if err := os.WriteFile(markdownPath, []byte("# 正文标题\n\n正文"), 0600); err != nil {
+		t.Fatalf("write markdown: %v", err)
+	}
+
+	conv := &fakeConverter{
+		result: &converter.ConvertResult{
+			Success: true,
+			Mode:    converter.ModeAPI,
+			Theme:   "default",
+			HTML:    "<p>content</p>",
+		},
+	}
+	newMarkdownConverter = func() converter.Converter { return conv }
+
+	if err := runConvert(nil, []string{markdownPath}); err != nil {
+		t.Fatalf("runConvert() error = %v", err)
+	}
+	if len(conv.reqs) != 1 {
+		t.Fatalf("converter requests = %#v", conv.reqs)
+	}
+	want := strings.Repeat("摘", draft.MaxDraftDigestRunes)
+	if conv.reqs[0].Metadata.Digest != want {
+		t.Fatalf("request digest length = %d, want %d", len([]rune(conv.reqs[0].Metadata.Digest)), draft.MaxDraftDigestRunes)
 	}
 }
 

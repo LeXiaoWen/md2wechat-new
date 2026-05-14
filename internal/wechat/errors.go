@@ -48,7 +48,7 @@ func draftAPIErrorHint(code int) string {
 	case 45003:
 		return "draft title exceeds the WeChat limit; shorten --title or frontmatter.title to 32 characters or fewer."
 	case 45004:
-		return "draft digest/description exceeds the WeChat limit; shorten --digest or frontmatter digest/summary/description to 128 characters or fewer."
+		return "draft digest/description exceeds the WeChat limit; shorten --digest or frontmatter digest/summary/description to 120 characters or fewer."
 	case 45005:
 		return "a link field in the draft payload is invalid or exceeds the WeChat limit; check content_source_url or any generated external link fields."
 	default:

@@ -606,7 +606,7 @@ API 模式和 AI 模式有什么区别？ | API 模式直接转换输出 HTML，
 :::checklist[发布前检查]
 md2wechat layout validate 通过 | done
 封面图已准备好（比例 3:4，≥ 300px） | todo
-摘要已填写（不超过 128 字） | todo
+摘要已填写（不超过 120 字） | todo
 :::
 ```
 

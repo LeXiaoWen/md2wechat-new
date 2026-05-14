@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/LeXiaoWen/md2wechat-new/internal/draft"
 	"github.com/LeXiaoWen/md2wechat-new/internal/publish"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
@@ -44,7 +45,7 @@ The HTML is used as-is. Use --cover to upload a local cover image, or
 func init() {
 	uploadHTMLCmd.Flags().StringVar(&uploadHTMLTitle, "title", "", "Draft title (defaults to HTML filename)")
 	uploadHTMLCmd.Flags().StringVar(&uploadHTMLAuthor, "author", "", "Draft author")
-	uploadHTMLCmd.Flags().StringVar(&uploadHTMLDigest, "digest", "", "Draft digest, max 128 characters")
+	uploadHTMLCmd.Flags().StringVar(&uploadHTMLDigest, "digest", "", "Draft digest, max 120 characters")
 	uploadHTMLCmd.Flags().StringVar(&uploadHTMLCoverImage, "cover", "", "Cover image path for draft")
 	uploadHTMLCmd.Flags().StringVar(&uploadHTMLCoverMediaID, "cover-media-id", "", "Existing WeChat cover media_id (mutually exclusive with --cover)")
 	uploadHTMLCmd.Flags().StringVar(&uploadHTMLContentSource, "content-source-url", "", "Original content source URL")
@@ -75,7 +76,7 @@ func runUploadHTML(htmlFile string) (map[string]any, error) {
 		title = titleFromHTMLPath(htmlFile)
 	}
 	author := strings.TrimSpace(uploadHTMLAuthor)
-	digest := strings.TrimSpace(uploadHTMLDigest)
+	digest := draft.NormalizeDraftDigest(uploadHTMLDigest)
 	if err := validateConvertMetadata(title, author, digest); err != nil {
 		return nil, err
 	}

@@ -632,7 +632,7 @@ md2wechat convert article.md --preview
 3. frontmatter 里的 `summary`
 4. frontmatter 里的 `description`
 
-建议先把摘要压到 128 字以内，再重试草稿创建。
+建议先把摘要压到 120 字以内，再重试草稿创建。
 
 ### Q14.10：`inspect` 里那些检查码是什么意思？是不是报错了？
 

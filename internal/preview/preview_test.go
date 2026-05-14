@@ -20,7 +20,7 @@ func TestRenderExactHTMLIncludesResolvedMetadataAndChecks(t *testing.T) {
 		Metadata: inspect.MetadataState{
 			Title:  inspect.MetadataField{Value: "预览标题", Source: "frontmatter.title", Length: 4, Limit: 32},
 			Author: inspect.MetadataField{Value: "作者", Source: "cli.author", Length: 2, Limit: 16},
-			Digest: inspect.MetadataField{Value: "摘要", Source: "frontmatter.summary", Length: 2, Limit: 128},
+			Digest: inspect.MetadataField{Value: "摘要", Source: "frontmatter.summary", Length: 2, Limit: 120},
 		},
 		Structure: inspect.Structure{
 			BodyH1: inspect.HeadingInfo{Present: true, Text: "预览标题"},
@@ -68,7 +68,7 @@ func TestRenderDegradedPageShowsFallbackMarkdownAndBanners(t *testing.T) {
 		Metadata: inspect.MetadataState{
 			Title:  inspect.MetadataField{Value: "降级预览", Source: "markdown.heading", Length: 4, Limit: 32},
 			Author: inspect.MetadataField{Source: "fallback.empty", Limit: 16},
-			Digest: inspect.MetadataField{Source: "fallback.empty", Limit: 128},
+			Digest: inspect.MetadataField{Source: "fallback.empty", Limit: 120},
 		},
 		Readiness: inspect.Readiness{PreviewFidelity: inspect.PreviewFidelityDegraded},
 		BodyMarkdown: strings.Join([]string{
@@ -104,7 +104,7 @@ func TestRenderWithoutChecksShowsNoChecks(t *testing.T) {
 		Metadata: inspect.MetadataState{
 			Title:  inspect.MetadataField{Value: "无检查", Source: "frontmatter.title", Length: 3, Limit: 32},
 			Author: inspect.MetadataField{Source: "fallback.empty", Limit: 16},
-			Digest: inspect.MetadataField{Source: "fallback.empty", Limit: 128},
+			Digest: inspect.MetadataField{Source: "fallback.empty", Limit: 120},
 		},
 		Readiness:   inspect.Readiness{PreviewFidelity: inspect.PreviewFidelityExact},
 		ArticleHTML: "<p>ok</p>",

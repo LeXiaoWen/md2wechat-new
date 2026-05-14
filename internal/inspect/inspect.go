@@ -156,7 +156,7 @@ func Run(input *Input) (*Result, error) {
 		Metadata: MetadataState{
 			Title:  buildMetadataField(title, titleSource, 32),
 			Author: buildMetadataField(author, authorSource, 16),
-			Digest: buildMetadataField(digest, digestSource, 128),
+			Digest: buildMetadataField(digest, digestSource, 120),
 		},
 		Body: doc.Body,
 	}

@@ -107,7 +107,7 @@ func init() {
 	convertCmd.Flags().StringVar(&convertCoverMediaID, "cover-media-id", "", "Existing WeChat cover media_id for draft (mutually exclusive with --cover)")
 	convertCmd.Flags().StringVar(&convertTitle, "title", "", "Override article title (max 32 characters)")
 	convertCmd.Flags().StringVar(&convertAuthor, "author", "", "Override article author (max 16 characters)")
-	convertCmd.Flags().StringVar(&convertDigest, "digest", "", "Override article digest (max 128 characters)")
+	convertCmd.Flags().StringVar(&convertDigest, "digest", "", "Override article digest (max 120 characters)")
 }
 
 // runConvert 执行转换
@@ -134,7 +134,7 @@ func runConvert(cmd *cobra.Command, args []string) error {
 	bodyMarkdown := document.Body
 	resolvedTitle := firstNonEmptyTrimmed(convertTitle, metadata.Title)
 	resolvedAuthor := firstNonEmptyTrimmed(convertAuthor, metadata.Author)
-	resolvedDigest := firstNonEmptyTrimmed(convertDigest, metadata.Digest)
+	resolvedDigest := draft.NormalizeDraftDigest(firstNonEmptyTrimmed(convertDigest, metadata.Digest))
 	if err := validateConvertMetadata(resolvedTitle, resolvedAuthor, resolvedDigest); err != nil {
 		return err
 	}
@@ -334,7 +334,7 @@ func validateConvertMetadata(title, author, digest string) error {
 	if err := validateConvertMetadataField("--author", author, 16); err != nil {
 		return err
 	}
-	if err := validateConvertMetadataField("--digest", digest, 128); err != nil {
+	if err := validateConvertMetadataField("--digest", digest, draft.MaxDraftDigestRunes); err != nil {
 		return err
 	}
 	return nil

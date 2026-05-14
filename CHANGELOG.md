@@ -163,7 +163,7 @@ No migration required. Layout commands are purely additive. Existing workflows a
 
 ### Added
 - **CLI flags for article metadata**: Added `--title`, `--author`, and `--digest` flags to `convert` command for explicit metadata override
-- **Metadata validation**: Added length validation for title (32 chars), author (16 chars), and digest (128 chars) with clear error messages
+- **Metadata validation**: Added length validation for title (32 chars), author (16 chars), and digest (120 chars) with clear error messages
 - **Frontmatter stripping**: `convert` now properly strips frontmatter from markdown body before passing to converter, preventing metadata from appearing in generated HTML
 - **ArticleDocument structure**: Introduced `ArticleDocument` to separate metadata extraction from body parsing, improving testability
 
