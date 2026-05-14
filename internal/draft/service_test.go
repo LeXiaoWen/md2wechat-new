@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"go.uber.org/zap"
@@ -14,7 +15,7 @@ func TestGenerateDigestFromContent_StripsMarkupAndIsRuneSafe(t *testing.T) {
 
 	got := GenerateDigestFromContent(content, 7)
 
-	want := "标题 & 简介..."
+	want := "标题 & 简介"
 	if got != want {
 		t.Fatalf("GenerateDigestFromContent() = %q, want %q", got, want)
 	}
@@ -90,6 +91,30 @@ func TestBuildSDKArticleConvertsOptionalFields(t *testing.T) {
 	}
 	if got.ThumbMediaID != "thumb-id" || got.ShowCoverPic != 1 || got.ContentSourceURL != "https://example.com/source" {
 		t.Fatalf("buildSDKArticle() optional fields = %#v", got)
+	}
+}
+
+func TestBuildSDKArticleClampsDigestForWeChatDraft(t *testing.T) {
+	longDigest := strings.Repeat("摘", MaxDraftDigestRunes+8)
+
+	got, err := buildSDKArticle(Article{
+		Title:   "Title",
+		Content: "<p>body</p>",
+		Digest:  longDigest,
+	})
+	if err != nil {
+		t.Fatalf("buildSDKArticle() error = %v", err)
+	}
+
+	if got.Digest != strings.Repeat("摘", MaxDraftDigestRunes) {
+		t.Fatalf("Digest length = %d, want %d", len([]rune(got.Digest)), MaxDraftDigestRunes)
+	}
+}
+
+func TestNormalizeDraftDigestTrimsAndClamps(t *testing.T) {
+	got := NormalizeDraftDigest("  " + strings.Repeat("A", MaxDraftDigestRunes+1) + "  ")
+	if got != strings.Repeat("A", MaxDraftDigestRunes) {
+		t.Fatalf("NormalizeDraftDigest() length = %d, want %d", len([]rune(got)), MaxDraftDigestRunes)
 	}
 }
 

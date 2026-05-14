@@ -20,11 +20,12 @@ func NewArtifactDraftCreator(cfg *config.Config, log *zap.Logger) *ArtifactDraft
 
 // CreateDraft publishes a canonical artifact as a WeChat draft.
 func (c *ArtifactDraftCreator) CreateDraft(artifact publish.Artifact) (*publish.DraftResult, error) {
+	digest := NormalizeDraftDigest(firstNonEmptyDraft(artifact.Metadata.Digest, GenerateDigestFromContent(artifact.HTML, MaxDraftDigestRunes)))
 	result, err := c.service.CreateDraft([]Article{
 		{
 			Title:        artifact.Metadata.Title,
 			Author:       artifact.Metadata.Author,
-			Digest:       firstNonEmptyDraft(artifact.Metadata.Digest, GenerateDigestFromContent(artifact.HTML, 120)),
+			Digest:       digest,
 			Content:      artifact.HTML,
 			ThumbMediaID: artifact.CoverMediaID,
 			ShowCoverPic: showCoverPic(artifact.CoverMediaID),

@@ -34,8 +34,9 @@ func NewService(cfg *config.Config, log *zap.Logger) *Service {
 type ArticleType string
 
 const (
-	ArticleTypeNews    ArticleType = "news"    // 图文消息（默认）
-	ArticleTypeNewspic ArticleType = "newspic" // 小绿书/图片消息
+	ArticleTypeNews     ArticleType = "news"    // 图文消息（默认）
+	ArticleTypeNewspic  ArticleType = "newspic" // 小绿书/图片消息
+	MaxDraftDigestRunes             = 120
 )
 
 // ImageItem 图片项（小绿书专用）
@@ -158,7 +159,7 @@ func buildSDKArticle(article Article) (*draft.Article, error) {
 	sdkArticle := &draft.Article{
 		Title:   article.Title,
 		Content: article.Content,
-		Digest:  article.Digest,
+		Digest:  NormalizeDraftDigest(article.Digest),
 		Author:  article.Author,
 	}
 
@@ -177,7 +178,7 @@ func buildSDKArticle(article Article) (*draft.Article, error) {
 // GenerateDigestFromContent 从内容生成摘要
 func GenerateDigestFromContent(content string, maxLen int) string {
 	if maxLen == 0 {
-		maxLen = 120
+		maxLen = MaxDraftDigestRunes
 	}
 
 	content = stripHTML(content)
@@ -187,10 +188,23 @@ func GenerateDigestFromContent(content string, maxLen int) string {
 
 	runes := []rune(content)
 	if len(runes) > maxLen {
-		content = string(runes[:maxLen]) + "..."
+		content = string(runes[:maxLen])
 	}
 
 	return content
+}
+
+// NormalizeDraftDigest clamps the digest to the conservative WeChat draft limit.
+func NormalizeDraftDigest(digest string) string {
+	digest = strings.TrimSpace(digest)
+	if digest == "" {
+		return ""
+	}
+	runes := []rune(digest)
+	if len(runes) <= MaxDraftDigestRunes {
+		return digest
+	}
+	return string(runes[:MaxDraftDigestRunes])
 }
 
 var (
