@@ -4,7 +4,7 @@
 >
 > `skills/md2wechat/` 是给 Claude Code / Codex / OpenCode 的 coding-agent skill，两条路径独立维护。
 >
-> OpenClaw 路径由两部分组成：OpenClaw skill 壳 + 已安装的 `md2wechat` CLI。当前不再保留 skill 内部 `run.sh` wrapper，也不承担首跑动态下载。
+> OpenClaw 路径由两部分组成：OpenClaw skill 壳 + 已安装的 `md2wechat-new` CLI。当前不再保留 skill 内部 `run.sh` wrapper，也不承担首跑动态下载。
 
 ---
 
@@ -64,11 +64,11 @@ Your assistant. Your machine. Your rules.
 这是当前最直接的官方 skill 壳安装方式：
 
 ```bash
-# 安装 OpenClaw 专用 md2wechat skill 包
-npx clawhub@latest install md2wechat
+# 安装 OpenClaw 专用 md2wechat-new skill 包
+npx clawhub@latest install md2wechat-new
 ```
 
-当前 ClawHub 路径只会安装 skill 壳到 OpenClaw workspace，**不保证自动安装 `md2wechat` CLI**。完整、可验证的安装主线仍建议使用下面的固定版本 installer。
+当前 ClawHub 路径只会安装 skill 壳到 OpenClaw workspace，**不保证自动安装 `md2wechat-new` CLI**。完整、可验证的安装主线仍建议使用下面的固定版本 installer。
 
 如果你更习惯从网页进入当前技能页面，可以直接打开：
 
@@ -78,7 +78,7 @@ npx clawhub@latest install md2wechat
 
 ### 方式二：先安装 CLI（优先 Homebrew）
 
-如果你已经装好了 OpenClaw skill 壳，或者你的 Agent / 审核系统只关心 CLI 安装方式，可以先安装 `md2wechat` CLI：
+如果你已经装好了 OpenClaw skill 壳，或者你的 Agent / 审核系统只关心 CLI 安装方式，可以先安装 `md2wechat-new` CLI：
 
 ```bash
 brew install lexiaowenn/tap/md2wechat-new
@@ -90,13 +90,7 @@ brew install lexiaowenn/tap/md2wechat-new
 npm install -g @lexiaowen/md2wechat-new
 ```
 
-或者：
-
-```bash
-go install github.com/LeXiaoWen/md2wechat-new/cmd/md2wechat@v0.1.0
-```
-
-这三种方式只安装 CLI，**不会自动把 OpenClaw skill 壳写入 `~/.openclaw/skills/md2wechat/`**。如果你还没装 skill 壳，请继续使用上面的 `npx clawhub@latest install md2wechat`，或者直接使用下面的一键脚本安装。
+这两种方式只安装 CLI，**不会自动把 OpenClaw skill 壳写入 `~/.openclaw/skills/md2wechat/`**。如果你还没装 skill 壳，请继续使用上面的 `npx clawhub@latest install md2wechat-new`，或者直接使用下面的一键脚本安装。
 
 ---
 
@@ -109,26 +103,26 @@ curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/i
 ```
 
 **脚本功能：**
-- 按固定版本安装 OpenClaw skill 包与 `md2wechat` CLI
+- 按固定版本安装 OpenClaw skill 包与 `md2wechat-new` CLI
 - 自动校验 `checksums.txt`
 - 安装到 `~/.openclaw/skills/md2wechat/`
 - 安装 CLI 到用户级环境路径，默认是 `~/.local/bin/md2wechat-new`
-- 提示后续直接执行 `md2wechat config init`
+- 提示后续直接执行 `md2wechat-new config init`
 
 ### 发给 Agent 的对话脚本
 
 如果你不想自己一步步敲命令，可以直接把下面的话发给 OpenClaw、Claude、GPT 或其他 Agent：
 
 ```text
-请帮我安装 OpenClaw 版 md2wechat，并验证 skill 和 CLI 都可用。
+请帮我安装 OpenClaw 版 md2wechat-new，并验证 skill 和 CLI 都可用。
 按这个顺序执行：
 1. curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/install-openclaw.sh | bash
 2. 先执行：export PATH="$HOME/.local/bin:$PATH"
-3. md2wechat version --json
-4. md2wechat config init
-5. md2wechat config validate
-6. md2wechat capabilities --json
-7. 如果我之前装过 skill，再检查 ~/.openclaw/skills/md2wechat/ 是否存在，并确认 `command -v md2wechat` 有输出
+3. md2wechat-new version --json
+4. md2wechat-new config init
+5. md2wechat-new config validate
+6. md2wechat-new capabilities --json
+7. 如果我之前装过 skill，再检查 ~/.openclaw/skills/md2wechat/ 是否存在，并确认 `command -v md2wechat-new` 有输出
 如果某一步失败，请继续排查并给我下一条修复命令，不要只返回报错原文。
 ```
 
@@ -157,19 +151,19 @@ install -m 0755 md2wechat-linux-amd64 ~/.local/bin/md2wechat-new
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
-手动安装时，请以同一版本 release 提供的 OpenClaw 资产为准，确保 skill 包与 `md2wechat` CLI 同版本安装。
+手动安装时，请以同一版本 release 提供的 OpenClaw 资产为准，确保 skill 包与 `md2wechat-new` CLI 同版本安装。
 
 ---
 
 ## 配置说明
 
-安装完成后，直接初始化 `md2wechat` 自己的配置文件即可。
+安装完成后，直接初始化 `md2wechat-new` 自己的配置文件即可。
 
 ### 初始化配置文件
 
 ```bash
-md2wechat config init
-md2wechat config validate
+md2wechat-new config init
+md2wechat-new config validate
 ```
 
 默认配置文件路径：
@@ -229,10 +223,10 @@ SKILL.md
 ### 测试运行
 
 ```bash
-md2wechat --help
+md2wechat-new --help
 ```
 
-如果当前 shell 还找不到 `md2wechat`，先执行：
+如果当前 shell 还找不到 `md2wechat-new`，先执行：
 
 ```bash
 export PATH="$HOME/.local/bin:$PATH"
@@ -241,11 +235,11 @@ export PATH="$HOME/.local/bin:$PATH"
 建议再执行一轮发现命令，确认当前 CLI 和资源都可见：
 
 ```bash
-md2wechat capabilities --json
-md2wechat providers list --json
-md2wechat providers show volcengine --json
-md2wechat themes list --json
-md2wechat prompts list --json
+md2wechat-new capabilities --json
+md2wechat-new providers list --json
+md2wechat-new providers show volcengine --json
+md2wechat-new themes list --json
+md2wechat-new prompts list --json
 ```
 
 如果你要选图片模型，优先看 `providers show <name> --json` 返回的 `supported_models`，不要凭记忆写死。
@@ -275,10 +269,10 @@ tree ~/.openclaw/skills/md2wechat/ -L 1
 
 ### Q: 运行时报错 "command not found"？
 
-**A:** 先确认 `md2wechat` CLI 是否已经通过 `brew` 或 OpenClaw 安装器装好，并确认可执行文件可用：
+**A:** 先确认 `md2wechat-new` CLI 是否已经通过 `brew` 或 OpenClaw 安装器装好，并确认可执行文件可用：
 
 ```bash
-md2wechat --help
+md2wechat-new --help
 ```
 
 如果仍然找不到命令，请重新安装 OpenClaw skill 包与 CLI，然后执行 `export PATH="$HOME/.local/bin:$PATH"`。
@@ -288,14 +282,14 @@ md2wechat --help
 **A:** 可以，直接复制这一段：
 
 ```text
-请帮我安装 OpenClaw 版 md2wechat，并验证 CLI、配置初始化和能力发现都正常。
+请帮我安装 OpenClaw 版 md2wechat-new，并验证 CLI、配置初始化和能力发现都正常。
 执行：
 1. curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/install-openclaw.sh | bash
 2. 先执行：export PATH="$HOME/.local/bin:$PATH"
-3. md2wechat version --json
-4. md2wechat config init
-5. md2wechat config validate
-6. md2wechat capabilities --json
+3. md2wechat-new version --json
+4. md2wechat-new config init
+5. md2wechat-new config validate
+6. md2wechat-new capabilities --json
 如果失败，请继续排查 skill 目录、PATH 和版本，不要只给我错误信息。
 ```
 
@@ -307,11 +301,8 @@ md2wechat --help
 # 如果 CLI 是通过 Homebrew 安装的
 brew upgrade lexiaowenn/tap/md2wechat-new
 
-# 如果 CLI 是通过 go install 安装的
-go install github.com/LeXiaoWen/md2wechat-new/cmd/md2wechat@v0.1.0
-
 # ClawHub 方式
-clawhub update md2wechat
+clawhub update md2wechat-new
 
 # 脚本方式（会覆盖安装）
 curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/install-openclaw.sh | bash
@@ -319,11 +310,11 @@ curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/i
 
 ### Q: 配置没生效？
 
-**A:** 先确认你改的是 `md2wechat` 自己的配置文件，而不是旧的 OpenClaw skill 环境配置。优先检查：
+**A:** 先确认你改的是 `md2wechat-new` 自己的配置文件，而不是旧的 OpenClaw skill 环境配置。优先检查：
 
 ```bash
-md2wechat config show --format json
-md2wechat config validate
+md2wechat-new config show --format json
+md2wechat-new config validate
 ```
 
 ### Q: 和 Claude Code 安装冲突吗？
@@ -362,7 +353,7 @@ md2wechat config validate
 - [OpenClaw 文档](https://docs.openclaw.ai/)
 - [ClawHub 技能市场](https://clawhub.ai/)
 - [OpenClaw GitHub](https://github.com/openclaw/openclaw)
-- [md2wechat 主仓库](https://github.com/LeXiaoWen/md2wechat-new)
+- [md2wechat-new 主仓库](https://github.com/LeXiaoWen/md2wechat-new)
 - [问题反馈](https://github.com/LeXiaoWen/md2wechat-new/issues)
 
 ---

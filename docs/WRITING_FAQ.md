@@ -23,7 +23,7 @@
 
 ### 和普通 AI 写作有什么不同？
 
-| 普通写作 | md2wechat 写作功能 |
+| 普通写作 | md2wechat-new 写作功能 |
 |---------|-------------------|
 | 需要详细描述要求 | 只需输入观点 |
 | 生成的文章千篇一律 | 有特定创作者风格 |
@@ -38,16 +38,16 @@
 
 ```bash
 # 1. 查看所有可用风格
-md2wechat write --list
+md2wechat-new write --list
 
 # 2. 交互式写作（最简单）
-md2wechat write
+md2wechat-new write
 
 # 3. 指定风格写作
-md2wechat write --style dan-koe
+md2wechat-new write --style dan-koe
 
 # 4. 只生成封面提示词
-md2wechat write --style dan-koe --cover-only
+md2wechat-new write --style dan-koe --cover-only
 ```
 
 ### 方式二：在 Claude Code 中使用
@@ -155,7 +155,7 @@ md2wechat write --style dan-koe --cover-only
 
 **试试这样**：
 ```bash
-md2wechat write
+md2wechat-new write
 # 然后输入：我觉得自律是个伪命题
 ```
 
@@ -165,13 +165,13 @@ md2wechat write
 
 ```bash
 # 1. 生成文章（保存到文件）
-md2wechat write --style dan-koe -o article.md
+md2wechat-new write --style dan-koe -o article.md
 
 # 2. 转换为微信格式
-md2wechat convert article.md --preview
+md2wechat-new convert article.md --preview
 
 # 3. 满意后推送草稿
-md2wechat convert article.md --draft --cover cover.jpg
+md2wechat-new convert article.md --draft --cover cover.jpg
 ```
 
 ### Q3: 可以修改生成的内容吗？
@@ -187,13 +187,13 @@ md2wechat convert article.md --draft --cover cover.jpg
 
 ```bash
 # 生成封面提示词
-md2wechat write --style dan-koe --cover-only
+md2wechat-new write --style dan-koe --cover-only
 ```
 
 然后：
 1. 复制生成的提示词
 2. 用 AI 图片生成工具生成图片（**推荐使用 16:9 比例**）
-3. 使用 `md2wechat upload_image` 上传到微信
+3. 使用 `md2wechat-new upload_image` 上传到微信
 4. 在转换时用 `--cover` 指定封面图
 
 **公众号封面图尺寸建议**：
@@ -205,10 +205,10 @@ md2wechat write --style dan-koe --cover-only
 
 ```bash
 # 生成 16:9 比例的封面图（推荐）
-md2wechat generate_image --size 2560x1440 "你的封面提示词"
+md2wechat-new generate_image --size 2560x1440 "你的封面提示词"
 
 # 使用封面图推送草稿
-md2wechat convert article.md --draft --cover cover.jpg
+md2wechat-new convert article.md --draft --cover cover.jpg
 ```
 
 ### Q5: 如何提高生成质量？
@@ -299,10 +299,10 @@ writing_prompt: |
 
 ```bash
 # 第一次：用观点生成
-md2wechat write --style dan-koe
+md2wechat-new write --style dan-koe
 
 # 第二次：把生成的内容重新润色
-md2wechat write --style dan-koe --input-type fragment article.md
+md2wechat-new write --style dan-koe --input-type fragment article.md
 ```
 
 ### 技巧3：提取金句
@@ -320,13 +320,13 @@ md2wechat write --style dan-koe --input-type fragment article.md
 
 ```bash
 # 1. 写文章
-md2wechat write --style dan-koe -o article.md
+md2wechat-new write --style dan-koe -o article.md
 
 # 2. 生成封面
-md2wechat write --style dan-koe --cover-only > cover_prompt.txt
+md2wechat-new write --style dan-koe --cover-only > cover_prompt.txt
 
 # 3. 转换微信格式
-md2wechat convert article.md --mode ai --theme autumn-warm --preview
+md2wechat-new convert article.md --mode ai --theme autumn-warm --preview
 ```
 
 ---

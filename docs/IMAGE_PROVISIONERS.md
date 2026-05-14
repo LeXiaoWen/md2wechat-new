@@ -1,6 +1,6 @@
 # 图片生成服务配置
 
-md2wechat 支持多种图片生成服务，可以在 Markdown 中使用 AI 生成图片。
+md2wechat-new 支持多种图片生成服务，可以在 Markdown 中使用 AI 生成图片。
 
 ## 快速开始
 
@@ -136,7 +136,7 @@ export IMAGE_SIZE="2K"
 
 - Volcengine 最终返回的像素尺寸可能与请求的尺寸等级不同，例如 `2K` 请求可能返回 `1664x2496`
 - 这条链路当前按 provider 级别暴露模型目录，不额外暴露 model-specific size matrix
-- 如果需要先确认当前 CLI 识别到的模型目录，执行 `md2wechat providers show volcengine --json`
+- 如果需要先确认当前 CLI 识别到的模型目录，执行 `md2wechat-new providers show volcengine --json`
 
 #### 常见错误：`ModelNotOpen`
 
@@ -289,11 +289,11 @@ OpenRouter 支持两种尺寸配置方式，可在配置文件中设置 `image_s
 
 ```bash
 # 使用配置文件中的默认尺寸
-md2wechat generate_image "A cute cat"
+md2wechat-new generate_image "A cute cat"
 
 # 通过命令行指定尺寸（覆盖配置）
-md2wechat generate_image --size "16:9" "A landscape photo"
-md2wechat generate_image --size "1920x1080" "A landscape photo"
+md2wechat-new generate_image --size "16:9" "A landscape photo"
+md2wechat-new generate_image --size "1920x1080" "A landscape photo"
 ```
 
 同理，`--model` 可单次覆盖当前调用使用的图片模型，优先级高于 `IMAGE_MODEL` 和 `api.image_model`。
@@ -455,10 +455,10 @@ Gemini 支持以下宽高比，可通过配置文件或 `--size` 参数指定。
 
 ```bash
 # 转换文章（会自动生成图片并上传到微信）
-md2wechat convert article.md --draft --cover cover.jpg
+md2wechat-new convert article.md --draft --cover cover.jpg
 
 # 只预览（不上传）
-md2wechat convert article.md --preview
+md2wechat-new convert article.md --preview
 ```
 
 ---
@@ -538,7 +538,7 @@ md2wechat convert article.md --preview
 
 ```bash
 # 设置日志级别为 debug
-MD2WECHAT_LOG_LEVEL=debug md2wechat convert article.md --preview
+MD2WECHAT_LOG_LEVEL=debug md2wechat-new convert article.md --preview
 ```
 
 ---

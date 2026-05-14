@@ -5,22 +5,16 @@
 ## 基础命令
 
 ```bash
-md2wechat --help
-md2wechat version --json
-md2wechat capabilities --json
-```
-
-源码开发时使用：
-
-```bash
-./md2wechat --help
+md2wechat-new --help
+md2wechat-new version --json
+md2wechat-new capabilities --json
 ```
 
 ## 转换前检查
 
 ```bash
-md2wechat inspect article.md
-md2wechat inspect article.md --json
+md2wechat-new inspect article.md
+md2wechat-new inspect article.md --json
 ```
 
 `inspect` 会解析：
@@ -38,25 +32,25 @@ md2wechat inspect article.md --json
 预览，不上传图片：
 
 ```bash
-md2wechat convert article.md --preview
+md2wechat-new convert article.md --preview
 ```
 
 保存 HTML：
 
 ```bash
-md2wechat convert article.md -o output.html
+md2wechat-new convert article.md -o output.html
 ```
 
 指定主题：
 
 ```bash
-md2wechat convert article.md --theme elegant-blue -o output.html
+md2wechat-new convert article.md --theme elegant-blue -o output.html
 ```
 
 覆盖元数据：
 
 ```bash
-md2wechat convert article.md \
+md2wechat-new convert article.md \
   --title "文章标题" \
   --author "作者" \
   --digest "摘要" \
@@ -80,7 +74,7 @@ md2wechat convert article.md \
 默认模式：
 
 ```bash
-md2wechat convert article.md --mode api -o output.html
+md2wechat-new convert article.md --mode api -o output.html
 ```
 
 需要配置文本 API Key：
@@ -95,7 +89,7 @@ export TEXT_MODEL="deepseek-chat"
 也可以命令行临时传 key：
 
 ```bash
-md2wechat convert article.md --api-key "sk-..." -o output.html
+md2wechat-new convert article.md --api-key "sk-..." -o output.html
 ```
 
 API 模式会调用：
@@ -111,7 +105,7 @@ API 模式会调用：
 AI 模式不直接调用 provider，而是输出给外部 AI/Agent 使用的结构化内容。
 
 ```bash
-md2wechat convert article.md --mode ai --theme autumn-warm --json
+md2wechat-new convert article.md --mode ai --theme autumn-warm --json
 ```
 
 适合让 Claude、Codex 或其他 Agent 接管排版生成。
@@ -121,13 +115,13 @@ md2wechat convert article.md --mode ai --theme autumn-warm --json
 生成独立预览页：
 
 ```bash
-md2wechat preview article.md
+md2wechat-new preview article.md
 ```
 
 或直接用 convert 预览：
 
 ```bash
-md2wechat convert article.md --preview
+md2wechat-new convert article.md --preview
 ```
 
 预览不会上传图片，也不会创建草稿。
@@ -144,19 +138,19 @@ Markdown 中可以使用标准图片：
 上传图片并替换 HTML 链接：
 
 ```bash
-md2wechat convert article.md --upload -o output.html
+md2wechat-new convert article.md --upload -o output.html
 ```
 
 上传单张图片到微信永久素材：
 
 ```bash
-md2wechat upload_image cover.jpg
+md2wechat-new upload_image cover.jpg
 ```
 
 下载远程图片并上传：
 
 ```bash
-md2wechat download_and_upload https://example.com/image.jpg
+md2wechat-new download_and_upload https://example.com/image.jpg
 ```
 
 ## 创建微信草稿
@@ -164,25 +158,25 @@ md2wechat download_and_upload https://example.com/image.jpg
 转换并创建草稿：
 
 ```bash
-md2wechat convert article.md --draft --cover cover.jpg
+md2wechat-new convert article.md --draft --cover cover.jpg
 ```
 
 使用已有封面素材：
 
 ```bash
-md2wechat convert article.md --draft --cover-media-id MEDIA_ID
+md2wechat-new convert article.md --draft --cover-media-id MEDIA_ID
 ```
 
 保存 draft JSON，不上传：
 
 ```bash
-md2wechat convert article.md --save-draft draft.json
+md2wechat-new convert article.md --save-draft draft.json
 ```
 
 从 JSON 创建草稿：
 
 ```bash
-md2wechat create_draft draft.json
+md2wechat-new create_draft draft.json
 ```
 
 ## 上传已有 HTML
@@ -190,13 +184,13 @@ md2wechat create_draft draft.json
 如果你已经有转换好的 HTML，不想再次调用文本 API：
 
 ```bash
-md2wechat upload_html output.html --title "文章标题" --cover cover.jpg
+md2wechat-new upload_html output.html --title "文章标题" --cover cover.jpg
 ```
 
 可选参数：
 
 ```bash
-md2wechat upload_html output.html \
+md2wechat-new upload_html output.html \
   --title "文章标题" \
   --author "作者" \
   --digest "摘要" \
@@ -207,7 +201,7 @@ md2wechat upload_html output.html \
 使用已有封面素材：
 
 ```bash
-md2wechat upload_html output.html \
+md2wechat-new upload_html output.html \
   --title "文章标题" \
   --cover-media-id MEDIA_ID
 ```
@@ -217,25 +211,25 @@ md2wechat upload_html output.html \
 生成封面：
 
 ```bash
-md2wechat generate_cover --article article.md --size 1024x1024
+md2wechat-new generate_cover --article article.md --size 1024x1024
 ```
 
 生成信息图：
 
 ```bash
-md2wechat generate_infographic --article article.md
+md2wechat-new generate_infographic --article article.md
 ```
 
 直接生成图片并上传微信：
 
 ```bash
-md2wechat generate_image "A clean editorial cover about AI writing"
+md2wechat-new generate_image "A clean editorial cover about AI writing"
 ```
 
 查看图片 provider：
 
 ```bash
-md2wechat providers list --json
+md2wechat-new providers list --json
 ```
 
 ## 写作辅助
@@ -243,13 +237,13 @@ md2wechat providers list --json
 按风格生成文章：
 
 ```bash
-md2wechat write --style dan-koe --topic "AI 时代的个人品牌"
+md2wechat-new write --style dan-koe --topic "AI 时代的个人品牌"
 ```
 
 AI 去痕：
 
 ```bash
-md2wechat humanize article.md
+md2wechat-new humanize article.md
 ```
 
 ## 发现命令
@@ -257,11 +251,11 @@ md2wechat humanize article.md
 这些命令适合 Agent 和脚本调用：
 
 ```bash
-md2wechat capabilities --json
-md2wechat themes list --json
-md2wechat providers list --json
-md2wechat prompts list --json
-md2wechat layout list --json
+md2wechat-new capabilities --json
+md2wechat-new themes list --json
+md2wechat-new providers list --json
+md2wechat-new prompts list --json
+md2wechat-new layout list --json
 ```
 
 ## 常见流程
@@ -269,23 +263,23 @@ md2wechat layout list --json
 ### 只要 HTML
 
 ```bash
-md2wechat inspect article.md --json
-md2wechat convert article.md -o output.html
+md2wechat-new inspect article.md --json
+md2wechat-new convert article.md -o output.html
 ```
 
 ### 先转换，再人工检查，再上传
 
 ```bash
-md2wechat convert article.md -o output.html
+md2wechat-new convert article.md -o output.html
 open output.html
-md2wechat upload_html output.html --title "文章标题" --cover cover.jpg
+md2wechat-new upload_html output.html --title "文章标题" --cover cover.jpg
 ```
 
 ### 一步创建草稿
 
 ```bash
-md2wechat inspect article.md --json
-md2wechat convert article.md --draft --cover cover.jpg
+md2wechat-new inspect article.md --json
+md2wechat-new convert article.md --draft --cover cover.jpg
 ```
 
 ### 临时切换 provider
@@ -295,5 +289,5 @@ TEXT_PROVIDER=siliconflow \
 TEXT_API_KEY=sk-... \
 TEXT_API_BASE=https://api.siliconflow.cn/v1 \
 TEXT_MODEL=Qwen/Qwen2.5-72B-Instruct \
-md2wechat convert article.md -o output.html
+md2wechat-new convert article.md -o output.html
 ```

@@ -17,10 +17,10 @@
 | 文档 | 内容 |
 | --- | --- |
 | [QUICKSTART.md](QUICKSTART.md) | 5 分钟跑通本地转换 |
-| [INSTALL.md](INSTALL.md) | 本地构建、npm、GitHub Release、PATH |
+| [INSTALL.md](INSTALL.md) | npm、GitHub Release、Homebrew |
 | [CONFIG.md](CONFIG.md) | 配置文件、环境变量、文本 API、微信凭证 |
 | [USAGE.md](USAGE.md) | 常用命令、转换模式、上传 HTML、图片处理 |
-| [LOCAL_TO_WECHAT_GUIDE.md](LOCAL_TO_WECHAT_GUIDE.md) | 从本地源码到微信草稿箱的完整操作 |
+| [LOCAL_TO_WECHAT_GUIDE.md](LOCAL_TO_WECHAT_GUIDE.md) | 从安装配置到微信草稿箱的完整操作 |
 | [WECHAT-CREDENTIALS.md](WECHAT-CREDENTIALS.md) | AppID、AppSecret、IP 白名单 |
 | [FAQ.md](FAQ.md) | 常见问题 |
 | [TROUBLESHOOTING.md](TROUBLESHOOTING.md) | 报错排查 |
@@ -57,11 +57,11 @@
 ## 最常用命令
 
 ```bash
-md2wechat config init
-md2wechat config show --format json
-md2wechat inspect article.md --json
-md2wechat convert article.md --preview
-md2wechat convert article.md -o output.html
-md2wechat convert article.md --draft --cover cover.jpg
-md2wechat upload_html output.html --title "文章标题" --cover cover.jpg
+md2wechat-new config init
+md2wechat-new config show --format json
+md2wechat-new inspect article.md --json
+md2wechat-new convert article.md --preview
+md2wechat-new convert article.md -o output.html
+md2wechat-new convert article.md --draft --cover cover.jpg
+md2wechat-new upload_html output.html --title "文章标题" --cover cover.jpg
 ```

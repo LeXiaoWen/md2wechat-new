@@ -2,7 +2,7 @@
 
 这份 FAQ 只回答一件事：**新手最常卡在哪里，最快怎么排掉。**
 
-如果你是第一次接触 `md2wechat`，推荐先看这些文档：
+如果你是第一次接触 `md2wechat-new`，推荐先看这些文档：
 
 - [安装指南](INSTALL.md)
 - [配置指南](CONFIG.md)
@@ -25,15 +25,15 @@
 
 ## 安装与启动
 
-### Q1：提示 `command not found: md2wechat`
+### Q1：提示 `command not found: md2wechat-new`
 
 **原因**：程序没有在 `PATH` 里。
 
 **先做这两步：**
 
 ```bash
-command -v md2wechat
-md2wechat --help
+command -v md2wechat-new
+md2wechat-new --help
 ```
 
 如果 `command -v` 没输出，说明系统找不到二进制。
@@ -52,12 +52,6 @@ brew install lexiaowenn/tap/md2wechat-new
 npm install -g @lexiaowen/md2wechat-new
 ```
 
-如果你已经有稳定可用的 Go 环境，也可以：
-
-```bash
-go install github.com/LeXiaoWen/md2wechat-new/cmd/md2wechat@v0.1.0
-```
-
 如果以上都不适合，再走固定版本安装脚本：
 
 ```bash
@@ -67,13 +61,13 @@ curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/i
 安装脚本默认会把 CLI 放到：
 
 - macOS / Linux: `~/.local/bin/md2wechat-new`
-- Windows: 用户级安装目录或 `C:\Program Files\md2wechat\md2wechat.exe`
+- Windows: 用户级安装目录或 `C:\Program Files\md2wechat-new\md2wechat-new.exe`
 
 **解决方案 B：把二进制目录加到 PATH**
 
 ```bash
 export PATH="$HOME/.local/bin:$PATH"
-md2wechat version --json
+md2wechat-new version --json
 ```
 
 如果你不确定装到了哪里，优先重新走安装脚本，不要手猜路径。
@@ -125,31 +119,25 @@ npx cnpm sync @lexiaowen/md2wechat-new
 - `skills/md2wechat/`：给 Claude Code / Codex / OpenCode 的 coding-agent skill
 - `platforms/openclaw/md2wechat/`：给 OpenClaw / ClawHub 的专用 skill
 
-**OpenClaw 路径**还需要先安装 `md2wechat` CLI，不是只把 `SKILL.md` 放进去就够了。CLI 优先通过 `brew` 安装；如果你已有 Go 环境，也可以用 `go install`；否则再用固定版本 installer。skill 壳则继续通过 `clawhub` 或 OpenClaw installer 安装。优先看：
+**OpenClaw 路径**还需要先安装 `md2wechat-new` CLI，不是只把 `SKILL.md` 放进去就够了。CLI 优先通过 `brew` 或 npm 安装；否则再用固定版本 installer。skill 壳则继续通过 `clawhub` 或 OpenClaw installer 安装。优先看：
 
 - [OPENCLAW.md](OPENCLAW.md)
 
 **Claude Code / Codex 路径**如果只是二进制没装好，skill 也无法替你凭空执行 CLI。
 
-对 `skills/md2wechat/` 这条 coding-agent 路径，skill 现在直接依赖 `PATH` 里的 `md2wechat`。如果命令不存在，先安装 CLI，再安装 skill。
+对 `skills/md2wechat/` 这条 coding-agent 路径，skill 现在直接依赖 `PATH` 里的 `md2wechat-new`。如果命令不存在，先安装 CLI，再安装 skill。
 
 推荐先安装 CLI，再安装 skill。mac 用户优先 Homebrew：
 
 ```bash
 brew install lexiaowenn/tap/md2wechat-new
-npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
+npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat-new
 ```
 
 如果你已经有 Node/npm 环境，也可以把第一步改成：
 
 ```bash
 npm install -g @lexiaowen/md2wechat-new
-```
-
-如果你已经有 Go 环境，再把第一步改成：
-
-```bash
-go install github.com/LeXiaoWen/md2wechat-new/cmd/md2wechat@v0.1.0
 ```
 
 如果以上都不适合，再把第一步改成：
@@ -161,31 +149,31 @@ curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/i
 如果你懒得自己操作，也可以直接把下面的话发给 Claude Code / Codex / OpenCode：
 
 ```text
-请先安装 md2wechat CLI，再安装 md2wechat skill，并验证版本和能力发现都正常。
+请先安装 md2wechat-new CLI，再安装 md2wechat-new skill，并验证版本和能力发现都正常。
 执行：
 1. 如果我是 mac 用户，先运行：brew install lexiaowenn/tap/md2wechat-new
-2. 如果我已经有稳定可用的 Go 环境，也可以改成：go install github.com/LeXiaoWen/md2wechat-new/cmd/md2wechat@v0.1.0
+2. 如果我有稳定可用的 Node/npm 环境，也可以改成：npm install -g @lexiaowen/md2wechat-new
 3. 如果以上两种都不适合，再运行：curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/install.sh | bash
-4. 运行：npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
+4. 运行：npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat-new
 5. 如果我是通过 install.sh 安装的，再执行：export PATH="$HOME/.local/bin:$PATH"
-6. md2wechat version --json
-7. md2wechat capabilities --json
-8. md2wechat config init
+6. md2wechat-new version --json
+7. md2wechat-new capabilities --json
+8. md2wechat-new config init
 如果失败，请继续排查，不要只返回错误原文。
 ```
 
 如果你走的是 OpenClaw 路径，直接发这段：
 
 ```text
-请帮我安装 OpenClaw 版 md2wechat，并验证 skill 和 CLI 都可用。
+请帮我安装 OpenClaw 版 md2wechat-new，并验证 skill 和 CLI 都可用。
 执行：
 1. curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/install-openclaw.sh | bash
 2. 先执行：export PATH="$HOME/.local/bin:$PATH"
-3. md2wechat version --json
-4. md2wechat config init
-5. md2wechat config validate
-6. md2wechat capabilities --json
-如果失败，请继续排查 ~/.openclaw/skills/md2wechat/ 和 `command -v md2wechat`，不要只给我报错。
+3. md2wechat-new version --json
+4. md2wechat-new config init
+5. md2wechat-new config validate
+6. md2wechat-new capabilities --json
+如果失败，请继续排查 ~/.openclaw/skills/md2wechat/ 和 `command -v md2wechat-new`，不要只给我报错。
 ```
 
 ### Q3：我在 Obsidian 的 Claudian 里怎么用 `/md2wechat-new`？
@@ -194,24 +182,16 @@ curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/i
 
 ```bash
 brew install lexiaowenn/tap/md2wechat-new
-md2wechat version --json
-npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
+md2wechat-new version --json
+npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat-new
 ```
 
 如果你更习惯 npm，也可以把第一步改成：
 
 ```bash
 npm install -g @lexiaowen/md2wechat-new
-md2wechat version --json
-npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
-```
-
-如果你已经有 Go 环境，再改成：
-
-```bash
-go install github.com/LeXiaoWen/md2wechat-new/cmd/md2wechat@v0.1.0
-md2wechat version --json
-npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
+md2wechat-new version --json
+npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat-new
 ```
 
 如果以上都不适合，再改成：
@@ -219,8 +199,8 @@ npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
 ```bash
 curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/install.sh | bash
 export PATH="$HOME/.local/bin:$PATH"
-md2wechat version --json
-npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
+md2wechat-new version --json
+npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat-new
 ```
 
 然后回到 Claudian：
@@ -228,7 +208,7 @@ npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
 - 直接输入 `/md2wechat-new`
 - 或直接让 Agent 调用 `md2wechat` skill
 
-如果终端里有 `md2wechat`，但 Claudian 里还是找不到，优先去：
+如果终端里有 `md2wechat-new`，但 Claudian 里还是找不到，优先去：
 
 - `Settings -> Environment -> Custom variables`
 
@@ -246,7 +226,7 @@ PATH=/Users/你的用户名/.local/bin:原来的PATH
 
 ### Q4：macOS 提示“无法打开，因为无法验证开发者”
 
-这是 macOS 的安全提示，不是 `md2wechat` 特有问题。
+这是 macOS 的安全提示，不是 `md2wechat-new` 特有问题。
 
 可尝试：
 
@@ -271,8 +251,8 @@ sudo xattr -cr /Applications/md2wechat-new
 先执行：
 
 ```bash
-md2wechat config init
-md2wechat config show --format json
+md2wechat-new config init
+md2wechat-new config show --format json
 ```
 
 第二个命令会直接告诉你当前实际生效的是哪份配置。
@@ -290,7 +270,7 @@ md2wechat config show --format json
 最稳做法：
 
 ```bash
-md2wechat config init
+md2wechat-new config init
 ```
 
 然后编辑：
@@ -304,8 +284,8 @@ wechat:
 再执行：
 
 ```bash
-md2wechat config validate
-md2wechat config show --format json
+md2wechat-new config validate
+md2wechat-new config show --format json
 ```
 
 如果你不知道去哪里拿 AppID / AppSecret，直接看：
@@ -321,19 +301,19 @@ md2wechat config show --format json
 也就是：
 
 ```bash
-md2wechat convert article.md
+md2wechat-new convert article.md
 ```
 
 当前等价于：
 
 ```bash
-md2wechat convert article.md --mode api
+md2wechat-new convert article.md --mode api
 ```
 
 只有你显式传：
 
 ```bash
-md2wechat convert article.md --mode ai
+md2wechat-new convert article.md --mode ai
 ```
 
 才会进入 AI 模式。
@@ -351,7 +331,7 @@ md2wechat convert article.md --mode ai
 先执行：
 
 ```bash
-md2wechat config show --format json
+md2wechat-new config show --format json
 ```
 
 重点看：
@@ -386,7 +366,7 @@ export TEXT_MODEL="deepseek-chat"
 **方案 B：显式改走 AI 模式**
 
 ```bash
-md2wechat convert article.md --mode ai --theme autumn-warm
+md2wechat-new convert article.md --mode ai --theme autumn-warm
 ```
 
 ---
@@ -408,7 +388,7 @@ md2wechat convert article.md --mode ai --theme autumn-warm
 如果你要稳定、直接的 HTML 结果，优先用：
 
 ```bash
-md2wechat convert article.md --mode api
+md2wechat-new convert article.md --mode api
 ```
 
 如果你想理解当前 AI 模式的真实行为，先看：
@@ -445,21 +425,21 @@ iconv -f GBK -t UTF-8 article.md > article-utf8.md
 直接用发现命令，不要猜：
 
 ```bash
-md2wechat capabilities --json
-md2wechat providers list --json
-md2wechat themes list --json
-md2wechat prompts list --json
-md2wechat prompts list --kind image --archetype cover --json
-md2wechat prompts list --kind image --tag editorial --json
+md2wechat-new capabilities --json
+md2wechat-new providers list --json
+md2wechat-new themes list --json
+md2wechat-new prompts list --json
+md2wechat-new prompts list --kind image --archetype cover --json
+md2wechat-new prompts list --kind image --tag editorial --json
 ```
 
 看具体资源：
 
 ```bash
-md2wechat providers show openrouter --json
-md2wechat providers show volcengine --json
-md2wechat themes show autumn-warm --json
-md2wechat prompts show cover-default --kind image --json
+md2wechat-new providers show openrouter --json
+md2wechat-new providers show volcengine --json
+md2wechat-new themes show autumn-warm --json
+md2wechat-new prompts show cover-default --kind image --json
 ```
 
 完整说明见：
@@ -469,24 +449,24 @@ md2wechat prompts show cover-default --kind image --json
 如果你不想自己写图片 prompt，可以直接用内置 preset：
 
 ```bash
-md2wechat generate_cover --article article.md
-md2wechat generate_infographic --article article.md --preset infographic-comparison
-md2wechat generate_infographic --article article.md --preset infographic-dark-ticket-cn --aspect 21:9
-md2wechat generate_infographic --article article.md --preset infographic-handdrawn-sketchnote
-md2wechat generate_infographic --article article.md --preset infographic-apple-keynote-premium
-md2wechat generate_infographic --article article.md --preset infographic-victorian-engraving-banner --aspect 21:9
+md2wechat-new generate_cover --article article.md
+md2wechat-new generate_infographic --article article.md --preset infographic-comparison
+md2wechat-new generate_infographic --article article.md --preset infographic-dark-ticket-cn --aspect 21:9
+md2wechat-new generate_infographic --article article.md --preset infographic-handdrawn-sketchnote
+md2wechat-new generate_infographic --article article.md --preset infographic-apple-keynote-premium
+md2wechat-new generate_infographic --article article.md --preset infographic-victorian-engraving-banner --aspect 21:9
 ```
 
 如需只在本次调用切换模型，可直接加 `--model`：
 
 ```bash
-md2wechat generate_cover --article article.md --model gemini-3-pro-image-preview
+md2wechat-new generate_cover --article article.md --model gemini-3-pro-image-preview
 ```
 
 如果你不确定某个图片 preset 更偏封面还是信息图，先运行：
 
 ```bash
-md2wechat prompts show <preset-name> --kind image --json
+md2wechat-new prompts show <preset-name> --kind image --json
 ```
 
 优先看输出里的 `primary_use_case`、`compatible_use_cases` 和 `default_aspect_ratio`。有些信息图 preset 也可以兼作封面，不需要复制成两份模板。
@@ -527,13 +507,13 @@ md2wechat prompts show <preset-name> --kind image --json
 例如你需要：
 
 ```bash
-md2wechat convert article.md --upload -o output.html
+md2wechat-new convert article.md --upload -o output.html
 ```
 
 如果你只是：
 
 ```bash
-md2wechat convert article.md -o output.html
+md2wechat-new convert article.md -o output.html
 ```
 
 那它不会帮你上传图片，也不会把文内图片替换成微信素材地址。
@@ -552,9 +532,9 @@ md2wechat convert article.md -o output.html
 先执行：
 
 ```bash
-md2wechat providers list --json
-md2wechat providers show volcengine --json
-md2wechat config show --format json
+md2wechat-new providers list --json
+md2wechat-new providers show volcengine --json
+md2wechat-new config show --format json
 ```
 
 如果是 Volcengine 返回 `ModelNotOpen`，去 [豆包大模型](https://www.volcengine.com/product/doubao) 点击“控制台” -> “开通管理”，勾选 `Seedream` 模型完成开通，再重试。
@@ -562,7 +542,7 @@ md2wechat config show --format json
 然后再试最小命令：
 
 ```bash
-md2wechat generate_image "test prompt"
+md2wechat-new generate_image "test prompt"
 ```
 
 ---
@@ -574,8 +554,8 @@ md2wechat generate_image "test prompt"
 推荐把它们放在真正发布前：
 
 ```bash
-md2wechat inspect article.md
-md2wechat preview article.md
+md2wechat-new inspect article.md
+md2wechat-new preview article.md
 ```
 
 区别是：
@@ -600,7 +580,7 @@ md2wechat preview article.md
 先跑：
 
 ```bash
-md2wechat inspect article.md
+md2wechat-new inspect article.md
 ```
 
 看清最终 metadata 来源、正文 H1、以及两者是否一致。
@@ -609,14 +589,14 @@ md2wechat inspect article.md
 
 因为图片上传和替换只发生在发布路径：
 
-- `md2wechat convert article.md --upload`
-- `md2wechat convert article.md --draft --cover cover.jpg`
-- `md2wechat convert article.md --draft --cover-media-id PERMANENT_MEDIA_ID`
+- `md2wechat-new convert article.md --upload`
+- `md2wechat-new convert article.md --draft --cover cover.jpg`
+- `md2wechat-new convert article.md --draft --cover-media-id PERMANENT_MEDIA_ID`
 
 纯：
 
 ```bash
-md2wechat convert article.md --preview
+md2wechat-new convert article.md --preview
 ```
 
 只会预览正文输出，不会把本地图片、远程图片或 AI 图片上传到微信并替换 URL。
@@ -658,8 +638,8 @@ md2wechat convert article.md --preview
 如果你只是想确认结果，可以直接运行：
 
 ```bash
-md2wechat inspect article.md --json
-md2wechat preview article.md --json
+md2wechat-new inspect article.md --json
+md2wechat-new preview article.md --json
 ```
 
 这两条现在都符合 machine-readable contract。
@@ -676,7 +656,7 @@ ip xxx.xxx.xxx.xxx not in whitelist
 
 解决步骤：
 
-1. 在实际执行 `md2wechat` 的机器上查公网 IP
+1. 在实际执行 `md2wechat-new` 的机器上查公网 IP
 2. 去微信开发者平台的 `开发接口管理`
 3. 把这个公网 IP 加到 `IP 白名单`
 4. 等几分钟后再重试
@@ -699,21 +679,21 @@ ip xxx.xxx.xxx.xxx not in whitelist
 最稳的调试顺序不是直接跑完整链，而是：
 
 ```bash
-md2wechat config validate
-md2wechat upload_image cover.png --json
-md2wechat test-draft --json draft.html cover.png
+md2wechat-new config validate
+md2wechat-new upload_image cover.png --json
+md2wechat-new test-draft --json draft.html cover.png
 ```
 
 如果你已经有可复用的微信永久封面素材，也可以在正式转换时直接传：
 
 ```bash
-md2wechat convert article.md --draft --cover-media-id PERMANENT_MEDIA_ID --json
+md2wechat-new convert article.md --draft --cover-media-id PERMANENT_MEDIA_ID --json
 ```
 
 前两步都过了，再测：
 
 ```bash
-md2wechat convert article.md --upload --draft --cover cover.png --json
+md2wechat-new convert article.md --upload --draft --cover cover.png --json
 ```
 
 ---
@@ -732,7 +712,7 @@ md2wechat convert article.md --upload --draft --cover cover.png --json
 先看：
 
 ```bash
-md2wechat config show --format json
+md2wechat-new config show --format json
 ```
 
 ---
@@ -750,12 +730,12 @@ md2wechat config show --format json
 然后建议按这个顺序：
 
 ```bash
-md2wechat config show --format json
-md2wechat capabilities --json
-md2wechat providers list --json
-md2wechat providers show volcengine --json
-md2wechat themes list --json
-md2wechat prompts list --json
+md2wechat-new config show --format json
+md2wechat-new capabilities --json
+md2wechat-new providers list --json
+md2wechat-new providers show volcengine --json
+md2wechat-new themes list --json
+md2wechat-new prompts list --json
 ```
 
 这样 Agent 才知道：
@@ -770,16 +750,16 @@ md2wechat prompts list --json
 ### How do I discover layout modules supported in API mode?
 
 ```bash
-md2wechat layout list --json           # all 43 modules
-md2wechat layout list --serves attention --json   # attention-grabbing modules
-md2wechat layout show hero --json      # full spec with fields and example
+md2wechat-new layout list --json           # all 43 modules
+md2wechat-new layout list --serves attention --json   # attention-grabbing modules
+md2wechat-new layout show hero --json      # full spec with fields and example
 ```
 
 Use `layout render` to generate a valid :::block, then pass it in the markdown body to `/api/convert`.
 
 ### What does "unknown layout module" in validate output mean?
 
-`layout validate` warns (does not error) for `:::module-name` blocks it does not recognize. This is intentional — it allows forward-compatible documents. If the module name is a typo, fix it by checking `md2wechat layout list --json`. If it's a new custom module, add a YAML spec to `~/.config/md2wechat-new/layout/<category>/<name>.yaml`.
+`layout validate` warns (does not error) for `:::module-name` blocks it does not recognize. This is intentional — it allows forward-compatible documents. If the module name is a typo, fix it by checking `md2wechat-new layout list --json`. If it's a new custom module, add a YAML spec to `~/.config/md2wechat-new/layout/<category>/<name>.yaml`.
 
 ### How do I add a custom layout module so the CLI recognizes it?
 
@@ -832,17 +812,17 @@ Save it to `~/.config/md2wechat-new/layout/custom/my-module.yaml`. The CLI picks
 按这个顺序最稳：
 
 ```bash
-md2wechat config validate --json
-md2wechat config show --format json
-md2wechat upload_image --json cover.png
-md2wechat test-draft --json draft.html cover.png
-md2wechat convert article.md --mode api --upload --draft --cover cover.png --json
+md2wechat-new config validate --json
+md2wechat-new config show --format json
+md2wechat-new upload_image --json cover.png
+md2wechat-new test-draft --json draft.html cover.png
+md2wechat-new convert article.md --mode api --upload --draft --cover cover.png --json
 ```
 
 如果你还要测 AI：
 
 ```bash
-md2wechat convert article.md --mode ai --json
+md2wechat-new convert article.md --mode ai --json
 ```
 
 这个顺序的好处是：
@@ -867,9 +847,9 @@ md2wechat convert article.md --mode ai --json
 再看命令帮助：
 
 ```bash
-md2wechat --help
-md2wechat convert --help
-md2wechat create_image_post --help
+md2wechat-new --help
+md2wechat-new convert --help
+md2wechat-new create_image_post --help
 ```
 
 如果还解决不了，再提 Issue。
@@ -883,20 +863,20 @@ md2wechat create_image_post --help
 ### 1. 版本信息
 
 ```bash
-md2wechat version --json
+md2wechat-new version --json
 go version
 ```
 
 ### 2. 当前配置摘要
 
 ```bash
-md2wechat config show --format json
+md2wechat-new config show --format json
 ```
 
 ### 3. 失败命令和完整错误输出
 
 ```bash
-md2wechat convert article.md 2>&1
+md2wechat-new convert article.md 2>&1
 ```
 
 ### 4. 系统信息

@@ -21,7 +21,7 @@
 ### ❓ 下载后双击没反应
 
 **Windows**：
-1. 右键点击 `md2wechat.exe`
+1. 右键点击 `md2wechat-new.exe`
 2. 选择「属性」
 3. 点击「解除锁定」（如果有）
 4. 再双击运行
@@ -58,7 +58,7 @@ iex ((New-Object System.Net.WebClient).DownloadString("$env:MD2WECHAT_RELEASE_BA
 ```bash
 curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/install.sh | bash
 export PATH="$HOME/.local/bin:$PATH"
-md2wechat version --json
+md2wechat-new version --json
 ```
 
 ---
@@ -90,7 +90,7 @@ md2wechat version --json
 
 2. **创建配置文件**
    ```bash
-   md2wechat config init
+   md2wechat-new config init
    ```
 
 3. **编辑配置文件**
@@ -100,7 +100,7 @@ md2wechat version --json
 
 4. **验证配置**
    ```bash
-   md2wechat config validate
+   md2wechat-new config validate
    ```
 
 ---
@@ -121,7 +121,7 @@ md2wechat version --json
 你也可以运行下面的命令确认当前实际生效的是哪个配置文件：
 
 ```bash
-md2wechat config show --format json
+md2wechat-new config show --format json
 ```
 
 ---
@@ -134,13 +134,13 @@ md2wechat config show --format json
 
 ```bash
 # 错误示例（文件不存在）
-md2wechat convert 文章.md
+md2wechat-new convert 文章.md
 
 # 正确示例（使用正确的文件名）
-md2wechat convert 我的文章.md
+md2wechat-new convert 我的文章.md
 
 # 或者使用完整路径
-md2wechat convert /Users/你的名字/Documents/文章.md
+md2wechat-new convert /Users/你的名字/Documents/文章.md
 ```
 
 **可能原因 2**：文件编码不是 UTF-8
@@ -173,21 +173,21 @@ md2wechat convert /Users/你的名字/Documents/文章.md
 
 **解决方法 A**：使用 API 模式（更简单）
 ```bash
-md2wechat convert 文章.md --mode api
+md2wechat-new convert 文章.md --mode api
 ```
 
 **解决方法 B**：先确认你是不是把 AI 模式当成了最终排版
 
 ```bash
-md2wechat inspect 文章.md
-md2wechat preview 文章.md --mode ai
-md2wechat convert 文章.md --mode ai --json
+md2wechat-new inspect 文章.md
+md2wechat-new preview 文章.md --mode ai
+md2wechat-new convert 文章.md --mode ai --json
 ```
 
 如果你真正想要的是“直接拿到可发 HTML”，优先改回：
 
 ```bash
-md2wechat convert 文章.md --mode api
+md2wechat-new convert 文章.md --mode api
 ```
 
 ---
@@ -200,10 +200,10 @@ md2wechat convert 文章.md --mode api
 
 ```bash
 # 错误（不会上传图片）
-md2wechat convert 文章.md
+md2wechat-new convert 文章.md
 
 # 正确（上传图片）
-md2wechat convert 文章.md --upload
+md2wechat-new convert 文章.md --upload
 ```
 
 ---
@@ -257,10 +257,10 @@ md2wechat convert 文章.md --upload
 **解决方法**：
 ```bash
 # 1. 验证配置
-md2wechat config validate
+md2wechat-new config validate
 
 # 2. 等待几分钟后重试
-md2wechat convert 文章.md --draft
+md2wechat-new convert 文章.md --draft
 ```
 
 ---
@@ -276,7 +276,7 @@ md2wechat convert 文章.md --draft
 - 尝试简化内容后重试
 - 或先保存为 JSON：
   ```bash
-  md2wechat convert 文章.md --save-draft draft.json
+  md2wechat-new convert 文章.md --save-draft draft.json
   ```
 
 **可能原因 3**：缺少封面或摘要字段超限
@@ -284,7 +284,7 @@ md2wechat convert 文章.md --draft
 先检查：
 
 ```bash
-md2wechat inspect 文章.md --draft --cover cover.jpg
+md2wechat-new inspect 文章.md --draft --cover cover.jpg
 ```
 
 如果看到 `errcode=45004` / `description size out of limit`，优先缩短：
@@ -311,13 +311,13 @@ md2wechat inspect 文章.md --draft --cover cover.jpg
 
 ```bash
 # 1. 检查版本
-md2wechat version --json
+md2wechat-new version --json
 
 # 2. 验证配置
-md2wechat config validate
+md2wechat-new config validate
 
 # 3. 查看配置（不显示密码）
-md2wechat config show --format json
+md2wechat-new config show --format json
 ```
 
 ### 获取支持

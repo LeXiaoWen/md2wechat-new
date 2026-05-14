@@ -10,7 +10,7 @@ md2wechat-skill 的核心目标不是“把 Markdown 变好看”，而是把文
 
 这条主线的含义是：
 
-- `cmd/md2wechat-new` 只负责参数解析、命令入口、输出 envelope 和错误出口。
+- `cmd/md2wechat` 只负责参数解析、命令入口、输出 envelope 和错误出口。
 - `internal/inspect` 负责把 metadata 来源、readiness 和 checks 收口成一份可解释真相。
 - `internal/preview` 负责消费 inspect 结果，生成只读本地确认页，而不是再实现一套业务判断。
 - `internal/publish` 负责应用层编排，承接文章转换、图片处理、草稿保存和图片帖子创建。
@@ -32,7 +32,7 @@ md2wechat-skill 的核心目标不是“把 Markdown 变好看”，而是把文
 
 ## 模块职责
 
-### `cmd/md2wechat-new`
+### `cmd/md2wechat`
 
 - Cobra 命令定义
 - 参数校验

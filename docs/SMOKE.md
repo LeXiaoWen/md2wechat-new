@@ -26,8 +26,8 @@
 执行过的基础自检：
 
 ```bash
-md2wechat config validate --json
-md2wechat config show --format json
+md2wechat-new config validate --json
+md2wechat-new config show --format json
 ```
 
 ---
@@ -39,8 +39,8 @@ md2wechat config show --format json
 命令形态：
 
 ```bash
-md2wechat inspect article.md --json
-md2wechat preview article.md --json
+md2wechat-new inspect article.md --json
+md2wechat-new preview article.md --json
 ```
 
 结果：
@@ -59,7 +59,7 @@ md2wechat preview article.md --json
 命令：
 
 ```bash
-md2wechat generate_image --json "minimal smoke test banner..."
+md2wechat-new generate_image --json "minimal smoke test banner..."
 ```
 
 结果：
@@ -77,7 +77,7 @@ md2wechat generate_image --json "minimal smoke test banner..."
 命令：
 
 ```bash
-md2wechat upload_image --json /tmp/md2wechat-real-smoke.png
+md2wechat-new upload_image --json /tmp/md2wechat-real-smoke.png
 ```
 
 结果：
@@ -93,7 +93,7 @@ md2wechat upload_image --json /tmp/md2wechat-real-smoke.png
 命令：
 
 ```bash
-md2wechat create_image_post --json \
+md2wechat-new create_image_post --json \
   -t "Smoke Test" \
   --images /tmp/md2wechat-real-smoke.png
 ```
@@ -128,7 +128,7 @@ md2wechat create_image_post --json \
 命令：
 
 ```bash
-md2wechat test-draft --json draft.html cover.png
+md2wechat-new test-draft --json draft.html cover.png
 ```
 
 结果：
@@ -145,7 +145,7 @@ md2wechat test-draft --json draft.html cover.png
 命令形态：
 
 ```bash
-md2wechat create_draft oversize-digest.json --json
+md2wechat-new create_draft oversize-digest.json --json
 ```
 
 结果：
@@ -164,7 +164,7 @@ md2wechat create_draft oversize-digest.json --json
 命令形态：
 
 ```bash
-md2wechat convert \
+md2wechat-new convert \
   --json \
   --mode api \
   --upload \
@@ -191,7 +191,7 @@ md2wechat convert \
 命令形态：
 
 ```bash
-md2wechat convert \
+md2wechat-new convert \
   --json \
   --mode ai \
   --theme autumn-warm \
@@ -255,12 +255,12 @@ unsupported file type
 
 如果你要在新环境复现这组 smoke，按这个顺序最稳：
 
-1. `md2wechat config validate --json`
-2. `md2wechat upload_image --json <normal-image.png>`
-3. `md2wechat create_image_post --json ...`
-4. `md2wechat test-draft --json ...`
-5. `md2wechat convert --mode api --upload --draft --output ...`
-6. 最后再测 `md2wechat convert --mode ai --json`
+1. `md2wechat-new config validate --json`
+2. `md2wechat-new upload_image --json <normal-image.png>`
+3. `md2wechat-new create_image_post --json ...`
+4. `md2wechat-new test-draft --json ...`
+5. `md2wechat-new convert --mode api --upload --draft --output ...`
+6. 最后再测 `md2wechat-new convert --mode ai --json`
 
 ---
 

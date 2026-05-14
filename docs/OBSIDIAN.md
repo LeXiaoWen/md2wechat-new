@@ -4,11 +4,11 @@
 
 - 你在用 Obsidian
 - 你装了 [Claudian](https://github.com/YishenTu/claudian)
-- 你希望在 Obsidian 里直接通过 `/md2wechat-new` 或自然语言使用 `md2wechat`
+- 你希望在 Obsidian 里直接通过 `/md2wechat-new` 或自然语言使用 `md2wechat-new`
 
 一句话结论：
 
-**先安装 `md2wechat` CLI，再安装 skill。**
+**先安装 `md2wechat-new` CLI，再安装 skill。**
 
 `npx skills add ...` 只安装 skill，不会替你安装 CLI。
 
@@ -23,13 +23,13 @@
 - 会从 `~/.claude/skills/` 或 `{vault}/.claude/skills/` 发现 skills
 - 支持 slash commands
 
-这就是为什么 `md2wechat` 可以在 Claudian 里工作。
+这就是为什么 `md2wechat-new` 可以在 Claudian 里工作。
 
 你可以把它理解成：
 
 - Claudian 负责把 Agent 带进 Obsidian
 - `md2wechat` skill 负责告诉 Agent 怎么排版、生成图片、发草稿
-- `md2wechat` CLI 负责真正执行命令
+- `md2wechat-new` CLI 负责真正执行命令
 
 ---
 
@@ -39,18 +39,9 @@
 
 ```bash
 brew install lexiaowenn/tap/md2wechat-new
-md2wechat version --json
-npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
-md2wechat capabilities --json
-```
-
-如果你已经有 Go 环境，再改成：
-
-```bash
-go install github.com/LeXiaoWen/md2wechat-new/cmd/md2wechat@v0.1.0
-md2wechat version --json
-npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
-md2wechat capabilities --json
+md2wechat-new version --json
+npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat-new
+md2wechat-new capabilities --json
 ```
 
 如果以上都不适合，再改成：
@@ -58,14 +49,14 @@ md2wechat capabilities --json
 ```bash
 curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/install.sh | bash
 export PATH="$HOME/.local/bin:$PATH"
-md2wechat version --json
-npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
-md2wechat capabilities --json
+md2wechat-new version --json
+npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat-new
+md2wechat-new capabilities --json
 ```
 
 做到这里，你已经完成了两件事：
 
-1. 本机有可执行的 `md2wechat` CLI
+1. 本机有可执行的 `md2wechat-new` CLI
 2. Claudian / Claude Code 格式的 skill 已经装到 `~/.claude/skills/`
 
 ---
@@ -84,18 +75,12 @@ md2wechat capabilities --json
 
 ---
 
-### 第二步：安装 `md2wechat` CLI
+### 第二步：安装 `md2wechat-new` CLI
 
 mac 用户优先：
 
 ```bash
 brew install lexiaowenn/tap/md2wechat-new
-```
-
-如果你已经有 Go 环境，也可以：
-
-```bash
-go install github.com/LeXiaoWen/md2wechat-new/cmd/md2wechat@v0.1.0
 ```
 
 如果以上都不适合，再用固定版本安装脚本：
@@ -107,13 +92,13 @@ curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/i
 默认安装位置：
 
 - macOS / Linux：`~/.local/bin/md2wechat-new`
-- Windows：用户级安装目录或 `C:\Program Files\md2wechat\md2wechat.exe`
+- Windows：用户级安装目录或 `C:\Program Files\md2wechat-new\md2wechat-new.exe`
 
 安装后先验证：
 
 ```bash
 export PATH="$HOME/.local/bin:$PATH"
-md2wechat version --json
+md2wechat-new version --json
 ```
 
 如果能看到版本 JSON，说明 CLI 安装成功。
@@ -123,7 +108,7 @@ md2wechat version --json
 ### 第三步：安装 skill
 
 ```bash
-npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
+npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat-new
 ```
 
 这一步只会安装 skill，不会安装 CLI。
@@ -150,11 +135,11 @@ SKILL.md
 ### 第四步：验证能力发现
 
 ```bash
-md2wechat capabilities --json
-md2wechat providers show volcengine --json
-md2wechat themes list --json
-md2wechat prompts list --kind image --json
-md2wechat providers list --json
+md2wechat-new capabilities --json
+md2wechat-new providers show volcengine --json
+md2wechat-new themes list --json
+md2wechat-new prompts list --kind image --json
+md2wechat-new providers list --json
 ```
 
 这是最稳的验证方式。  
@@ -169,19 +154,19 @@ md2wechat providers list --json
 
 - 直接输入 `/md2wechat-new`
 - 或直接告诉 Agent：
-  - “请用 md2wechat 把当前 Markdown 转成公众号格式”
-  - “请先用 md2wechat capabilities 看当前支持什么”
+  - “请用 md2wechat-new 把当前 Markdown 转成公众号格式”
+  - “请先用 md2wechat-new capabilities 看当前支持什么”
   - “请为这篇文章生成封面图”
 
 推荐的起手式：
 
 ```text
-请先用 md2wechat capabilities --json 看当前支持什么，然后把当前文章转换成微信公众号格式，并给我一个预览版本。
+请先用 md2wechat-new capabilities --json 看当前支持什么，然后把当前文章转换成微信公众号格式，并给我一个预览版本。
 ```
 
 ---
 
-## 如果 Claudian 里还是找不到 `md2wechat`
+## 如果 Claudian 里还是找不到 `md2wechat-new`
 
 这是最常见的问题。
 
@@ -192,7 +177,7 @@ Obsidian 是图形界面应用。
 
 所以会出现这种情况：
 
-- 终端里 `md2wechat` 正常
+- 终端里 `md2wechat-new` 正常
 - Claudian 里却找不到
 
 ### 最稳的修法
@@ -218,7 +203,7 @@ PATH=/home/你的用户名/.local/bin:原来的PATH
 如果你不确定自己 CLI 安装在哪，先在终端执行：
 
 ```bash
-command -v md2wechat
+command -v md2wechat-new
 ```
 
 把输出路径前面的目录加进 Claudian 的 `PATH` 即可。
@@ -230,16 +215,16 @@ command -v md2wechat
 如果你不想自己逐步敲命令，可以直接把下面这段发给 Claudian、Claude、GPT 或其他 Agent：
 
 ```text
-请帮我在当前电脑上安装 md2wechat，并让 Claudian 可以在 Obsidian 里通过 /md2wechat-new 使用它。按这个顺序执行：
+请帮我在当前电脑上安装 md2wechat-new，并让 Claudian 可以在 Obsidian 里通过 /md2wechat-new 使用它。按这个顺序执行：
 1. 如果我是 mac 用户，先运行：brew install lexiaowenn/tap/md2wechat-new
-2. 如果我已经有稳定可用的 Go 环境，也可以改成：go install github.com/LeXiaoWen/md2wechat-new/cmd/md2wechat@v0.1.0
+2. 如果我有稳定可用的 Node/npm 环境，也可以改成：npm install -g @lexiaowen/md2wechat-new
 3. 如果以上两种都不适合，再运行：curl -fsSL https://github.com/LeXiaoWen/md2wechat-new/releases/download/v0.1.0/install.sh | bash
 4. 如果我是通过 install.sh 安装的，再运行：export PATH="$HOME/.local/bin:$PATH"
-5. 运行：md2wechat version --json
-6. 运行：npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat
-7. 运行：md2wechat capabilities --json
-8. 如果 Obsidian / Claudian 里还是找不到 md2wechat，请提醒我去 Claudian 的 Settings -> Environment -> Custom variables，把 PATH 补上 ~/.local/bin
-9. 最后告诉我如何在 Claudian 里输入 /md2wechat-new 或直接调用 md2wechat skill
+5. 运行：md2wechat-new version --json
+6. 运行：npx skills add https://github.com/LeXiaoWen/md2wechat-new --skill md2wechat-new
+7. 运行：md2wechat-new capabilities --json
+8. 如果 Obsidian / Claudian 里还是找不到 md2wechat-new，请提醒我去 Claudian 的 Settings -> Environment -> Custom variables，把 PATH 补上 ~/.local/bin
+9. 最后告诉我如何在 Claudian 里输入 /md2wechat-new 或直接调用 md2wechat-new skill
 如果某一步失败，请继续排查并给我下一条修复命令，不要只返回报错原文。
 ```
 
@@ -250,7 +235,7 @@ command -v md2wechat
 ### Q1：为什么要先装 CLI？
 
 因为 `npx skills add ...` 只装 skill。  
-`md2wechat` 真正执行转换、图片生成、上传草稿，还是靠本机 CLI。
+`md2wechat-new` 真正执行转换、图片生成、上传草稿，还是靠本机 CLI。
 
 ### Q2：为什么我在终端里能用，Claudian 里不能用？
 
@@ -268,13 +253,13 @@ Claudian 支持 slash commands 和 skills，但你的最终呈现方式会受插
 最稳的理解方式是：
 
 - skill 已安装
-- Agent 可以调用 `md2wechat`
+- Agent 可以调用 `md2wechat-new`
 - 你可以通过 `/md2wechat-new` 或自然语言触发它
 
 如果你更想确认当前可用能力，先在终端执行：
 
 ```bash
-md2wechat capabilities --json
+md2wechat-new capabilities --json
 ```
 
 ---

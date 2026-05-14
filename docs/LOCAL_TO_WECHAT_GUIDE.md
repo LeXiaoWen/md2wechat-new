@@ -1,6 +1,6 @@
-# 本地初始化到微信公众号草稿全流程
+# 初始化到微信公众号草稿全流程
 
-这份指南从本地源码开始，走到把文章创建为微信公众号草稿。适合你现在这个项目的真实使用方式。
+这份指南从安装命令行工具开始，走到把文章创建为微信公众号草稿。适合发布后的日常使用方式。
 
 ## 0. 准备材料
 
@@ -15,20 +15,17 @@
 
 微信凭证和 IP 白名单详见 [WECHAT-CREDENTIALS.md](WECHAT-CREDENTIALS.md)。
 
-## 1. 构建当前项目
+## 1. 安装
 
 ```bash
-cd /Users/leo/Desktop/project/md2wechat-new
-go build -o md2wechat ./cmd/md2wechat
-./md2wechat version --json
+npm install -g @lexiaowen/md2wechat-new
+md2wechat-new version --json
 ```
-
-后续命令使用 `./md2wechat`，确保调用的是当前项目代码。
 
 ## 2. 初始化配置
 
 ```bash
-./md2wechat config init
+md2wechat-new config init
 ```
 
 默认文件：
@@ -110,7 +107,7 @@ curl ifconfig.me
 ## 5. 检查配置
 
 ```bash
-./md2wechat config show --format json
+md2wechat-new config show --format json
 ```
 
 需要确认：
@@ -126,7 +123,7 @@ curl ifconfig.me
 如需确认 secret：
 
 ```bash
-./md2wechat config show --format json --show-secret
+md2wechat-new config show --format json --show-secret
 ```
 
 ## 6. 准备文章
@@ -150,7 +147,7 @@ digest: "文章摘要，最多 120 个字符"
 ## 7. 发布前检查
 
 ```bash
-./md2wechat inspect article.md --json
+md2wechat-new inspect article.md --json
 ```
 
 先处理检查结果中的问题，比如：
@@ -167,13 +164,13 @@ digest: "文章摘要，最多 120 个字符"
 只预览：
 
 ```bash
-./md2wechat convert article.md --preview
+md2wechat-new convert article.md --preview
 ```
 
 保存 HTML：
 
 ```bash
-./md2wechat convert article.md -o output.html
+md2wechat-new convert article.md -o output.html
 ```
 
 如果请求超时，可以提高 `http_timeout`，或临时切换 provider。
@@ -183,7 +180,7 @@ digest: "文章摘要，最多 120 个字符"
 如果文章中有本地图片：
 
 ```bash
-./md2wechat convert article.md --upload -o output.html
+md2wechat-new convert article.md --upload -o output.html
 ```
 
 这一步需要微信 AppID、Secret 和 IP 白名单。
@@ -193,13 +190,13 @@ digest: "文章摘要，最多 120 个字符"
 一步完成转换和创建草稿：
 
 ```bash
-./md2wechat convert article.md --draft --cover cover.jpg
+md2wechat-new convert article.md --draft --cover cover.jpg
 ```
 
 使用已有封面素材：
 
 ```bash
-./md2wechat convert article.md --draft --cover-media-id MEDIA_ID
+md2wechat-new convert article.md --draft --cover-media-id MEDIA_ID
 ```
 
 ## 11. 已有 HTML 直接上传
@@ -207,13 +204,13 @@ digest: "文章摘要，最多 120 个字符"
 如果你已经有 `output.html`，不想重新转换：
 
 ```bash
-./md2wechat upload_html output.html --title "文章标题" --cover cover.jpg
+md2wechat-new upload_html output.html --title "文章标题" --cover cover.jpg
 ```
 
 完整参数示例：
 
 ```bash
-./md2wechat upload_html output.html \
+md2wechat-new upload_html output.html \
   --title "文章标题" \
   --author "作者名" \
   --digest "文章摘要" \
@@ -238,7 +235,7 @@ digest: "文章摘要，最多 120 个字符"
 API 模式没有读到文本 API Key。运行：
 
 ```bash
-./md2wechat config show --format json
+md2wechat-new config show --format json
 ```
 
 确认 `text_api_key` 是否为空。

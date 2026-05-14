@@ -1,36 +1,6 @@
 # 安装指南
 
-`md2wechat-new` 目前最适合的安装方式取决于你处在开发阶段还是发布阶段。
-
-## 本地开发安装
-
-进入项目目录：
-
-```bash
-cd /Users/leo/Desktop/project/md2wechat-new
-```
-
-构建：
-
-```bash
-go build -o md2wechat ./cmd/md2wechat
-```
-
-验证：
-
-```bash
-./md2wechat version --json
-./md2wechat --help
-```
-
-如果想放进 PATH：
-
-```bash
-mkdir -p ~/.local/bin
-cp ./md2wechat ~/.local/bin/md2wechat
-export PATH="$HOME/.local/bin:$PATH"
-md2wechat version --json
-```
+`md2wechat-new` 推荐通过 npm 或 GitHub Release 安装。
 
 ## npm 安装
 
@@ -49,7 +19,7 @@ npm install -g @lexiaowen/md2wechat-new
 验证：
 
 ```bash
-md2wechat version --json
+md2wechat-new version --json
 ```
 
 注意：npm 包不直接内置所有平台二进制，而是在 `postinstall` 阶段从 GitHub Release 下载对应平台文件。因此必须先发布同版本 GitHub Release。
@@ -146,10 +116,6 @@ tag workflow 会在 Release 创建后执行：
 npm publish --access public
 ```
 
-## Go 安装
-
-当前推荐使用本地源码构建或 npm 安装。仓库迁移后，如果要支持 `go install`，需要同步确认 GitHub 仓库地址和 `go.mod` 的 module 路径一致。
-
 npm scope 是 `@lexiaowen`，GitHub Release 仓库是 `LeXiaoWen/md2wechat-new`。这两者不必相同。
 
 ## 常见安装问题
@@ -177,7 +143,7 @@ npm publish --access public --otp=123456
 检查：
 
 ```bash
-md2wechat version --json
+md2wechat-new version --json
 ```
 
 确认当前版本对应的 Release 存在：

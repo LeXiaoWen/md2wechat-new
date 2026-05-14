@@ -15,13 +15,7 @@
 ## 初始化配置
 
 ```bash
-md2wechat config init
-```
-
-如果你在源码目录里工作：
-
-```bash
-./md2wechat config init
+md2wechat-new config init
 ```
 
 如果文件已存在，命令会拒绝覆盖。直接编辑现有文件即可：
@@ -33,13 +27,13 @@ open ~/.config/md2wechat-new/config.yaml
 ## 查看生效配置
 
 ```bash
-md2wechat config show --format json
+md2wechat-new config show --format json
 ```
 
 如果需要确认密钥是否真的读到，可以临时显示 secret：
 
 ```bash
-md2wechat config show --format json --show-secret
+md2wechat-new config show --format json --show-secret
 ```
 
 注意不要把带 secret 的输出发到公开渠道。
@@ -131,7 +125,7 @@ TEXT_PROVIDER=deepseek \
 TEXT_API_KEY=sk-... \
 TEXT_API_BASE=https://api.deepseek.com \
 TEXT_MODEL=deepseek-chat \
-md2wechat convert article.md --preview
+md2wechat-new convert article.md --preview
 ```
 
 ## 微信公众号配置
@@ -164,7 +158,7 @@ api:
 查看可用图片 provider：
 
 ```bash
-md2wechat providers list --json
+md2wechat-new providers list --json
 ```
 
 常用环境变量：
@@ -186,7 +180,7 @@ export IMAGE_SIZE="1024x1024"
 排查：
 
 ```bash
-md2wechat config show --format json
+md2wechat-new config show --format json
 ```
 
 确认：
@@ -200,7 +194,7 @@ md2wechat config show --format json
 优先检查实际生效配置：
 
 ```bash
-md2wechat config show --format json --show-secret
+md2wechat-new config show --format json --show-secret
 ```
 
 确认：
@@ -228,7 +222,7 @@ api:
 或者用环境变量：
 
 ```bash
-HTTP_TIMEOUT=120 md2wechat convert article.md -o output.html
+HTTP_TIMEOUT=120 md2wechat-new convert article.md -o output.html
 ```
 
 ### 还看到 `https://www.md2wechat.cn`
@@ -236,12 +230,8 @@ HTTP_TIMEOUT=120 md2wechat convert article.md -o output.html
 新版 API 转换不再调用旧接口。若 `config show` 里仍看到旧字段，通常说明你调用的是旧二进制。请确认：
 
 ```bash
-which md2wechat
-md2wechat version --json
+which md2wechat-new
+md2wechat-new version --json
 ```
 
-源码目录建议使用：
-
-```bash
-./md2wechat version --json
-```
+如果版本不符合预期，重新安装或检查 PATH 里的命令来源。

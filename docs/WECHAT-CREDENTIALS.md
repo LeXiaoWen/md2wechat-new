@@ -5,7 +5,7 @@
 1. `WECHAT_APPID` 和 `WECHAT_SECRET` 去哪里拿
 2. 为什么明明填了凭证，调用微信接口还是失败
 3. 微信接口 IP 白名单在哪里配
-4. 配好之后，怎么写回 `md2wechat` 并验证
+4. 配好之后，怎么写回 `md2wechat-new` 并验证
 
 如果你是第一次接触微信公众号开发，按这份文档一步一步做就够了。
 
@@ -20,7 +20,7 @@
 - `AppID`：你的公众号在微信侧的唯一标识
 - `AppSecret`：你的公众号调用微信接口时使用的密钥
 
-`md2wechat` 在以下场景会用到它们：
+`md2wechat-new` 在以下场景会用到它们：
 
 - 上传图片到微信素材库
 - 创建微信草稿
@@ -40,7 +40,7 @@
 ip xxx.xxx.xxx.xxx not in whitelist
 ```
 
-这不是 `md2wechat` 代码问题，而是微信的前置安全限制。
+这不是 `md2wechat-new` 代码问题，而是微信的前置安全限制。
 
 ---
 
@@ -60,7 +60,7 @@ https://developers.weixin.qq.com/platform
 
 ### 步骤 2：选择你的公众号
 
-登录后，选择你要接入 `md2wechat` 的那个公众号。
+登录后，选择你要接入 `md2wechat-new` 的那个公众号。
 
 如果你有多个公众号，注意不要选错。
 
@@ -99,14 +99,14 @@ https://developers.weixin.qq.com/platform
 
 ---
 
-## 二、把凭证写到 md2wechat
+## 二、把凭证写到 md2wechat-new
 
 推荐方式是写配置文件。
 
 ### 步骤 1：生成配置文件
 
 ```bash
-md2wechat config init
+md2wechat-new config init
 ```
 
 默认配置文件路径：
@@ -135,8 +135,8 @@ export WECHAT_SECRET="你的公众号 AppSecret"
 ### 步骤 3：验证配置是否生效
 
 ```bash
-md2wechat config validate
-md2wechat config show --format json
+md2wechat-new config validate
+md2wechat-new config show --format json
 ```
 
 你应该重点确认：
@@ -153,11 +153,11 @@ md2wechat config show --format json
 
 如果你要做这些事，就要高度怀疑自己需要白名单：
 
-- `md2wechat upload_image`
-- `md2wechat convert --upload`
-- `md2wechat convert --draft`
-- `md2wechat create_image_post`
-- `md2wechat test-draft`
+- `md2wechat-new upload_image`
+- `md2wechat-new convert --upload`
+- `md2wechat-new convert --draft`
+- `md2wechat-new create_image_post`
+- `md2wechat-new test-draft`
 
 ### 白名单报错长什么样
 
@@ -171,7 +171,7 @@ ip xxx.xxx.xxx.xxx not in whitelist
 
 ### 步骤 1：先查出当前执行机的公网 IP
 
-在你实际运行 `md2wechat` 的那台机器上执行：
+在你实际运行 `md2wechat-new` 的那台机器上执行：
 
 ```bash
 curl ifconfig.me
@@ -269,13 +269,13 @@ curl ipinfo.io/ip
 ### 1. 先验证配置
 
 ```bash
-md2wechat config validate
+md2wechat-new config validate
 ```
 
 ### 2. 再试单张图片上传
 
 ```bash
-md2wechat upload_image ./cover.png --json
+md2wechat-new upload_image ./cover.png --json
 ```
 
 如果这一步失败，优先排查：
@@ -287,13 +287,13 @@ md2wechat upload_image ./cover.png --json
 ### 3. 再试建草稿
 
 ```bash
-md2wechat test-draft ./article.html ./cover.png --json
+md2wechat-new test-draft ./article.html ./cover.png --json
 ```
 
 ### 4. 最后再跑完整主链
 
 ```bash
-md2wechat convert article.md --upload --draft --cover cover.png --json
+md2wechat-new convert article.md --upload --draft --cover cover.png --json
 ```
 
 ---
@@ -320,7 +320,7 @@ md2wechat convert article.md --upload --draft --cover cover.png --json
 执行：
 
 ```bash
-md2wechat config show --format json
+md2wechat-new config show --format json
 ```
 
 重点看：
